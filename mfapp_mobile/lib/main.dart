@@ -5,6 +5,7 @@ import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';
 import './screens/profile_screen.dart';
 import './screens/settings_screen.dart';
+import './screens/intro_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MFApp',
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primaryColor: Color.fromRGBO(0, 219, 176, 1),
         canvasColor: Colors.white,
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -24,7 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', //default is '/'
       routes: {
-        '/': (ctx) => TabScreen(),
+        // '/': (ctx) => TabsScreen(),
+        '/': (ctx) => IntroScreen(),
         DashboardScreen.routeName: (ctx) => DashboardScreen(),
         FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
         ProfileScreen.routeName: (ctx) => ProfileScreen(),

@@ -5,12 +5,12 @@ import './fundraisers_screen.dart';
 import './profile_screen.dart';
 import './settings_screen.dart';
 
-class TabScreen extends StatefulWidget {
+class TabsScreen extends StatefulWidget {
   @override
   _TabScreenState createState() => _TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> {
+class _TabScreenState extends State<TabsScreen> {
   final List<Map<String, Object>> _pages = [
     {
       'page': DashboardScreen(),
