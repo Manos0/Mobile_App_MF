@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './dashboard_screen.dart';
 import './fundraisers_screen.dart';
 import './profile_screen.dart';
 import './settings_screen.dart';
+import '../providers/auth.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -49,15 +51,11 @@ class _TabScreenState extends State<TabsScreen> {
         title: Text(_pages[_selectedPageIndex]['title']),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.notes_rounded),
+          icon: Icon(Icons.exit_to_app),
+          color: Colors.lightBlueAccent.withOpacity(0.8),
           onPressed: () {
-            scaffoldKey.currentState.openDrawer();
+            Provider.of<Auth>(context, listen: false).logout();
           },
-        ),
-      ),
-      drawer: Drawer(
-        child: Center(
-          child: Text('A Drawer!'),
         ),
       ),
       body: _pages[_selectedPageIndex]['page'],

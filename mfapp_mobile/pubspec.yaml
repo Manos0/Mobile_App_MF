@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   introduction_screen: ^2.1.0
+  http: ^0.13.1
+  provider: ^5.0.0
+  shared_preferences: ^2.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -48,10 +51,13 @@ flutter:
   assets:
     - assets/images/Create a Fundraiser.jpg
     - assets/images/Create a Fundraiser@2x.jpg
+    - assets/images/Create a Fundraiser@2x.png
     - assets/images/Welcome .jpg
     - assets/images/Welcome @2x.jpg
+    - assets/images/Welcome @2x.png
     - assets/images/Stay up to date.jpg
     - assets/images/Stay up to date@2x.jpg
+    - assets/images/Stay up to date@2x.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -72,6 +78,8 @@ flutter:
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
         - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
