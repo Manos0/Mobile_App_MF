@@ -22,33 +22,18 @@ class AuthScreen extends StatelessWidget {
             children: <Widget>[
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 40.0),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 6.0, horizontal: 20.0),
+                  padding: EdgeInsets.fromLTRB(32, 0, 32, 40),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).primaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        color: Colors.black26,
-                        offset: Offset(0, 2),
-                      )
-                    ],
                   ),
-                  child: Text(
-                    'Memorial Fundraising',
-                    style: TextStyle(
-                      color: Theme.of(context).accentTextTheme.title.color,
-                      fontSize: 28,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.normal,
-                    ),
+                  child: Image.asset(
+                    'assets/images/MF-Logo-H.png',
+                    width: 349,
+                    height: 92,
                   ),
                 ),
               ),
-              Flexible(
-                flex: deviceSize.width > 600 ? 2 : 1,
+              Container(
                 child: AuthCard(),
               ),
             ],
@@ -115,26 +100,25 @@ class _AuthCardState extends State<AuthCard> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 8.0,
-      child: Container(
-        height: _authMode == AuthMode.Signup ? 320 : 260,
-        constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
-        width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
-        child: Form(
+    return Column(
+      children: <Widget>[
+        Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Username'),
-                  keyboardType: TextInputType.emailAddress,
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(24),
+                      ),
+                    ),
+                  ),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Invalid username!';
@@ -145,8 +129,19 @@ class _AuthCardState extends State<AuthCard> {
                     _authData['username'] = value;
                   },
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(24),
+                      ),
+                    ),
+                  ),
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
@@ -158,10 +153,22 @@ class _AuthCardState extends State<AuthCard> {
                     _authData['password'] = value;
                   },
                 ),
-                if (_authMode == AuthMode.Signup)
-                  TextFormField(
+              ),
+              if (_authMode == AuthMode.Signup)
+                Container(
+                  padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                  child: TextFormField(
                     enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      labelStyle:
+                          TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(24),
+                        ),
+                      ),
+                    ),
                     obscureText: true,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
@@ -171,37 +178,45 @@ class _AuthCardState extends State<AuthCard> {
                           }
                         : null,
                   ),
-                SizedBox(
-                  height: 20,
                 ),
-                if (_isLoading)
-                  CircularProgressIndicator()
-                else
-                  RaisedButton(
-                    child:
-                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+              SizedBox(
+                height: 20,
+              ),
+              if (_isLoading)
+                CircularProgressIndicator()
+              else
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: RaisedButton(
+                    child: Text(
+                      _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 20,
+                      ),
+                    ),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(24),
                     ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                    padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
                     color: Theme.of(context).primaryColor,
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
-                FlatButton(
-                  child: Text(
-                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                  onPressed: _switchAuthMode,
-                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  textColor: Theme.of(context).primaryColor,
                 ),
-              ],
-            ),
+              FlatButton(
+                child: Text(
+                    '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                onPressed: _switchAuthMode,
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                textColor: Theme.of(context).primaryColor,
+              ),
+            ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
