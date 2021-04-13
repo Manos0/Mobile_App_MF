@@ -6,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth with ChangeNotifier {
   String _token;
-  DateTime _expiryDate;
-  String _userId;
 
   bool get isAuth {
     return token != null;
@@ -61,8 +59,6 @@ class Auth with ChangeNotifier {
 
   Future<void> logout() async {
     _token = null;
-    _userId = null;
-    _expiryDate = null;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');
