@@ -12,6 +12,8 @@ class Fundraisers with ChangeNotifier {
 
   Fundraisers(this.authToken);
 
+  // List<Fundraiser> get fundraiserList {}
+
   // List<Fundraiser> get funds {
   //   return [..._funds];
   // }
@@ -25,7 +27,11 @@ class Fundraisers with ChangeNotifier {
         'https://mfdev.t-worxsites.com/DesktopModules/sff/API/Fundraisers?take=8&skip=0&draft=true&closed=false');
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
-    final extractedFundraisers = json.decode(response.body);
+    final List extractedFundraisers = json.decode(response.body);
+    final List<Fundraiser> fundraiserList =
+        extractedFundraisers.map((item) => Fundraiser.fromJson(item)).toList();
+    print(fundraiserList);
+    return fundraiserList;
     // final List<Fundraiser> loadedFundraisers = [];
     // extractedFundraisers.forEach((fundData) {
     //   loadedFundraisers.add(Fundraiser(
@@ -42,7 +48,23 @@ class Fundraisers with ChangeNotifier {
     // });
     // _funds = extractedFundraisers;
     // notifyListeners();
-    print(extractedFundraisers.length);
+    // print(fundraiserList);
   }
 }
-// {HttpHeaders.authorizationHeader: 'Bearer ' + authToken}
+
+// // {HttpHeaders.authorizationHeader: 'Bearer ' + authToken}
+// class fundraisersList {
+//   final List<Fundraiser> fundraisers;
+
+//   fundraisersList ({
+//     this.fundraisers,
+//   });
+// }
+// factory fundraisersList.fromJson(List<dynamic> parsedJson) {
+//  fundraiser = parsedJson.map((i)=>Fundraisers.fromJson(i)).toList();
+//     List<Fundraisers> fundraiser = new List<Fundraisers>();
+
+//     return new fundraisersList(
+//        fundraiser : fundraiser ,
+//     );
+//   }

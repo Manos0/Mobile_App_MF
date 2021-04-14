@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 // import 'package:http/http.dart' as http;
 
 class Fundraiser with ChangeNotifier {
-  final String id;
+  final int id;
   final String clientAvatarMD;
   final String clientAvatarSM;
   final String firstName;
@@ -29,7 +29,26 @@ class Fundraiser with ChangeNotifier {
   factory Fundraiser.fromJson(Map<String, dynamic> json) {
     return new Fundraiser(
       id: json['FundraiserId'],
-      clientAvatarMD: json[''],
+      firstName: json['ClientFirstName'],
+      middleName: json['ClientMiddleName'],
+      lastName: json['ClientLastName'],
+      nickName: json['ClientNickName'],
+      goalAmount: json['GoalAmount'],
+      fundRaised: json['FundRaised'],
+      clientAvatarMD: json['ClientAvatarMD'],
+      clientAvatarSM: json['ClientAvatarSM'],
     );
   }
 }
+// class ButtonsLists extends StatelessWidget {
+
+// final List<MainButtons> _buttonList = new List();
+
+// @override
+//   Widget build(BuildContext context) {
+//        //Build your lists here
+// }
+
+// List<MainButtons> getMainButtonsList(){
+//       return _buttonList;
+// }

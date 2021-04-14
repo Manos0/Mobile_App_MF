@@ -25,8 +25,9 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final loadedFundraisers = Provider.of<Fundraisers>(context, listen: false)
-    //     .fetchAndSetFundraisers();
+    final fundraiserList = Provider.of<Fundraisers>(context, listen: false)
+        .fetchAndSetFundraisers();
+    print(fundraiserList);
     return Scaffold(
         // body: GridView.builder(
         //   padding: const EdgeInsets.all(10.0),
