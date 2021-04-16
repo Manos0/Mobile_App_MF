@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/fundraisers.dart';
-// import '../widgets/fundraisers_grid.dart';
+import '../widgets/fundraisers_grid.dart';
 
 class FundraisersScreen extends StatefulWidget {
   static const routeName = '/fundraisers';
@@ -25,20 +25,13 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final fundraiserList = Provider.of<Fundraisers>(context, listen: false)
-        .fetchAndSetFundraisers();
-    print(fundraiserList);
+    // final fundraiserList = Provider.of<Fundraisers>(context, listen: false)
+    //     .fetchAndSetFundraisers();
+    final fundraisersList = Provider.of<Fundraisers>(context);
+    final fundraisers = fundraisersList.fundraiserList;
+    print(fundraisers);
     return Scaffold(
-        // body: GridView.builder(
-        //   padding: const EdgeInsets.all(10.0),
-        //   itemBuilder: (ctx, i) => FundraisersGrid(),
-        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2,
-        //     childAspectRatio: 1 / 2,
-        //     crossAxisSpacing: 20,
-        //     mainAxisSpacing: 10,
-        //   ),
-        // ),
-        );
+      body: FundraisersGrid(),
+    );
   }
 }

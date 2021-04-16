@@ -107,21 +107,22 @@ class _AuthCardState extends State<AuthCard> {
           child: Column(
             children: <Widget>[
               Container(
+                // shadow na prostethei sou mh epilegmeno
                 padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Email or Username',
                     labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(24),
+                        const Radius.circular(40),
                       ),
                     ),
                   ),
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Invalid username!';
+                      return 'Invalid email or username!';
                     }
                     return null;
                   },
@@ -138,7 +139,7 @@ class _AuthCardState extends State<AuthCard> {
                     labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(24),
+                        const Radius.circular(40),
                       ),
                     ),
                   ),
@@ -154,31 +155,31 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
               ),
-              if (_authMode == AuthMode.Signup)
-                Container(
-                  padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
-                  child: TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      labelStyle:
-                          TextStyle(fontFamily: 'Poppins', fontSize: 14),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(24),
-                        ),
-                      ),
-                    ),
-                    obscureText: true,
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
-                            }
-                          }
-                        : null,
-                  ),
-                ),
+              // if (_authMode == AuthMode.Signup)
+              //   Container(
+              //     padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+              //     child: TextFormField(
+              //       enabled: _authMode == AuthMode.Signup,
+              //       decoration: InputDecoration(
+              //         labelText: 'Confirm Password',
+              //         labelStyle:
+              //             TextStyle(fontFamily: 'Poppins', fontSize: 14),
+              //         border: OutlineInputBorder(
+              //           borderRadius: const BorderRadius.all(
+              //             const Radius.circular(24),
+              //           ),
+              //         ),
+              //       ),
+              //       obscureText: true,
+              //       validator: _authMode == AuthMode.Signup
+              //           ? (value) {
+              //               if (value != _passwordController.text) {
+              //                 return 'Passwords do not match!';
+              //               }
+              //             }
+              //           : null,
+              //     ),
+              //   ),
               SizedBox(
                 height: 20,
               ),
@@ -198,21 +199,22 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      //box shadow prasino !
+                      borderRadius: BorderRadius.circular(40),
                     ),
                     padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
                     color: Theme.of(context).primaryColor,
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
                 ),
-              FlatButton(
-                child: Text(
-                    '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                onPressed: _switchAuthMode,
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                textColor: Theme.of(context).primaryColor,
-              ),
+              // FlatButton(
+              //   child: Text(
+              //       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+              //   onPressed: _switchAuthMode,
+              //   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+              //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //   textColor: Theme.of(context).primaryColor,
+              // ),
             ],
           ),
         ),

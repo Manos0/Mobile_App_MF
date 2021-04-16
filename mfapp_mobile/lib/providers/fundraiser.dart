@@ -1,7 +1,4 @@
-// import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-// import 'package:http/http.dart' as http;
 
 class Fundraiser with ChangeNotifier {
   final int id;
@@ -40,15 +37,3 @@ class Fundraiser with ChangeNotifier {
     );
   }
 }
-// class ButtonsLists extends StatelessWidget {
-
-// final List<MainButtons> _buttonList = new List();
-
-// @override
-//   Widget build(BuildContext context) {
-//        //Build your lists here
-// }
-
-// List<MainButtons> getMainButtonsList(){
-//       return _buttonList;
-// }
