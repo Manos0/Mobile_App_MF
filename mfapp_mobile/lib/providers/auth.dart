@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import '../ela_nte/api_addresses.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth with ChangeNotifier {
@@ -33,8 +34,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String username, String password) async {
-    final url = Uri.parse(
-        'https://mfdev.t-worxsites.com/DesktopModules/JwtAuth/API/mobile/login');
+    final url = Uri.parse(loginCall);
     final response = await http.post(
       url,
       headers: {

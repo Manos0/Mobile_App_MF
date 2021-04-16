@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './ela_nte/colors.dart';
 import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           title: 'MFApp',
           theme: ThemeData(
             fontFamily: 'Poppins',
-            primaryColor: Color.fromRGBO(0, 219, 176, 1),
+            primaryColor: mfPrimaryColor,
             canvasColor: Colors.white,
             textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(

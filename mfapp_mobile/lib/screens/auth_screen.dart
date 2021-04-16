@@ -107,52 +107,65 @@ class _AuthCardState extends State<AuthCard> {
           child: Column(
             children: <Widget>[
               Container(
-                // shadow na prostethei sou mh epilegmeno
-                padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Email or Username',
-                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(40),
+                margin: EdgeInsets.only(bottom: 24),
+                padding: EdgeInsets.only(right: 36, left: 36),
+                child: Material(
+                  elevation: 5,
+                  shadowColor: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  child: TextFormField(
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          left: 18, bottom: 18, top: 18, right: 18),
+                      hintText: 'Email or Username',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
                       ),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                     ),
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Invalid email or username!';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _authData['username'] = value;
+                    },
                   ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Invalid email or username!';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _authData['username'] = value;
-                  },
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(40),
+                // padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                padding: EdgeInsets.only(left: 36, right: 36),
+                child: Material(
+                  elevation: 18,
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle:
+                          TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(40),
+                        ),
                       ),
                     ),
+                    obscureText: true,
+                    controller: _passwordController,
+                    validator: (value) {
+                      if (value.isEmpty || value.length < 5) {
+                        return 'Password is too short!';
+                      }
+                    },
+                    onSaved: (value) {
+                      _authData['password'] = value;
+                    },
                   ),
-                  obscureText: true,
-                  controller: _passwordController,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
-                      return 'Password is too short!';
-                    }
-                  },
-                  onSaved: (value) {
-                    _authData['password'] = value;
-                  },
                 ),
               ),
               // if (_authMode == AuthMode.Signup)
@@ -181,14 +194,14 @@ class _AuthCardState extends State<AuthCard> {
               //     ),
               //   ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               if (_isLoading)
                 CircularProgressIndicator()
               else
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
                       style: TextStyle(
@@ -197,15 +210,44 @@ class _AuthCardState extends State<AuthCard> {
                         fontSize: 20,
                       ),
                     ),
-                    onPressed: _submit,
-                    shape: RoundedRectangleBorder(
-                      //box shadow prasino !
-                      borderRadius: BorderRadius.circular(40),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromRGBO(0, 219, 176, 1),
+                      ),
+                      elevation: MaterialStateProperty.all(18),
+                      shadowColor: MaterialStateProperty.all(
+                        Color.fromRGBO(0, 219, 176, 1),
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.fromLTRB(137, 15, 137, 15)),
                     ),
-                    padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Theme.of(context).primaryTextTheme.button.color,
+                    onPressed: _submit,
                   ),
+                  // child: RaisedButton(
+                  //   elevation: 3,
+                  //   hoverColor: Colors.yellow,
+                  //   child: Text(
+                  //     _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontFamily: 'Poppins',
+                  //       fontSize: 20,
+                  //     ),
+                  //   ),
+                  //   onPressed: _submit,
+                  //   shape: RoundedRectangleBorder(
+                  //     //box shadow prasino !
+                  //     borderRadius: BorderRadius.circular(40),
+                  //   ),
+                  //   padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
+                  //   color: Theme.of(context).primaryColor,
+                  //   textColor: Theme.of(context).primaryTextTheme.button.color,
+                  // ),
                 ),
               // FlatButton(
               //   child: Text(
