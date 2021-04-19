@@ -107,6 +107,7 @@ class _AuthCardState extends State<AuthCard> {
           child: Column(
             children: <Widget>[
               Container(
+                height: 60,
                 margin: EdgeInsets.only(bottom: 24),
                 padding: EdgeInsets.only(right: 36, left: 36),
                 child: Material(
@@ -124,6 +125,8 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
                     ),
                     keyboardType: TextInputType.text,
                     validator: (value) {
@@ -141,31 +144,37 @@ class _AuthCardState extends State<AuthCard> {
               Container(
                 // padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
                 padding: EdgeInsets.only(left: 36, right: 36),
-                child: Material(
-                  elevation: 18,
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle:
-                          TextStyle(fontFamily: 'Poppins', fontSize: 14),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(40),
-                        ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(175, 178, 188, 0.20),
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(40),
                       ),
                     ),
-                    obscureText: true,
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 5) {
-                        return 'Password is too short!';
-                      }
-                    },
-                    onSaved: (value) {
-                      _authData['password'] = value;
-                    },
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(175, 178, 188, 0.50),
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(40),
+                      ),
+                    ),
                   ),
+                  obscureText: true,
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 5) {
+                      return 'Password is too short!';
+                    }
+                  },
+                  onSaved: (value) {
+                    _authData['password'] = value;
+                  },
                 ),
               ),
               // if (_authMode == AuthMode.Signup)
@@ -214,7 +223,7 @@ class _AuthCardState extends State<AuthCard> {
                       backgroundColor: MaterialStateProperty.all(
                         Color.fromRGBO(0, 219, 176, 1),
                       ),
-                      elevation: MaterialStateProperty.all(18),
+                      elevation: MaterialStateProperty.all(8),
                       shadowColor: MaterialStateProperty.all(
                         Color.fromRGBO(0, 219, 176, 1),
                       ),
