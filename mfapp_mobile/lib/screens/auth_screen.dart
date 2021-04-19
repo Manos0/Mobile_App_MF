@@ -110,45 +110,47 @@ class _AuthCardState extends State<AuthCard> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 60,
-                margin: EdgeInsets.only(bottom: 24),
-                padding: EdgeInsets.only(right: 36, left: 36),
-                child: Material(
-                  elevation: 5,
-                  shadowColor: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  child: TextFormField(
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                          left: 18, bottom: 18, top: 18, right: 18),
-                      hintText: 'Email or Username',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      ),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      focusedErrorBorder: InputBorder.none,
-                    ),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Invalid email or username!';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _authData['username'] = value;
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                // padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                margin: EdgeInsets.only(bottom: 25),
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: TextFormField(
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(25, 18, 18, 18),
+                    labelText: 'Email or Username',
+                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(175, 178, 188, 0.20),
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(40),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(240, 240, 240, 1),
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(40),
+                      ),
+                    ),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Invalid email or username!';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authData['username'] = value;
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 36, right: 36),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(25, 18, 18, 18),
                     labelText: 'Password',
                     labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
                     border: OutlineInputBorder(
@@ -161,7 +163,7 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color.fromRGBO(175, 178, 188, 0.50),
+                        color: Color.fromRGBO(240, 240, 240, 1),
                       ),
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(40),
@@ -205,20 +207,23 @@ class _AuthCardState extends State<AuthCard> {
               //           : null,
               //     ),
               //   ),
-              CheckboxListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(45),
+              Container(
+                margin: EdgeInsets.only(top: 35),
+                child: CheckboxListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(45),
+                  ),
+                  activeColor: Theme.of(context).primaryColor,
+                  contentPadding: EdgeInsets.only(left: 40),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Text('Keep me signed in'),
+                  value: _checked,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _checked = value;
+                    });
+                  },
                 ),
-                activeColor: Theme.of(context).primaryColor,
-                contentPadding: EdgeInsets.only(top: 35, left: 40),
-                controlAffinity: ListTileControlAffinity.leading,
-                title: Text('Keep me signed in'),
-                value: _checked,
-                onChanged: (bool value) {
-                  setState(() {
-                    _checked = value;
-                  });
-                },
               ),
               if (_isLoading)
                 CircularProgressIndicator()
@@ -227,7 +232,7 @@ class _AuthCardState extends State<AuthCard> {
                   padding: const EdgeInsets.only(top: 30),
                   child: ElevatedButton(
                     child: Text(
-                      _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
+                      _authMode == AuthMode.Login ? 'Login' : 'Sign Up',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Poppins',
