@@ -109,6 +109,11 @@ class _AuthCardState extends State<AuthCard> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              Text('Email or Username',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black)),
               Container(
                 height: 60,
                 margin: EdgeInsets.only(bottom: 24),
@@ -123,8 +128,8 @@ class _AuthCardState extends State<AuthCard> {
                     decoration: InputDecoration(
                       // hintText: 'Email or Username',
                       contentPadding: EdgeInsets.only(
-                          left: 25, right: 15, bottom: 21, top: 20),
-                      hintStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                          left: 25, right: 15, bottom: 30, top: 30),
+                      // hintStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(40),
@@ -137,7 +142,8 @@ class _AuthCardState extends State<AuthCard> {
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Invalid email or username!';
+                        // return 'Invalid email or username!';
+                        return;
                       }
                       return null;
                     },
@@ -147,19 +153,25 @@ class _AuthCardState extends State<AuthCard> {
                   ),
                 ),
               ),
+              Text('Password',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black)),
               Container(
                 height: 60,
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: Material(
                   elevation: 5,
+                  shadowColor: Colors.grey,
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      // hintText: 'Password',
                       contentPadding: EdgeInsets.only(
                           left: 25, right: 15, bottom: 30, top: 30),
-                      labelStyle:
-                          TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                      // hintStyle:
+                      // TextStyle(fontFamily: 'Poppins', fontSize: 14),
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(40),

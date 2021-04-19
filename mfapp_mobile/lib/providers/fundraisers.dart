@@ -18,7 +18,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<void> fetchAndSetFundraisers() async {
-    final url = Uri.parse(getFeatured);
+    final url = Uri.parse('https://mfdev.t-worxsites.com' + getFeatured);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);
