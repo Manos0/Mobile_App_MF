@@ -55,6 +55,9 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  var _checked = false;
+
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
     'username': '',
@@ -202,14 +205,26 @@ class _AuthCardState extends State<AuthCard> {
               //           : null,
               //     ),
               //   ),
-              SizedBox(
-                height: 30,
+              CheckboxListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+                contentPadding: EdgeInsets.only(top: 35, left: 40),
+                controlAffinity: ListTileControlAffinity.leading,
+                title: Text('Keep me signed in'),
+                value: _checked,
+                onChanged: (bool value) {
+                  setState(() {
+                    _checked = value;
+                  });
+                },
               ),
               if (_isLoading)
                 CircularProgressIndicator()
               else
                 Padding(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.only(top: 30),
                   child: ElevatedButton(
                     child: Text(
                       _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
