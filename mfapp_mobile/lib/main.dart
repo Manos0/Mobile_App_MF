@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import './ela_nte/colors.dart';
+import './bin/colors.dart';
 import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';
@@ -12,6 +13,7 @@ import './providers/auth.dart';
 import './providers/fundraisers.dart';
 import './screens/intro_screen.dart';
 
+int initScreen;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -53,9 +55,8 @@ class MyApp extends StatelessWidget {
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshop) => AuthScreen(),
                 ),
+          // home: IntroScreen(),
           routes: {
-            // '/': (ctx) => AuthScreen(),
-            // '/': (ctx) => IntroScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import './auth_screen.dart';
 import 'package:mfapp_mobile/screens/fundraisers_screen.dart';
 
 // import '../screens/tabs_screen.dart';
 
 class IntroScreen extends StatelessWidget {
-  List<PageViewModel> getPages() {
+  static const routeName = '/introScreen';
+
+  List<PageViewModel> getPages(BuildContext context) {
     return [
       PageViewModel(
         titleWidget: Row(
@@ -48,14 +51,11 @@ class IntroScreen extends StatelessWidget {
             )
           ],
         ),
-        image: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          child: Image.asset(
-            'assets/images/Welcome @2x.png',
-            height: 290.64,
-            width: 361.39,
-            alignment: Alignment.center,
-          ),
+        image: Image.asset(
+          'assets/images/Welcome @2x.png',
+          height: 290.64,
+          width: 361.39,
+          alignment: Alignment.center,
         ),
       ),
       PageViewModel(
@@ -99,14 +99,11 @@ class IntroScreen extends StatelessWidget {
             )
           ],
         ),
-        image: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          child: Image.asset(
-            'assets/images/Create a Fundraiser@2x.png',
-            height: 290.64,
-            width: 361.39,
-            alignment: Alignment.center,
-          ),
+        image: Image.asset(
+          'assets/images/Create a Fundraiser@2x.png',
+          height: 290.64,
+          width: 361.39,
+          alignment: Alignment.center,
         ),
       ),
       PageViewModel(
@@ -150,14 +147,11 @@ class IntroScreen extends StatelessWidget {
             )
           ],
         ),
-        image: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          child: Image.asset(
-            'assets/images/Stay up to date@2x.png',
-            height: 290.64,
-            width: 361.39,
-            alignment: Alignment.center,
-          ),
+        image: Image.asset(
+          'assets/images/Stay up to date@2x.png',
+          height: 290.64,
+          width: 361.39,
+          alignment: Alignment.center,
         ),
         footer: Padding(
           padding: EdgeInsets.fromLTRB(0, 20, 0, 0), //To top htan 30
@@ -171,18 +165,19 @@ class IntroScreen extends StatelessWidget {
               softWrap: false,
             ),
             style: ElevatedButton.styleFrom(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40),
                 ),
-                primary: Color.fromRGBO(0, 219, 176, 1),
-                padding: EdgeInsets.fromLTRB(99, 19, 99, 19),
-                textStyle: TextStyle(
-                  color: Colors.white,
-                )),
+              ),
+              primary: Color.fromRGBO(0, 219, 176, 1),
+              padding: EdgeInsets.fromLTRB(99, 19, 99, 19),
+              textStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onPressed: () {
-              // Navigator.of(context).pushReplacementNamed(FundraisersScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
             },
           ),
         ),
@@ -206,7 +201,7 @@ class IntroScreen extends StatelessWidget {
           onDone: () {},
           // controlsMargin: EdgeInsets.fromLTRB(50, 0, 50, 100),
           // dokimase na katevaseis to button edw katw
-          pages: getPages(),
+          pages: getPages(context),
           showNextButton: false,
           showSkipButton: false,
           showDoneButton: false,

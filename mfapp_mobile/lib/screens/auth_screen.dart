@@ -22,6 +22,7 @@ class AuthScreen extends StatelessWidget {
             children: <Widget>[
               Flexible(
                 child: Container(
+                  // margin: EdgeInsets.only(bottom: 30),
                   padding: EdgeInsets.fromLTRB(32, 0, 32, 40),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -60,6 +61,8 @@ class _AuthCardState extends State<AuthCard> {
     'username': '',
     'password': '',
   };
+
+  var _checked = false;
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
@@ -107,23 +110,29 @@ class _AuthCardState extends State<AuthCard> {
           child: Column(
             children: <Widget>[
               Container(
+                height: 60,
                 margin: EdgeInsets.only(bottom: 24),
                 padding: EdgeInsets.only(right: 36, left: 36),
                 child: Material(
                   elevation: 5,
                   shadowColor: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(40),
+                  ),
                   child: TextFormField(
-                    maxLines: 1,
                     decoration: InputDecoration(
+                      // hintText: 'Email or Username',
                       contentPadding: EdgeInsets.only(
-                          left: 18, bottom: 18, top: 18, right: 18),
-                      hintText: 'Email or Username',
+                          left: 25, right: 15, bottom: 21, top: 20),
+                      hintStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(40),
+                        ),
                       ),
-                      focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
                     ),
                     keyboardType: TextInputType.text,
                     validator: (value) {
@@ -139,14 +148,16 @@ class _AuthCardState extends State<AuthCard> {
                 ),
               ),
               Container(
-                // padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+                height: 60,
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: Material(
-                  elevation: 18,
+                  elevation: 5,
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      hintText: 'Password',
+                      contentPadding: EdgeInsets.only(
+                          left: 25, right: 15, bottom: 30, top: 30),
                       labelStyle:
                           TextStyle(fontFamily: 'Poppins', fontSize: 14),
                       border: OutlineInputBorder(
@@ -154,6 +165,8 @@ class _AuthCardState extends State<AuthCard> {
                           const Radius.circular(40),
                         ),
                       ),
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
                     ),
                     obscureText: true,
                     controller: _passwordController,
@@ -168,39 +181,26 @@ class _AuthCardState extends State<AuthCard> {
                   ),
                 ),
               ),
-              // if (_authMode == AuthMode.Signup)
-              //   Container(
-              //     padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
-              //     child: TextFormField(
-              //       enabled: _authMode == AuthMode.Signup,
-              //       decoration: InputDecoration(
-              //         labelText: 'Confirm Password',
-              //         labelStyle:
-              //             TextStyle(fontFamily: 'Poppins', fontSize: 14),
-              //         border: OutlineInputBorder(
-              //           borderRadius: const BorderRadius.all(
-              //             const Radius.circular(24),
-              //           ),
-              //         ),
-              //       ),
-              //       obscureText: true,
-              //       validator: _authMode == AuthMode.Signup
-              //           ? (value) {
-              //               if (value != _passwordController.text) {
-              //                 return 'Passwords do not match!';
-              //               }
-              //             }
-              //           : null,
-              //     ),
-              //   ),
-              SizedBox(
-                height: 30,
+              CheckboxListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+                contentPadding: EdgeInsets.only(top: 40, left: 40),
+                controlAffinity: ListTileControlAffinity.leading,
+                title: Text('Keep me signed in'),
+                value: _checked,
+                onChanged: (bool value) {
+                  setState(() {
+                    _checked = value;
+                  });
+                },
               ),
               if (_isLoading)
                 CircularProgressIndicator()
               else
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
+                Container(
+                  margin: const EdgeInsets.only(top: 40),
                   child: ElevatedButton(
                     child: Text(
                       _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
@@ -214,7 +214,7 @@ class _AuthCardState extends State<AuthCard> {
                       backgroundColor: MaterialStateProperty.all(
                         Color.fromRGBO(0, 219, 176, 1),
                       ),
-                      elevation: MaterialStateProperty.all(18),
+                      elevation: MaterialStateProperty.all(10),
                       shadowColor: MaterialStateProperty.all(
                         Color.fromRGBO(0, 219, 176, 1),
                       ),
@@ -228,35 +228,7 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                     onPressed: _submit,
                   ),
-                  // child: RaisedButton(
-                  //   elevation: 3,
-                  //   hoverColor: Colors.yellow,
-                  //   child: Text(
-                  //     _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
-                  //     style: TextStyle(
-                  //       color: Colors.white,
-                  //       fontFamily: 'Poppins',
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  //   onPressed: _submit,
-                  //   shape: RoundedRectangleBorder(
-                  //     //box shadow prasino !
-                  //     borderRadius: BorderRadius.circular(40),
-                  //   ),
-                  //   padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
-                  //   color: Theme.of(context).primaryColor,
-                  //   textColor: Theme.of(context).primaryTextTheme.button.color,
-                  // ),
                 ),
-              // FlatButton(
-              //   child: Text(
-              //       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-              //   onPressed: _switchAuthMode,
-              //   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-              //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //   textColor: Theme.of(context).primaryColor,
-              // ),
             ],
           ),
         ),

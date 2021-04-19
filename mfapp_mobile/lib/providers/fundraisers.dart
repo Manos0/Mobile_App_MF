@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../bin/api_addresses.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../providers/fundraiser.dart';
@@ -17,8 +18,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<void> fetchAndSetFundraisers() async {
-    final url = Uri.parse(
-        'https://mfdev.t-worxsites.com/DesktopModules/sff/API/Fundraisers?take=8&skip=0&draft=true&closed=false');
+    final url = Uri.parse(getFeatured);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);
