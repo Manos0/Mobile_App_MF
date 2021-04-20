@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
 import '../providers/fundraiser.dart';
+import '../screens/fundraisers_screen.dart';
 import '../providers/fundraisers.dart';
 import '../widgets/fundraisers_grid.dart';
 
@@ -14,15 +15,16 @@ class FundraiserFund extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              FundraisersScreen.routeName,
+              arguments: fundraiser.id,
+            );
+          },
           child: Image.network(
-            'https://mfdev.t-worxsites.com' + fundraiser.clientAvatarSM,
+            'https://mfdev.t-worxsites.com' + fundraiser.clientAvatarMD,
             fit: BoxFit.cover,
           ),
-          // child: Image.network(
-          //   'https://mfdev.t-worxsites.com/Portals/0/Users/003/03/3/-1/Small/Test_TimeZone_73a6ef47-a296-4df8-9c12-4a7a34653b27.jpg',
-          //   fit: BoxFit.cover,
-          // ),
         ),
         footer: Text(
           (fundraiser.firstName.isNotEmpty ? fundraiser.firstName : '') +

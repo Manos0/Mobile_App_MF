@@ -11,6 +11,7 @@ import './screens/settings_screen.dart';
 import './screens/auth_screen.dart';
 import './providers/auth.dart';
 import './providers/fundraisers.dart';
+import './screens/fundraiser_detail_page.dart';
 import './screens/intro_screen.dart';
 
 int initScreen;
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
                 ),
           // home: IntroScreen(),
           routes: {
+            FundraiserDetailScreen.routeName: (ctx) => FundraiserDetailScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),
