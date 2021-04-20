@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './ela_nte/colors.dart';
+import './bin/colors.dart';
 import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';

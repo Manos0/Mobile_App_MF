@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../bin/api_addresses.dart';
 import '../providers/fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
@@ -16,9 +17,22 @@ class Fundraisers with ChangeNotifier {
     return [..._fundraiserList];
   }
 
-  Future<void> fetchAndSetFundraisers() async {
+  // Fundraiser findById(int id) {
+  //   return _fundraiserList.firstWhere((fund) => fund.id == id);
+  // }
+
+  Future<void> findById(int id) async {
     final url = Uri.parse(
-        'https://mfdev.t-worxsites.com/DesktopModules/sff/API/Fundraisers?take=8&skip=0&draft=true&closed=false');
+        'https://mfdev.t-worxsites.com/' + fundDetails + id.toString());
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    print(json.decode(response.body));
+    print(extractedData);
+  }
+
+  Future<void> fetchAndSetFundraisers() async {
+    final url = Uri.parse('https://mfdev.t-worxsites.com/' + getFeatured);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);
