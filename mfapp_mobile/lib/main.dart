@@ -11,6 +11,7 @@ import './screens/auth_screen.dart';
 import './providers/auth.dart';
 import './providers/fundraisers.dart';
 import './screens/intro_screen.dart';
+import './screens/fundraiser_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           routes: {
             // '/': (ctx) => AuthScreen(),
             // '/': (ctx) => IntroScreen(),
+            FundraiserDetailScreen.routeName: (ctx) => FundraiserDetailScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),

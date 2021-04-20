@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
+import '../screens/fundraiser_detail_screen.dart';
 import '../providers/fundraiser.dart';
 import '../providers/fundraisers.dart';
 import '../widgets/fundraisers_grid.dart';
@@ -14,7 +15,9 @@ class FundraiserFund extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(FundraiserDetailScreen.routeName);
+          },
           child: Image.network(
             'https://mfdev.t-worxsites.com' + fundraiser.clientAvatarSM,
             fit: BoxFit.cover,
