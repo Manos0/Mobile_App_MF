@@ -22,8 +22,7 @@ class Fundraisers with ChangeNotifier {
   // }
 
   Future<void> findById(int id) async {
-    final url = Uri.parse(
-        'https://mfdev.t-worxsites.com/' + fundDetails + id.toString());
+    final url = Uri.parse(baseUrl + fundDetails + id.toString());
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -32,7 +31,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<void> fetchAndSetFundraisers() async {
-    final url = Uri.parse('https://mfdev.t-worxsites.com/' + getFeatured);
+    final url = Uri.parse(baseUrl + getFeatured);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);

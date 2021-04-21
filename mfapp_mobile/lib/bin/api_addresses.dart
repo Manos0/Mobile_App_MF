@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const baseUrl = 'https://mfdev.t-worxsites.com';
 const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
 const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
 const takeFirst5 = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=5';

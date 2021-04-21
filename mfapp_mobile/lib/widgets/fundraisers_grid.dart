@@ -17,8 +17,11 @@ class FundraisersGrid extends StatelessWidget {
         child: FundraiserFund(),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 4 / 5,
+        crossAxisCount:
+            (MediaQuery.of(context).orientation == Orientation.portrait
+                ? 2
+                : 4),
+        childAspectRatio: 4 / 7,
         crossAxisSpacing: 25,
         mainAxisSpacing: 20,
       ),

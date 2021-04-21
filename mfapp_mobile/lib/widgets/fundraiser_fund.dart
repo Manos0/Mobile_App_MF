@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
 import '../screens/fundraiser_detail_screen.dart';
 import '../providers/fundraiser.dart';
+import '../bin/api_addresses.dart';
 import '../providers/fundraisers.dart';
 import '../widgets/fundraisers_grid.dart';
 
@@ -15,12 +18,10 @@ class FundraiserFund extends StatelessWidget {
       elevation: 3,
       borderRadius: BorderRadius.circular(9),
       child: Container(
-        height: 218,
-        width: 181,
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(14, 13, 23, 10),
+              margin: EdgeInsets.all(12),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(7.0),
                 child: GestureDetector(
@@ -29,17 +30,25 @@ class FundraiserFund extends StatelessWidget {
                         FundraiserDetailScreen.routeName,
                         arguments: fundraiser.id);
                   },
-                  child: Image.network(
-                    'https://mfdev.t-worxsites.com' + fundraiser.clientAvatarMD,
-                    fit: BoxFit.fill,
-                    height: 69,
-                    width: 144,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: (MediaQuery.of(context).size.width < 768
+                        ? MediaQuery.of(context).size.height / 6
+                        : MediaQuery.of(context).size.height / 3),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          baseUrl + fundraiser.clientAvatarMD,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 13),
+              padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
               child: Text(
                 (fundraiser.firstName.isNotEmpty ? fundraiser.firstName : '') +
                     (fundraiser.nickName != null &&
