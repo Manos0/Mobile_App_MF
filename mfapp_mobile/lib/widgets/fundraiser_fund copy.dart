@@ -15,23 +15,21 @@ class FundraiserFund extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fundraiser = Provider.of<Fundraiser>(context, listen: false);
-    // double fundPercentage =
-    //     ((fundraiser.fundRaised * 100) / fundraiser.goalAmount) / 100;
-    // fundPercentage = num.parse(fundPercentage.toStringAsFixed(4));
-    double fundPercentage() {
-      double percentage = 0;
-      if (fundraiser.fundRaised > 0 && fundraiser.goalAmount > 0) {
-        if (fundraiser.fundRaised <= fundraiser.goalAmount) {
-          percentage =
-              ((fundraiser.fundRaised * 100) / fundraiser.goalAmount) / 100;
-        } else {
-          percentage = 100;
-        }
-      } else {
-        percentage = 0;
-      }
-      return percentage = num.parse(percentage.toStringAsFixed(4));
-    }
+    double fundPercentage =
+        ((fundraiser.fundRaised * 100) / fundraiser.goalAmount) / 100;
+    fundPercentage = num.parse(fundPercentage.toStringAsFixed(4));
+    // double fundPercentage() {
+    //   double percentage = 0;
+    //   if (fundraiser.fundRaised > 0 && fundraiser.goalAmount > 0) {
+    //     if (fundraiser.fundRaised <= fundraiser.goalAmount) {
+    //       return percentage = ((fundraiser.fundRaised * 100) / fundraiser.goalAmount);
+    //     } else {
+    //       return percentage = 100;
+    //     }
+    //   } else {
+    //     return percentage = 0;
+    //   }
+    // }
 
     print(fundPercentage);
     return Material(
@@ -107,6 +105,17 @@ class FundraiserFund extends StatelessWidget {
                 ),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+            //   child: LinearPercentIndicator(
+            //     width: 100,
+            //     lineHeight: 20.0,
+            //     percent: fundPercentage,
+            //     backgroundColor: Color.fromRGBO(128, 128, 128, 0.5),
+            //     progressColor: Theme.of(context).primaryColor,
+            //     center: Text('${(fundPercentage * 100).toStringAsFixed(2)}%'),
+            //   ),
+            // ),
             Container(
               margin: EdgeInsets.only(bottom: 6),
               // color: Color.fromRGBO(128, 128, 128, 0.5),
@@ -120,10 +129,10 @@ class FundraiserFund extends StatelessWidget {
                 height: 5,
                 width:
                     (MediaQuery.of(context).orientation == Orientation.portrait
-                        ? ((MediaQuery.of(context).size.width - 75) / 2) *
-                            fundPercentage()
+                        ? ((MediaQuery.of(context).size.width - 78) / 2) *
+                            fundPercentage
                         : ((MediaQuery.of(context).size.width - 146) / 4) *
-                            fundPercentage()),
+                            fundPercentage),
               ),
             ),
             Container(
@@ -140,7 +149,7 @@ class FundraiserFund extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${(fundPercentage() * 100).toStringAsFixed(2)}%',
+                    '${(fundPercentage * 100).toStringAsFixed(2)}%',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Color.fromRGBO(128, 128, 128, 1),

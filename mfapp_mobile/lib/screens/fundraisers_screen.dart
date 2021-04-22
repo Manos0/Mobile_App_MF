@@ -27,9 +27,9 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
   Widget build(BuildContext context) {
     // final fundraiserList = Provider.of<Fundraisers>(context, listen: false)
     //     .fetchAndSetFundraisers();
-    final fundraisersList = Provider.of<Fundraisers>(context);
-    final fundraisers = fundraisersList.fundraiserList;
-    print(fundraisers);
+    // final fundraisersList = Provider.of<Fundraisers>(context);
+    // final fundraisers = fundraisersList.fundraiserList;
+    // print(fundraisers);
     return Scaffold(
       body: FundraisersGrid(),
     );

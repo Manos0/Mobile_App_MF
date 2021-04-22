@@ -208,7 +208,7 @@ class _AuthCardState extends State<AuthCard> {
               //     ),
               //   ),
               Container(
-                margin: EdgeInsets.only(top: 35),
+                margin: EdgeInsets.only(top: 35, bottom: 30),
                 child: CheckboxListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(45),
@@ -228,55 +228,32 @@ class _AuthCardState extends State<AuthCard> {
               if (_isLoading)
                 CircularProgressIndicator()
               else
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: ElevatedButton(
-                    child: Text(
-                      _authMode == AuthMode.Login ? 'Login' : 'Sign Up',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                        fontSize: 20,
-                      ),
+                ElevatedButton(
+                  child: Text(
+                    _authMode == AuthMode.Login ? 'Login' : 'Sign Up',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
                     ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Color.fromRGBO(0, 219, 176, 1),
-                      ),
-                      elevation: MaterialStateProperty.all(8),
-                      shadowColor: MaterialStateProperty.all(
-                        Color.fromRGBO(0, 219, 176, 1),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                      ),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.fromLTRB(137, 15, 137, 15)),
-                    ),
-                    onPressed: _submit,
                   ),
-                  // child: RaisedButton(
-                  //   elevation: 3,
-                  //   hoverColor: Colors.yellow,
-                  //   child: Text(
-                  //     _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
-                  //     style: TextStyle(
-                  //       color: Colors.white,
-                  //       fontFamily: 'Poppins',
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  //   onPressed: _submit,
-                  //   shape: RoundedRectangleBorder(
-                  //     //box shadow prasino !
-                  //     borderRadius: BorderRadius.circular(40),
-                  //   ),
-                  //   padding: EdgeInsets.fromLTRB(135, 15, 135, 15),
-                  //   color: Theme.of(context).primaryColor,
-                  //   textColor: Theme.of(context).primaryTextTheme.button.color,
-                  // ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Color.fromRGBO(0, 219, 176, 1),
+                    ),
+                    elevation: MaterialStateProperty.all(8),
+                    shadowColor: MaterialStateProperty.all(
+                      Color.fromRGBO(0, 219, 176, 1),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.fromLTRB(137, 15, 137, 15)),
+                  ),
+                  onPressed: _submit,
                 ),
               // FlatButton(
               //   child: Text(

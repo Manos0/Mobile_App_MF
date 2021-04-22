@@ -6,7 +6,6 @@ import '../bin/api_addresses.dart';
 import '../providers/fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
-  var fundIndex = 0;
   List<Fundraiser> _fundraiserList = [];
 
   final String authToken;

@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: 'Poppins',
             primaryColor: mfPrimaryColor,
+            accentColor: mfPrimaryColor,
             canvasColor: Colors.white,
             textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(
