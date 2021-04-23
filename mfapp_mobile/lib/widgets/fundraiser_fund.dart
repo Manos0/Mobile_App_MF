@@ -25,7 +25,7 @@ class FundraiserFund extends StatelessWidget {
           percentage =
               ((fundraiser.fundRaised * 100) / fundraiser.goalAmount) / 100;
         } else {
-          percentage = 100;
+          percentage = 1;
         }
       } else {
         percentage = 0;
@@ -34,6 +34,16 @@ class FundraiserFund extends StatelessWidget {
     }
 
     print(fundPercentage);
+
+    // image(image) {
+    //   if (fundraiser.clientAvatarMD != null &&
+    //       fundraiser.clientAvatarMD.length > 0) {
+    //     return NetworkImage(baseUrl + fundraiser.clientAvatarMD);
+    //   } else {
+    //     return Image.asset('assets/images/helperImage.png');
+    //   }
+    // }
+
     return Material(
       elevation: 3,
       shadowColor: Color.fromRGBO(0, 0, 0, 0.375),
@@ -59,6 +69,13 @@ class FundraiserFund extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
+                        // image: (fundraiser.clientAvatarMD != null &&
+                        //         fundraiser.clientAvatarMD.length > 0
+                        //     ? NetworkImage(
+                        //         baseUrl + fundraiser.clientAvatarMD,
+                        //       )
+                        //     : Image.asset('assets/images/helperImage.png')),
+                        // image: image(fundraiser.clientAvatarMD)),
                         image: NetworkImage(
                           baseUrl + fundraiser.clientAvatarMD,
                         ),
@@ -116,7 +133,11 @@ class FundraiserFund extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(40)),
               ),
               child: Container(
-                color: Theme.of(context).primaryColor,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                ),
+                // color: Theme.of(context).primaryColor,
                 height: 5,
                 width:
                     (MediaQuery.of(context).orientation == Orientation.portrait
@@ -157,10 +178,3 @@ class FundraiserFund extends StatelessWidget {
     );
   }
 }
-// container
-// width: full width,
-// background-color: rgba(0,0,0,0.5)
-// > container:
-//     background-color: green,
-//     height: 5px
-//     width: ( MediaQuery.of(context).size.width / 100 ) * fundraiser.GoalPercentage

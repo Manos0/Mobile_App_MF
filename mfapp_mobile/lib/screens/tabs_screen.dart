@@ -48,6 +48,7 @@ class _TabScreenState extends State<TabsScreen> {
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.white,
         title: Text(_pages[_selectedPageIndex]['title']),
         elevation: 0,
         leading: IconButton(
