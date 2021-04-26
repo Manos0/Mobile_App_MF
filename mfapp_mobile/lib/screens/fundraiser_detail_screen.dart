@@ -3,7 +3,6 @@ import 'package:mfapp_mobile/providers/fundraiser_details.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/fundraisers.dart';
-import '../widgets/fundraisers_details_view.dart';
 
 class FundraiserDetailScreen extends StatefulWidget {
   static const routeName = '/fundraiser-detail';
@@ -28,12 +27,10 @@ class _FundraiserDetailScreenState extends State<FundraiserDetailScreen> {
       future: fundraiserDetails,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return FundraisersDetailsView(snapshot.data);
+          return Text(snapshot.data.firstName);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-
-        // By default, show a loading spinner.
         return CircularProgressIndicator();
       },
     );
