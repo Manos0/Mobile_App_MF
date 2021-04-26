@@ -33,16 +33,14 @@ class FundraiserFund extends StatelessWidget {
       return percentage = num.parse(percentage.toStringAsFixed(4));
     }
 
-    print(fundPercentage);
-
-    // image(image) {
-    //   if (fundraiser.clientAvatarMD != null &&
-    //       fundraiser.clientAvatarMD.length > 0) {
-    //     return NetworkImage(baseUrl + fundraiser.clientAvatarMD);
-    //   } else {
-    //     return Image.asset('assets/images/helperImage.png');
-    //   }
-    // }
+    image(image) {
+      if (fundraiser.clientAvatarMD != null &&
+          fundraiser.clientAvatarMD.length > 0) {
+        return NetworkImage(baseUrl + fundraiser.clientAvatarMD);
+      } else {
+        return AssetImage('assets/images/helperImage.png');
+      }
+    }
 
     return Material(
       elevation: 3,
@@ -74,11 +72,8 @@ class FundraiserFund extends StatelessWidget {
                         //     ? NetworkImage(
                         //         baseUrl + fundraiser.clientAvatarMD,
                         //       )
-                        //     : Image.asset('assets/images/helperImage.png')),
-                        // image: image(fundraiser.clientAvatarMD)),
-                        image: NetworkImage(
-                          baseUrl + fundraiser.clientAvatarMD,
-                        ),
+                        //     : AssetImage('assets/images/helperImage.png')),
+                        image: image(fundraiser.clientAvatarMD),
                       ),
                     ),
                   ),

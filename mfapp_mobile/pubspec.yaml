@@ -60,6 +60,15 @@ flutter:
     - assets/images/Stay up to date@2x.jpg
     - assets/images/Stay up to date@2x.png
     - assets/images/MF-Logo-H.png
+    - assets/images/helperImage.png
+    - assets/icons/Dashboard.png
+    - assets/icons/Dashboard-active.png
+    - assets/icons/Fundraisers.png
+    - assets/icons/Fundraisers-active.png
+    - assets/icons/Profile.png
+    - assets/icons/Profile-active.png
+    - assets/icons/Setting.png
+    - assets/icons/Setting-active.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -82,6 +91,7 @@ flutter:
         - asset: assets/fonts/Poppins-Black.ttf
         - asset: assets/fonts/Poppins-SemiBold.ttf
         - asset: assets/fonts/Poppins-Medium.ttf
+        # - asset: assets/icons/MyFlutterApp.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
