@@ -34,7 +34,11 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String username, String password) async {
+<<<<<<< HEAD
     final url = Uri.parse('https://mfdev.t-worxsites.com' + loginCall);
+=======
+    final url = Uri.parse(baseUrl + loginCall);
+>>>>>>> development
     final response = await http.post(
       url,
       headers: {

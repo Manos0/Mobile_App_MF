@@ -157,9 +157,9 @@ class IntroScreen extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(0, 20, 0, 0), //To top htan 30
           child: ElevatedButton(
             child: Text(
-              'Create Account',
+              'Login',
               style: TextStyle(
-                fontSize: 21.0,
+                fontSize: 20,
                 fontFamily: 'Poppins',
               ),
               softWrap: false,

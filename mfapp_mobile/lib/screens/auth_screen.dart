@@ -182,6 +182,34 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
               ),
+<<<<<<< HEAD
+=======
+              // if (_authMode == AuthMode.Signup)
+              //   Container(
+              //     padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
+              //     child: TextFormField(
+              //       enabled: _authMode == AuthMode.Signup,
+              //       decoration: InputDecoration(
+              //         labelText: 'Confirm Password',
+              //         labelStyle:
+              //             TextStyle(fontFamily: 'Poppins', fontSize: 14),
+              //         border: OutlineInputBorder(
+              //           borderRadius: const BorderRadius.all(
+              //             const Radius.circular(24),
+              //           ),
+              //         ),
+              //       ),
+              //       obscureText: true,
+              //       validator: _authMode == AuthMode.Signup
+              //           ? (value) {
+              //               if (value != _passwordController.text) {
+              //                 return 'Passwords do not match!';
+              //               }
+              //             }
+              //           : null,
+              //     ),
+              //   ),
+>>>>>>> development
               Container(
                 margin: EdgeInsets.only(top: 35, bottom: 30),
                 child: CheckboxListTile(

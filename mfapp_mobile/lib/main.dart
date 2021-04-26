@@ -13,6 +13,7 @@ import './providers/auth.dart';
 import './providers/fundraisers.dart';
 import './screens/fundraiser_detail_page.dart';
 import './screens/intro_screen.dart';
+import './screens/fundraiser_detail_screen.dart';
 
 int initScreen;
 void main() => runApp(MyApp());
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: 'Poppins',
             primaryColor: mfPrimaryColor,
+            accentColor: mfPrimaryColor,
             canvasColor: Colors.white,
             textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(
@@ -58,6 +60,11 @@ class MyApp extends StatelessWidget {
                 ),
           // home: IntroScreen(),
           routes: {
+<<<<<<< HEAD
+=======
+            // '/': (ctx) => AuthScreen(),
+            // '/': (ctx) => IntroScreen(),
+>>>>>>> development
             FundraiserDetailScreen.routeName: (ctx) => FundraiserDetailScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),

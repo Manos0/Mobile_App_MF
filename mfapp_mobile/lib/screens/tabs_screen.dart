@@ -48,11 +48,12 @@ class _TabScreenState extends State<TabsScreen> {
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.white,
         title: Text(_pages[_selectedPageIndex]['title']),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.exit_to_app),
-          color: Colors.lightBlueAccent.withOpacity(0.8),
+          color: Theme.of(context).primaryColor,
           onPressed: () {
             Provider.of<Auth>(context, listen: false).logout();
           },
@@ -68,8 +69,9 @@ class _TabScreenState extends State<TabsScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
+            activeIcon: Image.asset('assets/icons/Dashboard.png'),
             backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.dashboard_outlined),
+            icon: Image.asset('assets/icons/Dashboard-active.png'),
             title: Text('Dashboard'),
           ),
           BottomNavigationBarItem(
