@@ -69,25 +69,49 @@ class _TabScreenState extends State<TabsScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            activeIcon: Image.asset('assets/icons/Dashboard.png'),
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Image.asset('assets/icons/Dashboard-active.png'),
-            title: Text('Dashboard'),
+            activeIcon: Image.asset('assets/icons/Dashboard-active.png'),
+            backgroundColor: Color.fromRGBO(32, 14, 50, 1),
+            icon: Image.asset('assets/icons/Dashboard.png'),
+            title: Text(
+              'Dashboard',
+              style: TextStyle(
+                // fontSize: 10,
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.assistant),
-            title: Text('Fundraisers'),
+            activeIcon: Image.asset('assets/icons/Fundraisers-active.png'),
+            backgroundColor: Color.fromRGBO(32, 14, 50, 1),
+            icon: Image.asset('assets/icons/Fundraisers.png'),
+            title: Text(
+              'Fundraisers',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.account_circle_outlined),
-            title: Text('Profile'),
+            activeIcon: Image.asset('assets/icons/Profile-active.png'),
+            backgroundColor: Color.fromRGBO(32, 14, 50, 1),
+            icon: Image.asset('assets/icons/Profile.png'),
+            title: Text(
+              'Profile',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            activeIcon: Image.asset('assets/icons/Setting-active.png'),
+            backgroundColor: Color.fromRGBO(32, 14, 50, 1),
+            icon: Image.asset('assets/icons/Setting.png'),
+            title: Text(
+              'Settings',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
         ],
       ),

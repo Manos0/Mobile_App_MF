@@ -13,11 +13,19 @@ class FundraisersScreen extends StatefulWidget {
 
 class _FundraisersScreenState extends State<FundraisersScreen> {
   var _isInit = true;
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      Provider.of<Fundraisers>(context).fetchAndSetFundraisers();
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Fundraisers>(context).fetchAndSetFundraisers().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -31,7 +39,11 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
     // final fundraisers = fundraisersList.fundraiserList;
     // print(fundraisers);
     return Scaffold(
-      body: FundraisersGrid(),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : FundraisersGrid(),
     );
   }
 }
