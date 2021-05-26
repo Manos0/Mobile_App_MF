@@ -7,7 +7,8 @@ import '../providers/fundraisers.dart';
 class FundraisersDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final fundraiser = Provider.of<FundraiserDetails>(context, listen: false);
+    final fundraiser = Provider.of<FundraiserDetails>(context, listen: false);
+    print(fundraiser.firstName);
     return Scaffold(
       body: Text('fundraiser.firstName'),
     );

@@ -20,7 +20,7 @@ class Fundraisers with ChangeNotifier {
     final url = Uri.parse(baseUrl + fundDetails + id.toString());
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    // final extractedData = json.decode(response.body) as Map<String, dynamic>;
     // extractedData.forEach((key, fundData) {
     //   print('${key}: ${fundData}');
     // });

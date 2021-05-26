@@ -12,6 +12,7 @@ import './providers/auth.dart';
 import './providers/fundraisers.dart';
 import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
+import './providers/fundraiser_details.dart';
 
 void main() => runApp(MyApp());
 

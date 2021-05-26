@@ -21,7 +21,7 @@ class FundraisersGrid extends StatelessWidget {
             (MediaQuery.of(context).orientation == Orientation.portrait
                 ? 2
                 : 4),
-        childAspectRatio: 5 / 8,
+        childAspectRatio: 5 / 8.6,
         crossAxisSpacing: 10,
         mainAxisSpacing: 20,
       ),
