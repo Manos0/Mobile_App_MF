@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mfapp_mobile/bin/colors.dart';
+import 'package:mfapp_mobile/screens/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 import './dashboard_screen.dart';
@@ -6,8 +8,10 @@ import './fundraisers_screen.dart';
 import './profile_screen.dart';
 import './settings_screen.dart';
 import '../providers/auth.dart';
+import '../widgets/fundraisers/fundraiser_searchbar.dart';
 
 class TabsScreen extends StatefulWidget {
+  static const String routeName = "/tabs_screen";
   @override
   _TabScreenState createState() => _TabScreenState();
 }
@@ -42,6 +46,9 @@ class _TabScreenState extends State<TabsScreen> {
     });
   }
 
+  Icon cusIcon = Icon(Icons.search_rounded);
+  bool searchBar = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,45 +56,115 @@ class _TabScreenState extends State<TabsScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: Text(_pages[_selectedPageIndex]['title']),
+        title: Text(
+          _pages[_selectedPageIndex]['title'],
+          style: TextStyle(
+            color: mfLettersColor,
+            fontSize: 20,
+          ),
+        ),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.exit_to_app),
+          icon: Icon(Icons.logout),
           color: Theme.of(context).primaryColor,
           onPressed: () {
             Provider.of<Auth>(context, listen: false).logout();
+            Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
           },
         ),
+        bottom: searchBar
+            ? PreferredSize(
+                preferredSize: Size(MediaQuery.of(context).size.width, 60),
+                child: FundraiserSearchbar(),
+              )
+            : null,
+        actions: [
+          IconButton(
+            icon: cusIcon,
+            onPressed: () {
+              setState(() {
+                if (this.cusIcon.icon == Icons.search_rounded) {
+                  this.cusIcon = Icon(Icons.cancel_outlined);
+                  searchBar = true;
+                } else {
+                  this.cusIcon = Icon(Icons.search_rounded);
+                  searchBar = false;
+                }
+              });
+            },
+          ),
+        ],
       ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         onTap: _selectPage,
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.lightBlueAccent,
-        selectedItemColor: Theme.of(context).accentColor,
         currentIndex: _selectedPageIndex,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            activeIcon: Image.asset('assets/icons/Dashboard.png'),
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Image.asset('assets/icons/Dashboard-active.png'),
-            title: Text('Dashboard'),
+            activeIcon: Image.asset(
+              'assets/icons/Dashboard-active.png',
+              scale: 2,
+            ),
+            icon: Image.asset(
+              'assets/icons/Dashboard.png',
+              scale: 2,
+            ),
+            title: Text(
+              'Dashboard',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.assistant),
-            title: Text('Fundraisers'),
+            activeIcon: Image.asset(
+              'assets/icons/Fundraisers-active.png',
+              scale: 2,
+            ),
+            icon: Image.asset(
+              'assets/icons/Fundraisers.png',
+              scale: 2,
+            ),
+            title: Text(
+              'Fundraisers',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.account_circle_outlined),
-            title: Text('Profile'),
+            activeIcon: Image.asset(
+              'assets/icons/Profile-active.png',
+              scale: 2,
+            ),
+            icon: Image.asset(
+              'assets/icons/Profile.png',
+              scale: 2,
+            ),
+            title: Text(
+              'Profile',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            activeIcon: Image.asset(
+              'assets/icons/Setting-active.png',
+              scale: 2,
+            ),
+            icon: Image.asset(
+              'assets/icons/Setting.png',
+              scale: 2,
+            ),
+            title: Text(
+              'Settings',
+              style: TextStyle(
+                color: Color.fromRGBO(32, 14, 50, 1),
+              ),
+            ),
           ),
         ],
       ),

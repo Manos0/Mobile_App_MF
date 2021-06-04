@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/providers/fundraiser_details.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/fundraisers.dart';
+import '../providers/fundraiser_details.dart';
+import '../widgets/fundraisers/fundraisers_details_view.dart';
 
 class FundraiserDetailScreen extends StatefulWidget {
   static const routeName = '/fundraiser-detail';
@@ -27,11 +28,15 @@ class _FundraiserDetailScreenState extends State<FundraiserDetailScreen> {
       future: fundraiserDetails,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data.firstName);
+          return FundraisersDetailsView(snapshot.data);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       },
     );
   }

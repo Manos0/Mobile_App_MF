@@ -1,3 +1,12 @@
 import 'package:flutter/material.dart';
 
 const mfPrimaryColor = Color.fromRGBO(0, 219, 176, 1);
+const mfPrimaryColor40 = Color.fromRGBO(0, 219, 176, 0.4);
+const mfLettersColor = Color.fromRGBO(26, 26, 38, 1);
+const mfSecondaryLetterColor = Color.fromRGBO(23, 33, 42, 1);
+const mfThrirdLetterColor = Color.fromRGBO(130, 107, 125, 1);
+const mfLightBlueColor = Color.fromRGBO(34, 206, 230, 1);
+const mfLightGreen = Color.fromRGBO(240, 250, 248, 1);
+const mfPurle = Color.fromRGBO(195, 95, 255, 1);
+const mfOrange = Color.fromRGBO(252, 158, 52, 1);
+const mfLightGrey = Color.fromRGBO(0, 0, 0, 0.375);

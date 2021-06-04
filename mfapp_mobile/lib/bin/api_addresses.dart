@@ -10,7 +10,11 @@ const takeFirst = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=';
 const baseUrl = 'https://mfdev.t-worxsites.com';
 const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
 const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
+<<<<<<< HEAD
 const takeFirst5 = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=5';
+>>>>>>> development
+=======
+const takeFirst5 = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=';
 >>>>>>> development
 const takeNext5 =
     '/DesktopModules/sff/api/Mobile/UserPaged?take=5&skip=5&closed=false&draft=false';
@@ -25,4 +29,9 @@ String getTakeFirstAPI(take) {
 =======
 const fundDetails =
     '/DesktopModules/sff/api/Mobile/GetFundraiser?fundraiserId=';
+<<<<<<< HEAD
+>>>>>>> development
+=======
+const searchFund = '/DesktopModules/sff/api/Mobile/FindFundraiser?text=';
+const userData = '/DesktopModules/sff/api/Mobile/GetUsertats?fundraiserCount=';
 >>>>>>> development
