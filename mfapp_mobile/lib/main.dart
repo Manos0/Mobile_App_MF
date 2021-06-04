@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './bin/colors.dart';
 import './screens/tabs_screen.dart';
@@ -13,10 +15,27 @@ import './providers/fundraisers.dart';
 import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
 import './providers/fundraiser_details.dart';
+import './screens/search_results_fundraisers.dart';
+import './screens/one_time_intro.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  final prefs = await SharedPreferences.getInstance();
+  final bool looked = prefs.getBool('firstTime');
+  Widget _Screen;
+  if (looked == null || looked == false) {
+    _Screen = IntroScreen();
+  } else {
+    _Screen = AuthScreen();
+  }
+  runApp(MyApp(_Screen));
+}
 
 class MyApp extends StatelessWidget {
+  final Widget _Screen;
+  MyApp(this._Screen);
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -50,24 +69,29 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           ),
+          // home: auth.isAuth ? TabsScreen() : AuthScreen(),
+          // initialRoute: SplashScreen.routeName,
           home: auth.isAuth
               ? TabsScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshop) => AuthScreen(),
+                  builder: (ctx, authResultSnapshop) => this._Screen,
                 ),
           routes: {
-            // '/': (ctx) => AuthScreen(),
-            // '/': (ctx) => IntroScreen(),
+            AuthScreen.routeName: (ctx) => AuthScreen(),
+            SplashScreen.routeName: (ctx) => SettingsScreen(),
+            TabsScreen.routeName: (ctx) => TabsScreen(),
             FundraiserDetailScreen.routeName: (ctx) => FundraiserDetailScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),
             SettingsScreen.routeName: (ctx) => SettingsScreen(),
+            SearchResultsFundraisers.routeName: (ctx) =>
+                SearchResultsFundraisers(),
           },
           onUnknownRoute: (settings) {
             return MaterialPageRoute(
-              builder: (ctx) => DashboardScreen(),
+              builder: (ctx) => TabsScreen(),
             );
           },
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mfapp_mobile/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
@@ -56,7 +57,19 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  var _checked = false;
+  bool rememberMe = false;
+
+  void _onRememberMeChanged(bool newValue) => setState(() {
+        rememberMe = newValue;
+
+        if (rememberMe) {
+          print('Here the value is ${rememberMe.toString()}');
+          return true;
+        } else {
+          print('Here the check is ${rememberMe.toString()}');
+          return false;
+        }
+      });
 
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
@@ -65,6 +78,30 @@ class _AuthCardState extends State<AuthCard> {
   };
   var _isLoading = false;
   final _passwordController = TextEditingController();
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              'Okay',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 16,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
 
   void _submit() async {
     if (!_formKey.currentState.validate()) {
@@ -75,31 +112,41 @@ class _AuthCardState extends State<AuthCard> {
     setState(() {
       _isLoading = true;
     });
-    if (_authMode == AuthMode.Login) {
-      // Log user in
+    try {
       await Provider.of<Auth>(context, listen: false)
           .login(_authData['username'], _authData['password']);
-    } else {
-      // Sign user up
-      await Provider.of<Auth>(context, listen: false)
-          .signup(_authData['username'], _authData['password']);
+      Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+    } catch (error) {
+      const errorMessage = 'Could not authenticate you. Please try again.';
+      _showErrorDialog(errorMessage);
     }
+
+    // if (_authMode == AuthMode.Login) {
+    //   // Log user in
+    //   await Provider.of<Auth>(context, listen: false)
+    //       .login(_authData['username'], _authData['password']);
+    // } else {
+    //   // Sign user up
+    //   await Provider.of<Auth>(context, listen: false)
+    //       .signup(_authData['username'], _authData['password']);
+    // }
     setState(() {
       _isLoading = false;
     });
+    //Na checkarw gia to memory leak edw !
   }
 
-  void _switchAuthMode() {
-    if (_authMode == AuthMode.Login) {
-      setState(() {
-        _authMode = AuthMode.Signup;
-      });
-    } else {
-      setState(() {
-        _authMode = AuthMode.Login;
-      });
-    }
-  }
+  // void _switchAuthMode() {
+  //   if (_authMode == AuthMode.Login) {
+  //     setState(() {
+  //       _authMode = AuthMode.Signup;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _authMode = AuthMode.Login;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -210,19 +257,12 @@ class _AuthCardState extends State<AuthCard> {
               Container(
                 margin: EdgeInsets.only(top: 35, bottom: 30),
                 child: CheckboxListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(45),
-                  ),
                   activeColor: Theme.of(context).primaryColor,
                   contentPadding: EdgeInsets.only(left: 40),
                   controlAffinity: ListTileControlAffinity.leading,
                   title: Text('Keep me signed in'),
-                  value: _checked,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _checked = value;
-                    });
-                  },
+                  value: rememberMe,
+                  onChanged: _onRememberMeChanged,
                 ),
               ),
               if (_isLoading)
@@ -255,14 +295,6 @@ class _AuthCardState extends State<AuthCard> {
                   ),
                   onPressed: _submit,
                 ),
-              // FlatButton(
-              //   child: Text(
-              //       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-              //   onPressed: _switchAuthMode,
-              //   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-              //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //   textColor: Theme.of(context).primaryColor,
-              // ),
             ],
           ),
         ),
