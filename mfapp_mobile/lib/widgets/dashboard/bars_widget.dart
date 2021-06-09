@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../bin/colors.dart';
 
 class BarsWidget extends StatelessWidget {
@@ -30,52 +31,42 @@ class BarsWidget extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              Container(
+                margin: EdgeInsets.only(right: 20),
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(11)),
+                  color: color,
+                ),
+                child: Icon(
+                  icon,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(11)),
-                      color: color,
-                    ),
-                    child: Icon(
-                      icon,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                  ),
                   Text(
                     text,
                     style: TextStyle(
                       color: mfLettersColor,
-                      fontSize: 18,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    '${info.toStringAsFixed(0)}',
+                    style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
+                    textAlign: TextAlign.left,
                   ),
                 ],
               ),
-              Container(
-                width: 40,
-                height: 29,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(11)),
-                  color: secondColor,
-                ),
-                child: Center(
-                  child: Text(
-                    '${info.toStringAsFixed(0)}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),

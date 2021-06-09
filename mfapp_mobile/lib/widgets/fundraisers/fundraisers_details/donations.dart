@@ -21,12 +21,35 @@ class Donations extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(bottom: 30),
-          child: Text(
-            'Donations',
-            style: TextStyle(
-                color: mfLettersColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Donations',
+                style: TextStyle(
+                  color: mfLettersColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                decoration: BoxDecoration(
+                  color: mfLightGreen,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
+                  ),
+                ),
+                child: Text(
+                  '${data.payment.length}',
+                  style: TextStyle(
+                    color: mfPrimaryColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Container(

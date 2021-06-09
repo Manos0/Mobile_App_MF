@@ -63,7 +63,8 @@ class UserDetailsWidget extends StatelessWidget {
               ),
               FundsTotalAndRaised(userData),
               Container(
-                height: MediaQuery.of(context).size.height / 1.5,
+                // height: MediaQuery.of(context).size.height / 1.6,
+                height: MediaQuery.of(context).size.height / 2,
                 padding: const EdgeInsets.only(bottom: 10),
                 width: MediaQuery.of(context).size.width,
                 child: BottomCubes(userData),

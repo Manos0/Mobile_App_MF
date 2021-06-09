@@ -16,7 +16,6 @@ import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
 import './providers/fundraiser_details.dart';
 import './screens/search_results_fundraisers.dart';
-import './screens/one_time_intro.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +78,6 @@ class MyApp extends StatelessWidget {
                 ),
           routes: {
             AuthScreen.routeName: (ctx) => AuthScreen(),
-            SplashScreen.routeName: (ctx) => SettingsScreen(),
             TabsScreen.routeName: (ctx) => TabsScreen(),
             FundraiserDetailScreen.routeName: (ctx) => FundraiserDetailScreen(),
             DashboardScreen.routeName: (ctx) => DashboardScreen(),

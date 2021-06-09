@@ -218,6 +218,7 @@ class FundraisersDetailsView extends StatelessWidget {
                           Container(
                             height: MediaQuery.of(context).size.height / 3.5,
                             width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.all(20),
                             margin: EdgeInsets.only(bottom: 20),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -236,82 +237,70 @@ class FundraisersDetailsView extends StatelessWidget {
                               ],
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Row(
                                   children: [
                                     Container(
-                                      height: 35,
-                                      width: 35,
-                                      alignment: Alignment.center,
-                                      margin:
-                                          EdgeInsets.fromLTRB(20, 25, 12, 12),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      child: new IconButton(
-                                        padding: EdgeInsets.all(0),
-                                        icon: new Icon(
+                                        height: 35,
+                                        width: 35,
+                                        alignment: Alignment.center,
+                                        margin: EdgeInsets.only(right: 15),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(11),
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        child: Icon(
                                           Icons.home_outlined,
                                           color: Colors.white,
-                                        ),
-                                        onPressed: null,
+                                        )),
+                                    Text(
+                                      '${data.location.locationName}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 13,
                                       ),
-                                    ),
-                                    Container(
-                                      height: 35,
-                                      margin: EdgeInsets.only(top: 12),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${data.location.locationName}',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
+                                      textAlign: TextAlign.left,
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
                                     Container(
-                                      height: 35,
-                                      width: 35,
-                                      alignment: Alignment.center,
-                                      margin:
-                                          EdgeInsets.fromLTRB(20, 0, 12, 12),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      child: new IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: new Icon(
-                                            Icons.location_on_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          onPressed: null),
-                                    ),
-                                    Container(
-                                      height: 35,
-                                      child: Text(
-                                        '${data.location.locationAddress1}',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
+                                        height: 35,
+                                        width: 35,
+                                        alignment: Alignment.center,
+                                        margin: EdgeInsets.only(right: 15),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(11),
+                                          color: Theme.of(context).primaryColor,
                                         ),
+                                        child: Icon(
+                                          Icons.location_on_outlined,
+                                          color: Colors.white,
+                                        )),
+                                    Text(
+                                      '${data.location.locationAddress1}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 13,
                                       ),
+                                      textAlign: TextAlign.left,
                                     ),
                                   ],
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                       alignment: Alignment.centerLeft,
-                                      margin:
-                                          EdgeInsets.fromLTRB(20, 6, 12, 15),
+                                      // margin:
+                                      //     EdgeInsets.fromLTRB(20, 6, 12, 15),
                                       child: ElevatedButton.icon(
                                         icon: Icon(
                                           Icons.message_outlined,
@@ -329,7 +318,7 @@ class FundraisersDetailsView extends StatelessWidget {
                                         style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all(
-                                            Color.fromRGBO(0, 219, 176, 1),
+                                            mfPrimaryColor,
                                           ),
                                           shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
@@ -339,16 +328,17 @@ class FundraisersDetailsView extends StatelessWidget {
                                             ),
                                           ),
                                           padding: MaterialStateProperty.all(
-                                              EdgeInsets.fromLTRB(
-                                                  25, 10, 25, 10)),
+                                            EdgeInsets.symmetric(
+                                                horizontal: 25, vertical: 10),
+                                          ),
                                         ),
                                         onPressed: () => launch(
-                                            'mailto://${data.location.locationEmail}'),
+                                            'mailto:${data.location.locationEmail}'),
                                       ),
                                     ),
                                     Container(
                                       alignment: Alignment.centerLeft,
-                                      margin: EdgeInsets.fromLTRB(0, 6, 12, 15),
+                                      // margin: EdgeInsets.fromLTRB(0, 6, 12, 15),
                                       child: ElevatedButton.icon(
                                         icon: Icon(
                                           Icons.call_outlined,
@@ -366,7 +356,7 @@ class FundraisersDetailsView extends StatelessWidget {
                                         style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all(
-                                            Color.fromRGBO(34, 206, 230, 1),
+                                            mfLightBlueColor,
                                           ),
                                           shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
@@ -376,8 +366,9 @@ class FundraisersDetailsView extends StatelessWidget {
                                             ),
                                           ),
                                           padding: MaterialStateProperty.all(
-                                              EdgeInsets.fromLTRB(
-                                                  25, 10, 25, 10)),
+                                            EdgeInsets.symmetric(
+                                                horizontal: 25, vertical: 10),
+                                          ),
                                         ),
                                         onPressed: () => launch(
                                             'tel://${data.location.locationPhone}'),

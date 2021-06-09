@@ -54,28 +54,36 @@ class MyFundraisers extends StatelessWidget {
                 ),
               ),
               Flexible(
-                child: Text(
-                  (data.userFundraisers[0].firstName.isNotEmpty
-                          ? data.userFundraisers[0].firstName
-                          : '') +
-                      (data.userFundraisers[0].nickName != null &&
-                              data.userFundraisers[0].nickName.length > 0
-                          ? ' "' + data.userFundraisers[0].nickName + '"'
-                          : '') +
-                      (data.userFundraisers[0].middleName != null &&
-                              data.userFundraisers[0].middleName.length > 0
-                          ? ' ' + data.userFundraisers[0].middleName
-                          : '') +
-                      (data.userFundraisers[0].lastName != null &&
-                              data.userFundraisers[0].lastName.length > 0
-                          ? ' ' + data.userFundraisers[0].lastName
-                          : ''),
-                  style: TextStyle(
-                      color: mfLettersColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                  textAlign: TextAlign.left,
-                  softWrap: true,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        (data.userFundraisers[0].firstName.isNotEmpty
+                                ? data.userFundraisers[0].firstName
+                                : '') +
+                            (data.userFundraisers[0].nickName != null &&
+                                    data.userFundraisers[0].nickName.length > 0
+                                ? ' "' + data.userFundraisers[0].nickName + '"'
+                                : '') +
+                            (data.userFundraisers[0].middleName != null &&
+                                    data.userFundraisers[0].middleName.length >
+                                        0
+                                ? ' ' + data.userFundraisers[0].middleName
+                                : '') +
+                            (data.userFundraisers[0].lastName != null &&
+                                    data.userFundraisers[0].lastName.length > 0
+                                ? ' ' + data.userFundraisers[0].lastName
+                                : ''),
+                        style: TextStyle(
+                            color: mfLettersColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.left,
+                        softWrap: true,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(

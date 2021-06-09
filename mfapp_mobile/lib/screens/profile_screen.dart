@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import '../providers/user_details.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/fundraisers.dart';
 import '../widgets/profile/user_details_widget.dart';
-import '../providers/fundraiser.dart';
 import '../providers/user_stats.dart';
-import '../providers/specific_fundraisers.dart';
+import '../screens/tabs_screen.dart';
+import '../bin/colors.dart';
+import '../providers/auth.dart';
+
+String username = '';
+String password = '';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -28,6 +32,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.didChangeDependencies();
   }
 
+  refreshLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    username = prefs.getString('username');
+    password = prefs.getString('password');
+    await Provider.of<Auth>(context, listen: false).login(username, password);
+    await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserStats>(
@@ -36,7 +48,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (snapshot.hasData) {
           return UserDetailsWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Something went wrong!',
+                  style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 35,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: refreshLogin,
+                ),
+              ],
+            ),
+          );
         }
         return Scaffold(
           body: Center(

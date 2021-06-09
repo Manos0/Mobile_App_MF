@@ -54,7 +54,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<UserStats> getUserData() async {
-    final url = Uri.parse(baseUrl + userData + '3');
+    final url = Uri.parse(baseUrl + userData + '30');
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserStats.fromJson(json.decode(response.body));

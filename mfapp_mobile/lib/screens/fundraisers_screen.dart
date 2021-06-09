@@ -68,12 +68,13 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
                       fontWeight: FontWeight.w600),
                 ),
                 IconButton(
-                    icon: Icon(
-                      Icons.refresh,
-                      size: 35,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: refreshLogin),
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 35,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: refreshLogin,
+                ),
               ],
             ),
           );

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/screens/tabs_screen.dart';
+import 'package:mfapp_mobile/bin/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/auth.dart';
-
-enum AuthMode { Signup, Login }
+import '../screens/tabs_screen.dart';
+import '../providers/fundraisers.dart';
 
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
@@ -57,53 +58,63 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  bool rememberMe = false;
+  var _rememberMe = false;
 
-  void _onRememberMeChanged(bool newValue) => setState(() {
-        rememberMe = newValue;
+  var _showPassword = false;
 
-        if (rememberMe) {
-          print('Here the value is ${rememberMe.toString()}');
-          return true;
-        } else {
-          print('Here the check is ${rememberMe.toString()}');
-          return false;
-        }
-      });
-
-  AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
     'username': '',
     'password': '',
   };
+
   var _isLoading = false;
+
   final _passwordController = TextEditingController();
 
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
-        content: Text(message),
+        title: Text(
+          'User not found!',
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
         actions: <Widget>[
-          FlatButton(
+          ElevatedButton(
             child: Text(
-              'Okay',
+              'Try Again',
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Colors.white,
                 fontSize: 16,
+              ),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(mfPrimaryColor),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              padding: MaterialStateProperty.all(
+                EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               ),
             ),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
-          )
+          ),
         ],
       ),
     );
   }
 
   void _submit() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberMe', _rememberMe);
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
@@ -115,38 +126,16 @@ class _AuthCardState extends State<AuthCard> {
     try {
       await Provider.of<Auth>(context, listen: false)
           .login(_authData['username'], _authData['password']);
+      //Na exeis to nou sou
       Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
     } catch (error) {
-      const errorMessage = 'Could not authenticate you. Please try again.';
+      const errorMessage = 'Please check your username and/or password.';
       _showErrorDialog(errorMessage);
     }
-
-    // if (_authMode == AuthMode.Login) {
-    //   // Log user in
-    //   await Provider.of<Auth>(context, listen: false)
-    //       .login(_authData['username'], _authData['password']);
-    // } else {
-    //   // Sign user up
-    //   await Provider.of<Auth>(context, listen: false)
-    //       .signup(_authData['username'], _authData['password']);
-    // }
     setState(() {
       _isLoading = false;
     });
-    //Na checkarw gia to memory leak edw !
   }
-
-  // void _switchAuthMode() {
-  //   if (_authMode == AuthMode.Login) {
-  //     setState(() {
-  //       _authMode = AuthMode.Signup;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _authMode = AuthMode.Login;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +206,8 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                     ),
                   ),
-                  obscureText: true,
+                  // obscureText: true,
+                  obscureText: !_showPassword,
                   controller: _passwordController,
                   validator: (value) {
                     if (value.isEmpty || value.length < 5) {
@@ -229,40 +219,35 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
               ),
-              // if (_authMode == AuthMode.Signup)
-              //   Container(
-              //     padding: EdgeInsets.fromLTRB(36, 8, 36, 24),
-              //     child: TextFormField(
-              //       enabled: _authMode == AuthMode.Signup,
-              //       decoration: InputDecoration(
-              //         labelText: 'Confirm Password',
-              //         labelStyle:
-              //             TextStyle(fontFamily: 'Poppins', fontSize: 14),
-              //         border: OutlineInputBorder(
-              //           borderRadius: const BorderRadius.all(
-              //             const Radius.circular(24),
-              //           ),
-              //         ),
-              //       ),
-              //       obscureText: true,
-              //       validator: _authMode == AuthMode.Signup
-              //           ? (value) {
-              //               if (value != _passwordController.text) {
-              //                 return 'Passwords do not match!';
-              //               }
-              //             }
-              //           : null,
-              //     ),
-              //   ),
               Container(
                 margin: EdgeInsets.only(top: 35, bottom: 30),
-                child: CheckboxListTile(
-                  activeColor: Theme.of(context).primaryColor,
-                  contentPadding: EdgeInsets.only(left: 40),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  title: Text('Keep me signed in'),
-                  value: rememberMe,
-                  onChanged: _onRememberMeChanged,
+                child: Column(
+                  children: [
+                    CheckboxListTile(
+                      activeColor: Theme.of(context).primaryColor,
+                      contentPadding: EdgeInsets.only(left: 40),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      title: Text('Show password'),
+                      value: _showPassword,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _showPassword = value;
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      activeColor: Theme.of(context).primaryColor,
+                      contentPadding: EdgeInsets.only(left: 40),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      title: Text('Keep me signed in'),
+                      value: _rememberMe,
+                      onChanged: (bool value) async {
+                        setState(() {
+                          _rememberMe = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
               if (_isLoading)
@@ -270,7 +255,7 @@ class _AuthCardState extends State<AuthCard> {
               else
                 ElevatedButton(
                   child: Text(
-                    _authMode == AuthMode.Login ? 'Login' : 'Sign Up',
+                    'Login',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -291,7 +276,8 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                     ),
                     padding: MaterialStateProperty.all(
-                        EdgeInsets.fromLTRB(137, 15, 137, 15)),
+                      EdgeInsets.fromLTRB(137, 15, 137, 15),
+                    ),
                   ),
                   onPressed: _submit,
                 ),

@@ -28,102 +28,69 @@ class ProfileYourFundraisers extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                children: List.generate(
-                  data.userFundraisers.length,
-                  (index) {
-                    return Container(
-                      margin: EdgeInsets.only(right: 20),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundImage: NetworkImage(
-                              baseUrl +
-                                  data.userFundraisers[index].clientAvatarMD,
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    FundraiserDetailScreen.routeName,
-                                    arguments: data.userFundraisers[index].id);
-                              },
-                            ),
+          Container(
+            height: 125,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: List.generate(
+                data.userFundraisers.length,
+                (index) {
+                  return Container(
+                    margin: EdgeInsets.only(right: 20),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 35,
+                          backgroundImage: NetworkImage(
+                            baseUrl +
+                                data.userFundraisers[index].clientAvatarMD,
                           ),
-                          SizedBox(
-                            width: 60,
-                            height: 50,
-                            child: Text(
-                              (data.userFundraisers[index].firstName.isNotEmpty
-                                      ? data.userFundraisers[index].firstName
-                                      : '') +
-                                  (data.userFundraisers[index].middleName !=
-                                              null &&
-                                          data.userFundraisers[index].middleName
-                                                  .length >
-                                              0
-                                      ? ' ' +
-                                          data.userFundraisers[index].middleName
-                                      : '') +
-                                  (data.userFundraisers[index].lastName !=
-                                              null &&
-                                          data.userFundraisers[index].lastName
-                                                  .length >
-                                              0
-                                      ? ' ' +
-                                          data.userFundraisers[index].lastName
-                                      : ''),
-                              style: TextStyle(
-                                color: mfPrimaryColor,
-                                fontFamily: 'Poppins',
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              textAlign: TextAlign.center,
-                              softWrap: true,
-                            ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  FundraiserDetailScreen.routeName,
+                                  arguments: data.userFundraisers[index].id);
+                            },
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Column(
-                children: [
-                  CircleAvatar(
-                    radius: 35,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.add,
-                      color: mfPrimaryColor,
-                      size: 35,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    height: 50,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        'Add',
-                        style: TextStyle(
-                          color: mfPrimaryColor,
-                          fontFamily: 'Poppins',
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
+                        SizedBox(
+                          width: 65,
+                          height: 50,
+                          child: Text(
+                            (data.userFundraisers[index].firstName.isNotEmpty
+                                    ? data.userFundraisers[index].firstName
+                                    : '') +
+                                (data.userFundraisers[index].middleName !=
+                                            null &&
+                                        data.userFundraisers[index].middleName
+                                                .length >
+                                            0
+                                    ? ' ' +
+                                        data.userFundraisers[index].middleName
+                                    : '') +
+                                (data.userFundraisers[index].lastName != null &&
+                                        data.userFundraisers[index].lastName
+                                                .length >
+                                            0
+                                    ? ' ' + data.userFundraisers[index].lastName
+                                    : ''),
+                            style: TextStyle(
+                              color: mfPrimaryColor,
+                              fontFamily: 'Poppins',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              )
-            ],
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),

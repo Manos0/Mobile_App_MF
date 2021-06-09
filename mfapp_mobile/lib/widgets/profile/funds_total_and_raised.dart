@@ -92,12 +92,12 @@ class FundsTotalAndRaised extends StatelessWidget {
                   radius: 125,
                   lineWidth: 10,
                   percent:
-                      fundPercentage(data.totalGoalAmount, data.totalDonations),
+                      fundPercentage(data.totalDonations, data.totalGoalAmount),
                   backgroundColor: Color.fromRGBO(0, 219, 176, 0.1),
                   circularStrokeCap: CircularStrokeCap.round,
                   progressColor: Theme.of(context).primaryColor,
                   center: Text(
-                    '${fundPercentage(data.totalGoalAmount, data.totalDonations).toStringAsFixed(0)}',
+                    '${(fundPercentage(data.totalDonations, data.totalGoalAmount) * 100).toStringAsFixed(2)}',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 18,
@@ -110,7 +110,7 @@ class FundsTotalAndRaised extends StatelessWidget {
                   radius: 100,
                   lineWidth: 10,
                   percent:
-                      fundPercentage(data.totalDonations, data.totalGoalAmount),
+                      fundPercentage(data.totalPayouts, data.totalGoalAmount),
                   backgroundColor: Color.fromRGBO(58, 204, 225, 0.1),
                   circularStrokeCap: CircularStrokeCap.round,
                   progressColor: Color.fromRGBO(58, 204, 225, 1),

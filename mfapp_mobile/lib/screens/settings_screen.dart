@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import '../providers/user_details.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/fundraisers.dart';
 import '../widgets/settings/settings_widget.dart';
+import '../screens/tabs_screen.dart';
+import '../bin/colors.dart';
+import '../providers/auth.dart';
+
+String username = '';
+String password = '';
 
 class SettingsScreen extends StatefulWidget {
   static const routeName = '/settings';
@@ -25,6 +32,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.didChangeDependencies();
   }
 
+  refreshLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    username = prefs.getString('username');
+    password = prefs.getString('password');
+    await Provider.of<Auth>(context, listen: false).login(username, password);
+    await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserDetails>(
@@ -33,7 +48,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (snapshot.hasData) {
           return SettingsWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Something went wrong!',
+                  style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 35,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: refreshLogin,
+                ),
+              ],
+            ),
+          );
         }
         return Scaffold(
           body: Center(
