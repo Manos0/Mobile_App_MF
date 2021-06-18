@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../bin/api_addresses.dart';
 import '../../bin/colors.dart';
+import '../../bin/api_addresses.dart';
+import '../../widgets/settings/logout_bar_widget.dart';
 
 class SettingsWidget extends StatefulWidget {
   final settingData;
@@ -19,32 +20,33 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(top: 15),
-          child: Column(
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 45,
-                      backgroundImage: NetworkImage(
-                        baseUrl + widget.settingData.photoUrl,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        '${widget.settingData.displayName}',
-                        style: TextStyle(
-                          color: mfLettersColor,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w200,
-                        ),
-                      ),
-                    )
-                  ],
+          child: Center(
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 45,
+                  backgroundImage: NetworkImage(
+                    baseUrl + widget.settingData.photoUrl,
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Text(
+                    '${widget.settingData.displayName}',
+                    style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 70,
+                  width: MediaQuery.of(context).size.width,
+                ),
+                LogoutBarWidget(),
+              ],
+            ),
           ),
         ),
       ),

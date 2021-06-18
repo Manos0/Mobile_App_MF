@@ -4,7 +4,6 @@ import 'package:mfapp_mobile/providers/user_stats.dart';
 import 'package:provider/provider.dart';
 
 import './fundraiser_fund.dart';
-import './fundraiser_searchbar.dart';
 import '../../providers/user_stats.dart';
 import '../../providers/fundraiser.dart';
 import '../../widgets/fundraisers/fundraisers_my_fundraisers.dart';
@@ -23,7 +22,7 @@ class FundraisersGrid extends StatelessWidget {
         children: [
           // FundraiserSearchbar(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             child: Text(
               'My Fundraisers',
               style: TextStyle(
@@ -34,7 +33,9 @@ class FundraisersGrid extends StatelessWidget {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height / 6.5,
+            height: (MediaQuery.of(context).size.height < 684
+                ? MediaQuery.of(context).size.height / 6
+                : MediaQuery.of(context).size.height / 7.5),
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class FundraisersGrid extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
             child: Text(
-              'Trending Fundraisers',
+              'Featured Fundraisers',
               style: TextStyle(
                 color: mfLettersColor,
                 fontSize: 16,

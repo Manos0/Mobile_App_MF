@@ -4,7 +4,6 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../screens/fundraiser_detail_screen.dart';
 import '../../providers/fundraiser.dart';
-import '../../bin/api_addresses.dart';
 import '../../bin/functions.dart';
 import '../../bin/colors.dart';
 

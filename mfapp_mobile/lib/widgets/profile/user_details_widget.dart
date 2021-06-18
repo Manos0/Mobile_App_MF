@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mfapp_mobile/bin/colors.dart';
 
 import '../../bin/api_addresses.dart';
 import '../../widgets/profile/profile_yourfundraisers.dart';
 import '../../widgets/profile/funds_total_and_raised.dart';
 import '../../widgets/profile/cubes_bottom.dart';
+import '../../widgets/profile/add_fundraiser_button.dart';
 
 class UserDetailsWidget extends StatelessWidget {
   final userData;
@@ -50,7 +52,7 @@ class UserDetailsWidget extends StatelessWidget {
               Container(
                 height: 181,
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 20),
+                margin: EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(240, 250, 248, 1),
                   borderRadius: BorderRadius.only(
@@ -61,6 +63,7 @@ class UserDetailsWidget extends StatelessWidget {
                 ),
                 child: ProfileYourFundraisers(userData),
               ),
+              // AddFundraiserButton(),
               FundsTotalAndRaised(userData),
               Container(
                 // height: MediaQuery.of(context).size.height / 1.6,

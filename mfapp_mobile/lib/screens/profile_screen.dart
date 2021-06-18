@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/fundraisers.dart';
+import '../providers/provider.dart';
 import '../widgets/profile/user_details_widget.dart';
 import '../providers/user_stats.dart';
 import '../screens/tabs_screen.dart';
 import '../bin/colors.dart';
 import '../providers/auth.dart';
+import '../screens/auth_screen.dart';
 
 String username = '';
 String password = '';
@@ -26,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      userData = Provider.of<Fundraisers>(context).getUserData();
+      userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -34,10 +35,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   refreshLogin() async {
     final prefs = await SharedPreferences.getInstance();
-    username = prefs.getString('username');
-    password = prefs.getString('password');
-    await Provider.of<Auth>(context, listen: false).login(username, password);
-    await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+    if (prefs.getBool('rememberMe')) {
+      username = prefs.getString('username');
+      password = prefs.getString('password');
+      await Provider.of<Auth>(context, listen: false).login(username, password);
+      await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+    } else {
+      await Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
+    }
   }
 
   @override

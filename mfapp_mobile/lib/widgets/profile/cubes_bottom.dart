@@ -31,6 +31,7 @@ class BottomCubes extends StatelessWidget {
           icon: Icons.timer,
           text: 'Total Open Fundraisers',
           price: data.totalOpenFundraisers,
+          //sta 8 psifia exw provlima
         ),
         Cubes(
           color: Colors.purpleAccent,

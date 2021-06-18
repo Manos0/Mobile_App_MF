@@ -30,7 +30,7 @@ class FundraiserSearchbar extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: 'Search Fundraisers',
                       hintStyle: TextStyle(
-                          color: mfThrirdLetterColor,
+                          color: mfSecondaryLetterColor,
                           fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),

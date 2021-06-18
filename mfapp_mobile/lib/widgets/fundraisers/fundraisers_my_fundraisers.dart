@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../bin/colors.dart';
-import '../../bin/api_addresses.dart';
+import '../../bin/functions.dart';
 
 class MyFundraisers extends StatelessWidget {
   final data;
@@ -35,22 +35,18 @@ class MyFundraisers extends StatelessWidget {
     var creationDate = DateFormat.yMd().format(dateCreated);
 
     return Container(
-      margin: const EdgeInsets.only(left: 14, right: 14),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
                     Radius.circular(5),
                   ),
-                  child: Image.network(
-                    baseUrl + data.userFundraisers[0].clientAvatarSM,
-                    fit: BoxFit.cover,
-                    scale: 3,
-                  ),
+                  child: myFundImage(data.userFundraisers[0].clientAvatarMD),
                 ),
               ),
               Flexible(
@@ -104,8 +100,40 @@ class MyFundraisers extends StatelessWidget {
               ),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Raised',
+                style: TextStyle(
+                  color: Color.fromRGBO(128, 128, 128, 1),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: Text(
+                  '\$${data.userFundraisers[0].fundRaised.toStringAsFixed(0)}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontFamily: 'Poppins',
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Text(
+                'of \$${data.userFundraisers[0].goalAmount.toStringAsFixed(0)}',
+                style: TextStyle(
+                  color: Color.fromRGBO(128, 128, 128, 1),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            padding: const EdgeInsets.only(top: 3, bottom: 0),
             child: LinearPercentIndicator(
               lineHeight: 4,
               percent: fundPercentage(),

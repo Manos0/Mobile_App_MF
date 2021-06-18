@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/dashboard/bars_widget.dart';
 import '../../bin/colors.dart';
-import '../../providers/fundraiser.dart';
-import '../../widgets/dashboard/donations_chart.dart';
+import '../../widgets/dashboard/bar_chart_widget.dart';
+import '../../widgets/dashboard/line_chart_widget.dart';
 
 class DashboardWidget extends StatefulWidget {
   final data;
-  final fundraisers;
 
-  DashboardWidget(this.data, this.fundraisers);
+  DashboardWidget(this.data);
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -26,29 +25,44 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4.5,
+                height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(11),
                   ),
                   color: mfLightGreen,
                 ),
-                child: FutureBuilder<List<Fundraiser>>(
-                  future: widget.fundraisers,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Center(child: Text('CHART'));
-                    } else if (snapshot.hasError) {
-                      Center(child: Text('Something went wrong!'));
-                    }
-                    return Scaffold(
-                      body: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
+                child: LineChartWidget(widget.data.userFundraisers),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(11),
+                  ),
+                  color: mfLightGreen,
                 ),
+                child: BarChartWidget(widget.data.userFundraisers),
+                // child: FutureBuilder<List<Fundraiser>>(
+                //   future: widget.fundraisers,
+                //   builder: (context, snapshot) {
+                //     if (snapshot.hasData) {
+                //       return Center(child: Text('CHART'));
+                //     } else if (snapshot.hasError) {
+                //       Center(child: Text('Something went wrong!'));
+                //     }
+                //     return Scaffold(
+                //       body: Center(
+                //         child: CircularProgressIndicator(),
+                //       ),
+                //     );
+                //   },
+                // ),
               ),
               BarsWidget(
                 dashboardData: widget.data,
@@ -61,7 +75,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               BarsWidget(
                 dashboardData: widget.data,
                 text: 'Completed Fundraisers',
-                //Tha mporouse na einai Total Donations,
                 info: widget.data.totalCompletedFundraisers,
                 color: mfLightBlueColor,
                 secondColor: mfLightBlueColor,
@@ -70,7 +83,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               BarsWidget(
                 dashboardData: widget.data,
                 text: 'Open Fundraisers',
-                //Tha mporouse na einai Total Payouts
                 info: widget.data.totalOpenFundraisers,
                 color: Colors.purple,
                 secondColor: Colors.purpleAccent,

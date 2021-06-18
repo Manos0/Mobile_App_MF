@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/fundraisers.dart';
-import '../providers/fundraiser_details.dart';
-import '../widgets/fundraisers/fundraisers_details_view.dart';
+import '../providers/provider.dart';
 import '../providers/fundraiser.dart';
-import '../widgets/fundraisers/fundraisers_grid.dart';
 import '../widgets/fundraisers/search_results.dart';
 
 class SearchResultsFundraisers extends StatefulWidget {

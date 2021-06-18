@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../bin/colors.dart';
 
 class BarsWidget extends StatelessWidget {
@@ -57,7 +56,7 @@ class BarsWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${info.toStringAsFixed(0)}',
+                    info.toStringAsFixed(0),
                     style: TextStyle(
                       color: mfLettersColor,
                       fontSize: 20,

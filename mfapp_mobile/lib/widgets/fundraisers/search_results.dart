@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/providers/fundraisers.dart';
-import 'package:mfapp_mobile/screens/fundraisers_screen.dart';
-import 'package:mfapp_mobile/screens/profile_screen.dart';
 import 'package:mfapp_mobile/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 import './fundraiser_fund.dart';
-import './fundraiser_searchbar.dart';
 import '../../providers/fundraiser.dart';
 
 class SearchResults extends StatelessWidget {

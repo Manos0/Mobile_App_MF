@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mfapp_mobile/bin/colors.dart';
-import 'package:mfapp_mobile/screens/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 import './dashboard_screen.dart';
 import './fundraisers_screen.dart';
 import './profile_screen.dart';
-import './settings_screen.dart';
-import '../providers/auth.dart';
 import '../widgets/fundraisers/fundraiser_searchbar.dart';
+import '../providers/auth.dart';
+import '../screens/auth_screen.dart';
+import '../screens/settings_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const String routeName = "/tabs_screen";
@@ -29,10 +29,6 @@ class _TabScreenState extends State<TabsScreen> {
     {
       'page': ProfileScreen(),
       'title': 'Profile',
-    },
-    {
-      'page': SettingsScreen(),
-      'title': 'Settings',
     },
   ];
 
@@ -66,10 +62,12 @@ class _TabScreenState extends State<TabsScreen> {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.logout),
+          tooltip: 'Logout',
           color: Theme.of(context).primaryColor,
           onPressed: () {
-            Provider.of<Auth>(context, listen: false).logout();
-            Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
+            Provider.of<Auth>(context, listen: false).logout().then((value) =>
+                Navigator.of(context)
+                    .pushReplacementNamed(AuthScreen.routeName));
           },
         ),
         bottom: searchBar
@@ -150,22 +148,22 @@ class _TabScreenState extends State<TabsScreen> {
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            activeIcon: Image.asset(
-              'assets/icons/Setting-active.png',
-              scale: 2,
-            ),
-            icon: Image.asset(
-              'assets/icons/Setting.png',
-              scale: 2,
-            ),
-            title: Text(
-              'Settings',
-              style: TextStyle(
-                color: Color.fromRGBO(32, 14, 50, 1),
-              ),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   activeIcon: Image.asset(
+          //     'assets/icons/Setting-active.png',
+          //     scale: 2,
+          //   ),
+          //   icon: Image.asset(
+          //     'assets/icons/Setting.png',
+          //     scale: 2,
+          //   ),
+          //   title: Text(
+          //     'About',
+          //     style: TextStyle(
+          //       color: Color.fromRGBO(32, 14, 50, 1),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -14,7 +14,7 @@ class FundsTotalAndRaised extends StatelessWidget {
     return Container(
       height: 175,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: 20, top: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
