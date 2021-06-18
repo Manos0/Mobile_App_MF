@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class UserStats {
   final UserData userDetails;
   final List<UserFundraisers> userFundraisers;

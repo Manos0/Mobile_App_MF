@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import '../bin/api_addresses.dart';
 import '../providers/fundraiser.dart';
 import '../providers/fundraiser_details.dart';
 import '../providers/user_details.dart';
 import '../providers/user_stats.dart';
-import '../providers/specific_fundraisers.dart';
+import '../providers/locations.dart';
 
 class Fundraisers with ChangeNotifier {
   // List<Fundraiser> _fundraiserList = [];
@@ -58,5 +59,13 @@ class Fundraisers with ChangeNotifier {
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserStats.fromJson(json.decode(response.body));
+  }
+
+  Future<List<Locations>> fetchLocations() async {
+    final url = Uri.parse(baseUrl + locations);
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    final List extractedLocations = json.decode(response.body);
+    return extractedLocations.map((item) => Locations.fromJson(item)).toList();
   }
 }

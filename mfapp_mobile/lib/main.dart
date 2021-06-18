@@ -4,18 +4,22 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './bin/colors.dart';
+
 import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';
 import './screens/profile_screen.dart';
 import './screens/settings_screen.dart';
 import './screens/auth_screen.dart';
-import './providers/auth.dart';
-import './providers/fundraisers.dart';
 import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
-import './providers/fundraiser_details.dart';
 import './screens/search_results_fundraisers.dart';
+import './screens/add_fundraiser/add_fundraiser_screen.dart';
+import './screens/add_fundraiser/decent_profile_and_details_screen.dart';
+
+import './providers/auth.dart';
+import './providers/provider.dart';
+// import './providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +56,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'MFApp',
+          title: 'Memorial Fundraising',
           theme: ThemeData(
             fontFamily: 'Poppins',
             primaryColor: mfPrimaryColor,
@@ -69,7 +73,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           // home: auth.isAuth ? TabsScreen() : AuthScreen(),
-          // initialRoute: SplashScreen.routeName,
+          // initialRoute: AddFundraiserScreen.routeName,
           home: auth.isAuth
               ? TabsScreen()
               : FutureBuilder(
@@ -86,10 +90,13 @@ class MyApp extends StatelessWidget {
             SettingsScreen.routeName: (ctx) => SettingsScreen(),
             SearchResultsFundraisers.routeName: (ctx) =>
                 SearchResultsFundraisers(),
+            AddFundraiserScreen.routeName: (ctx) => AddFundraiserScreen(),
+            DecentProfileAndDetailsScreen.routeName: (ctx) =>
+                DecentProfileAndDetailsScreen(),
           },
           onUnknownRoute: (settings) {
             return MaterialPageRoute(
-              builder: (ctx) => TabsScreen(),
+              builder: (ctx) => AuthScreen(),
             );
           },
         ),

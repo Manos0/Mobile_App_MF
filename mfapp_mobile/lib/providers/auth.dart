@@ -30,19 +30,6 @@ class Auth with ChangeNotifier {
     return null;
   }
 
-  Future<void> signup(String username, String password) async {
-    final url = Uri.parse('');
-    final response = await http.post(
-      url,
-      body: json.encode(
-        {
-          'username': username,
-          'password': password,
-        },
-      ),
-    );
-  }
-
   Future<void> login(String username, String password) async {
     final url = Uri.parse(baseUrl + loginCall);
     final response = await http.post(
@@ -74,6 +61,7 @@ class Auth with ChangeNotifier {
     prefs.setString('userData', _token);
     //Gia dokimes !!!
     // Timer(Duration(seconds: 20), () {
+    //   print('Here it comes');
     //   logout();
     // });
   }

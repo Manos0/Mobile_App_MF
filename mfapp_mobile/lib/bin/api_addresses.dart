@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 const baseUrl = 'https://mfdev.t-worxsites.com';
 const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
 const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
@@ -13,3 +11,4 @@ const fundDetails =
     '/DesktopModules/sff/api/Mobile/GetFundraiser?fundraiserId=';
 const searchFund = '/DesktopModules/sff/api/Mobile/FindFundraiser?text=';
 const userData = '/DesktopModules/sff/api/Mobile/GetUsertats?fundraiserCount=';
+const locations = '/DesktopModules/sff/API/Locations';

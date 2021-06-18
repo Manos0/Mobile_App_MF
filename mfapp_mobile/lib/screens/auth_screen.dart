@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mfapp_mobile/bin/colors.dart';
+import 'package:mfapp_mobile/providers/provider.dart';
+import 'package:mfapp_mobile/screens/dashboard_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/auth.dart';
 import '../screens/tabs_screen.dart';
-import '../providers/fundraisers.dart';
 
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
