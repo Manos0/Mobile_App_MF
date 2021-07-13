@@ -56,7 +56,7 @@ class SearchResults extends StatelessWidget {
                         0.945
                     : MediaQuery.of(context).size.width /
                         MediaQuery.of(context).size.height /
-                        0.88,
+                        0.86,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 20,
               ),

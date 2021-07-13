@@ -34,8 +34,8 @@ class FundraisersGrid extends StatelessWidget {
           ),
           Container(
             height: (MediaQuery.of(context).size.height < 684
-                ? MediaQuery.of(context).size.height / 6
-                : MediaQuery.of(context).size.height / 7.5),
+                ? MediaQuery.of(context).size.height / 5.5
+                : MediaQuery.of(context).size.height / 6.5),
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
@@ -91,7 +91,7 @@ class FundraisersGrid extends StatelessWidget {
                         0.945
                     : MediaQuery.of(context).size.width /
                         MediaQuery.of(context).size.height /
-                        0.88,
+                        0.86,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 20,
               ),

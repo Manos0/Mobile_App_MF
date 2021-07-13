@@ -80,35 +80,42 @@ class _AuthCardState extends State<AuthCard> {
           'User not found!',
           textAlign: TextAlign.center,
         ),
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text(
-              'Try Again',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              message,
+              textAlign: TextAlign.center,
             ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(mfPrimaryColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: ElevatedButton(
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              padding: MaterialStateProperty.all(
-                EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                style: ButtonStyle(
+                  alignment: Alignment.center,
+                  backgroundColor: MaterialStateProperty.all(mfPrimaryColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
               ),
             ),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -172,6 +179,7 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                   ),
                   keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Invalid email or username!';
@@ -214,6 +222,7 @@ class _AuthCardState extends State<AuthCard> {
                     if (value.isEmpty || value.length < 5) {
                       return 'Password is too short!';
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _authData['password'] = value;

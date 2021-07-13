@@ -23,12 +23,15 @@ class FundraisersDetailsView extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
+        titleSpacing: 2,
+        leadingWidth: 35,
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
           ),
+          alignment: Alignment.centerLeft,
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
@@ -170,6 +173,8 @@ class FundraisersDetailsView extends StatelessWidget {
                       locationAddress1: data.location.locationAddress1,
                       locationEmail: data.location.locationEmail,
                       locationPhone: data.location.locationPhone,
+                      locationCity: data.location.locationCity,
+                      locationPostal: data.location.locationPostalCode,
                     ),
                   ],
                 ),

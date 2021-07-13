@@ -5,12 +5,16 @@ import '../../../bin/colors.dart';
 
 class FuneralServicesWidget extends StatelessWidget {
   final locationName;
+  final locationCity;
+  final locationPostal;
   final locationAddress1;
   final locationEmail;
   final locationPhone;
 
   FuneralServicesWidget({
     this.locationName,
+    this.locationCity,
+    this.locationPostal,
     this.locationAddress1,
     this.locationEmail,
     this.locationPhone,
@@ -75,7 +79,7 @@ class FuneralServicesWidget extends StatelessWidget {
                           color: Colors.white,
                         )),
                     Text(
-                      '${locationName}',
+                      locationName,
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Poppins',
@@ -88,20 +92,38 @@ class FuneralServicesWidget extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                        height: 35,
-                        width: 35,
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(right: 15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11),
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: Icon(
+                      height: 35,
+                      width: 35,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(right: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      child: IconButton(
+                        icon: Icon(
                           Icons.location_on_outlined,
                           color: Colors.white,
-                        )),
+                        ),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(0),
+                        onPressed: () async {
+                          String address =
+                              '${locationAddress1}${locationCity}${locationPostal}${locationName}';
+                          // String address =
+                          //     '${locationAddress1}${locationCity}${locationPostal}';
+                          String query = Uri.encodeFull(address);
+                          String googleUrl =
+                              'https://www.google.com/maps/search/?api=1&query=$query';
+
+                          if (await canLaunch(googleUrl)) {
+                            await launch(googleUrl);
+                          }
+                        },
+                      ),
+                    ),
                     Text(
-                      '${locationAddress1}',
+                      locationAddress1,
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Poppins',

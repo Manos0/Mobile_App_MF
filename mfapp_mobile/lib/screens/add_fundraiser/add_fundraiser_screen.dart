@@ -30,14 +30,15 @@ class _AddFundraiserScreenState extends State<AddFundraiserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: mfLightGrey),
         backgroundColor: Colors.white,
         title: Text(
           'Select Location',
           style: TextStyle(
             color: mfLettersColor,
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),

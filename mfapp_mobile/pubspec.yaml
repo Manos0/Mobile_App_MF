@@ -33,6 +33,8 @@ dependencies:
   readmore: ^2.0.0
   fl_chart: ^0.36.1
   image_picker: ^0.8.0+3
+  path: ^1.8.0
+  font_awesome_flutter: ^9.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,6 +68,7 @@ flutter:
     - assets/images/Stay up to date@2x.png
     - assets/images/MF-Logo-H.png
     - assets/images/helperImage.png
+    - assets/images/MF-App-Loader.gif
     - assets/icons/Dashboard.png
     - assets/icons/Dashboard-active.png
     - assets/icons/Fundraisers.png
@@ -96,6 +99,9 @@ flutter:
         - asset: assets/fonts/Poppins-Black.ttf
         - asset: assets/fonts/Poppins-SemiBold.ttf
         - asset: assets/fonts/Poppins-Medium.ttf
+    - family:  MyFlutterApp
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf
 
         # - asset: assets/icons/MyFlutterApp.ttf
   #   - family: Trajan Pro

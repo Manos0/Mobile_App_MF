@@ -7,8 +7,10 @@ import '../../widgets/dashboard/line_chart_widget.dart';
 
 class DashboardWidget extends StatefulWidget {
   final data;
+  final Future<List<dynamic>> lineData;
+  final Future<List<dynamic>> barData;
 
-  DashboardWidget(this.data);
+  DashboardWidget({this.data, this.lineData, this.barData});
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -22,47 +24,145 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         child: Container(
           margin: EdgeInsets.all(16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 20),
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(11),
-                  ),
-                  color: mfLightGreen,
+                height: MediaQuery.of(context).size.height / 3,
+                child: FutureBuilder<List<dynamic>>(
+                  future: widget.lineData,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(11),
+                          ),
+                          color: mfLightlightGrey,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 8, 8, 8),
+                              child: Text(
+                                'Monthly Total Fundraised',
+                                style: TextStyle(
+                                  color: mfSecondaryLetterColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 4.1,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: LineChartWidget(snapshot.data),
+                            )
+                          ],
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      print('line chart error: ${snapshot}');
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Something went wrong!',
+                              style: TextStyle(
+                                color: mfLettersColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
                 ),
-                child: LineChartWidget(widget.data.userFundraisers),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 20),
-                padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(11),
-                  ),
-                  color: mfLightGreen,
+                height: MediaQuery.of(context).size.height / 3,
+                child: FutureBuilder<List<dynamic>>(
+                  future: widget.barData,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(11),
+                          ),
+                          color: mfLightGreen,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 8, 8, 8),
+                              child: Text(
+                                'Daily Donations',
+                                style: TextStyle(
+                                  color: mfSecondaryLetterColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 4.1,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: BarChartWidget(snapshot.data),
+                            )
+                          ],
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      print('bar chart error: ${snapshot}');
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Something went wrong!',
+                              style: TextStyle(
+                                color: mfLettersColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
                 ),
-                child: BarChartWidget(widget.data.userFundraisers),
-                // child: FutureBuilder<List<Fundraiser>>(
-                //   future: widget.fundraisers,
-                //   builder: (context, snapshot) {
-                //     if (snapshot.hasData) {
-                //       return Center(child: Text('CHART'));
-                //     } else if (snapshot.hasError) {
-                //       Center(child: Text('Something went wrong!'));
-                //     }
-                //     return Scaffold(
-                //       body: Center(
-                //         child: CircularProgressIndicator(),
-                //       ),
-                //     );
-                //   },
-                // ),
               ),
               BarsWidget(
                 dashboardData: widget.data,
@@ -95,3 +195,37 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 }
+
+
+// Container(
+//                 margin: EdgeInsets.only(bottom: 20),
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.all(
+//                     Radius.circular(11),
+//                   ),
+//                   color: mfLightGreen,
+//                 ),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Padding(
+//                       padding: const EdgeInsets.fromLTRB(15, 8, 8, 8),
+//                       child: Text(
+//                         'Daily Donations',
+//                         style: TextStyle(
+//                           color: mfSecondaryLetterColor,
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                         textAlign: TextAlign.left,
+//                       ),
+//                     ),
+//                     Container(
+//                       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+//                       width: MediaQuery.of(context).size.width,
+//                       height: MediaQuery.of(context).size.height / 4,
+//                       child: BarChartWidget(widget.data.userFundraisers),
+//                     ),
+//                   ],
+//                 ),
+//               ),

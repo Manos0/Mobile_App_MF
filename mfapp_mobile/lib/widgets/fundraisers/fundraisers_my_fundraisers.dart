@@ -38,67 +38,86 @@ class MyFundraisers extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       child: Column(
         children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  child: myFundImage(data.userFundraisers[0].clientAvatarMD),
-                ),
-              ),
-              Flexible(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        (data.userFundraisers[0].firstName.isNotEmpty
-                                ? data.userFundraisers[0].firstName
-                                : '') +
-                            (data.userFundraisers[0].nickName != null &&
-                                    data.userFundraisers[0].nickName.length > 0
-                                ? ' "' + data.userFundraisers[0].nickName + '"'
-                                : '') +
-                            (data.userFundraisers[0].middleName != null &&
-                                    data.userFundraisers[0].middleName.length >
-                                        0
-                                ? ' ' + data.userFundraisers[0].middleName
-                                : '') +
-                            (data.userFundraisers[0].lastName != null &&
-                                    data.userFundraisers[0].lastName.length > 0
-                                ? ' ' + data.userFundraisers[0].lastName
-                                : ''),
-                        style: TextStyle(
-                            color: mfLettersColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.left,
-                        softWrap: true,
-                      ),
+          Flexible(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(14),
-                  ),
-                  color: mfPrimaryColor,
-                ),
-                child: Text(
-                  creationDate,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                    child: myFundImage(data.userFundraisers[0].clientAvatarMD),
                   ),
                 ),
-              ),
-            ],
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Container(
+                      //   padding: EdgeInsets.all(5),
+                      //   child: Text(
+                      //     'Date Publiced: ' + creationDate,
+                      //     style: TextStyle(
+                      //       color: mfLightGrey,
+                      //       fontSize: 14,
+                      //     ),
+                      //   ),
+                      // ),
+                      Flexible(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            (data.userFundraisers[0].firstName.isNotEmpty
+                                    ? data.userFundraisers[0].firstName
+                                    : '') +
+                                (data.userFundraisers[0].nickName != null &&
+                                        data.userFundraisers[0].nickName
+                                                .length >
+                                            0
+                                    ? ' "' +
+                                        data.userFundraisers[0].nickName +
+                                        '"'
+                                    : '') +
+                                (data.userFundraisers[0].middleName != null &&
+                                        data.userFundraisers[0].middleName
+                                                .length >
+                                            0
+                                    ? ' ' + data.userFundraisers[0].middleName
+                                    : '') +
+                                (data.userFundraisers[0].lastName != null &&
+                                        data.userFundraisers[0].lastName
+                                                .length >
+                                            0
+                                    ? ' ' + data.userFundraisers[0].lastName
+                                    : ''),
+                            style: TextStyle(
+                                color: mfLettersColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.left,
+                            softWrap: true,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          // padding: EdgeInsets.all(5),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Date Publiced: ' + creationDate,
+                            style: TextStyle(
+                              color: mfLightGrey,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -133,7 +152,7 @@ class MyFundraisers extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 3, bottom: 0),
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
             child: LinearPercentIndicator(
               lineHeight: 4,
               percent: fundPercentage(),

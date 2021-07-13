@@ -28,7 +28,8 @@ class _LocationsGridState extends State<LocationsGrid> {
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
-          childAspectRatio: 2,
+          childAspectRatio: MediaQuery.of(context).size.width /
+              (MediaQuery.of(context).size.height / 4),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),

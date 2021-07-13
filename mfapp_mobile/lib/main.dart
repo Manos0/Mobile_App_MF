@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mfapp_mobile/widgets/add_fundraiser/decented_info/form_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,13 @@ import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
 import './screens/search_results_fundraisers.dart';
 import './screens/add_fundraiser/add_fundraiser_screen.dart';
-import './screens/add_fundraiser/decent_profile_and_details_screen.dart';
+import './screens/add_fundraiser/add_fundraiser_image.dart';
+import './screens/add_fundraiser/form_screen.dart';
+import './screens/add_fundraiser/add_contacts_screen.dart';
+import './screens/add_fundraiser/obituary_screen.dart';
+import './screens/add_fundraiser/funeral_service_screen.dart';
+import './screens/splash_screen.dart';
+import './screens/add_fundraiser/funeral_service_preview_screen.dart';
 
 import './providers/auth.dart';
 import './providers/provider.dart';
@@ -72,13 +79,17 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           ),
-          // home: auth.isAuth ? TabsScreen() : AuthScreen(),
-          // initialRoute: AddFundraiserScreen.routeName,
+          // home: SplashScreen(),
+          // initialRoute: SplashScreen(),
           home: auth.isAuth
               ? TabsScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshop) => this._Screen,
+                  builder: (ctx, authResultSnapshop) =>
+                      authResultSnapshop.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : this._Screen,
                 ),
           routes: {
             AuthScreen.routeName: (ctx) => AuthScreen(),
@@ -91,8 +102,13 @@ class MyApp extends StatelessWidget {
             SearchResultsFundraisers.routeName: (ctx) =>
                 SearchResultsFundraisers(),
             AddFundraiserScreen.routeName: (ctx) => AddFundraiserScreen(),
-            DecentProfileAndDetailsScreen.routeName: (ctx) =>
-                DecentProfileAndDetailsScreen(),
+            ImagePickerScreen.routeName: (ctx) => ImagePickerScreen(),
+            FormScreen.routeName: (ctx) => FormScreen(),
+            AddContactsScreen.routeName: (ctx) => AddContactsScreen(),
+            ObituaryScreen.routeName: (ctx) => ObituaryScreen(),
+            FuneralServiceScreen.routeName: (ctx) => FuneralServiceScreen(),
+            FuneralServicePreviewScreen.routeName: (ctx) =>
+                FuneralServicePreviewScreen(),
           },
           onUnknownRoute: (settings) {
             return MaterialPageRoute(

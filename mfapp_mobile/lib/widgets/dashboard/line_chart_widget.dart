@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../bin/colors.dart';
-import '../../providers/user_stats.dart';
 
 class LineChartWidget extends StatelessWidget {
-  final List<UserFundraisers> data;
+  final List<dynamic> data;
 
   LineChartWidget(this.data);
 
@@ -15,20 +14,18 @@ class LineChartWidget extends StatelessWidget {
     mfPrimaryColor,
   ];
 
-  // printSomeData() {
-  //   for (var i = 0; i < data.length; i++) {
-  //     print(data[i].id);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
+    List<FlSpot> spots = data.reversed.toList().asMap().entries.map((e) {
+      return FlSpot(e.key.toDouble(), e.value);
+    }).toList();
+
     return LineChart(
       LineChartData(
         minX: 0,
         maxX: 5,
         minY: 0,
-        maxY: 6,
+        // maxY: 6,
         titlesData: LineTitles.getTitleData(),
         borderData: FlBorderData(
           show: false,
@@ -39,27 +36,24 @@ class LineChartWidget extends StatelessWidget {
         ),
         gridData: FlGridData(
           show: false,
-          // getDrawingHorizontalLine: (value) {
-          //   return FlLine(
-          //     color: const Color(0xff37434d),
-          //     strokeWidth: 1,
-          //   );
-          // },
-          // drawVerticalLine: true,
-          // getDrawingVerticalLine: (value) {
-          //   return FlLine(
-          //     color: const Color(0xff37434d),
-          //     strokeWidth: 1,
-          //   );
-          // },
         ),
         lineBarsData: [
           LineChartBarData(
             spots: spots,
             isCurved: true,
             colors: gradientColors,
-            barWidth: 5,
-            // dotData: FlDotData(show: false),
+            barWidth: 1,
+            dotData: FlDotData(
+              show: true,
+              getDotPainter: (spot, percent, barData, index) {
+                return FlDotCirclePainter(
+                  radius: 5,
+                  color: gradientColors[0],
+                  strokeWidth: 2,
+                  strokeColor: Colors.white,
+                );
+              },
+            ),
             belowBarData: BarAreaData(
               show: false,
               colors: gradientColors
@@ -73,23 +67,6 @@ class LineChartWidget extends StatelessWidget {
   }
 }
 
-final List<double> yValues = [
-  2.2,
-  1.8,
-  3,
-  2.2,
-  4,
-  5.2,
-];
-
-month(i) {
-  return DateFormat.LLL().format(DateTime.now().subtract(Duration(days: i)));
-}
-
-List<FlSpot> spots = yValues.asMap().entries.map((e) {
-  return FlSpot(e.key.toDouble(), e.value);
-}).toList();
-
 class LineTitles {
   static getTitleData() => FlTitlesData(
         show: true,
@@ -98,27 +75,33 @@ class LineTitles {
           reservedSize: 20,
           getTextStyles: (value) => const TextStyle(
             color: mfLettersColor,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w400,
             fontSize: 16,
           ),
           getTitles: (value) {
+            var dateNow = DateTime.now();
             switch (value.toInt()) {
               case 0:
-                return month(150);
+                return DateFormat.LLL()
+                    .format(DateTime(dateNow.year, dateNow.month - 5, 15));
               case 1:
-                return month(120);
+                return DateFormat.LLL()
+                    .format(DateTime(dateNow.year, dateNow.month - 4, 15));
               case 2:
-                return month(90);
+                return DateFormat.LLL()
+                    .format(DateTime(dateNow.year, dateNow.month - 3, 15));
               case 3:
-                return month(60);
+                return DateFormat.LLL()
+                    .format(DateTime(dateNow.year, dateNow.month - 2, 15));
               case 4:
-                return month(30);
+                return DateFormat.LLL()
+                    .format(DateTime(dateNow.year, dateNow.month - 1, 15));
               case 5:
-                return month(0);
+                return DateFormat.LLL().format(dateNow);
             }
             return '';
           },
-          margin: 8,
+          margin: 15,
         ),
         leftTitles: SideTitles(
           showTitles: false,

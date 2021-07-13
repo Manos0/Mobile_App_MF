@@ -30,11 +30,16 @@ class FundraiserSearchbar extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: 'Search Fundraisers',
                       hintStyle: TextStyle(
-                          color: mfSecondaryLetterColor,
+                          color: mfThrirdLetterColor,
                           fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),
                     controller: searchController,
+                    onSubmitted: (value) {
+                      Navigator.of(context).pushNamed(
+                          SearchResultsFundraisers.routeName,
+                          arguments: searchController.text);
+                    },
                   ),
                 ),
               ],

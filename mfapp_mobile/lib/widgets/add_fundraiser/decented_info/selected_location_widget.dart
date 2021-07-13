@@ -11,21 +11,21 @@ class SelectedLocationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: mfPrimaryColor,
-        ),
+        // border: Border.all(
+        //   color: mfPrimaryColor,
+        // ),
+        color: mfLightBlueColor,
         borderRadius: BorderRadius.all(
-          Radius.circular(10),
+          Radius.circular(7),
         ),
       ),
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width / 1,
-      padding: EdgeInsets.symmetric(vertical: 10),
-      margin: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Text(
-        'Selected:' + ' ' + locationName,
+        locationName,
         style: TextStyle(
-          color: mfLettersColor,
+          color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),

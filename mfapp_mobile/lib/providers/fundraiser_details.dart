@@ -63,6 +63,7 @@ class Location {
   final String locationAddress1;
   final String locationAddress2;
   final String locationCity;
+  final String locationPostalCode;
   final int locationState;
   final String locationLogo;
 
@@ -74,6 +75,7 @@ class Location {
     this.locationAddress1,
     this.locationAddress2,
     this.locationCity,
+    this.locationPostalCode,
     this.locationState,
     this.locationLogo,
   });
@@ -87,6 +89,7 @@ class Location {
       locationAddress1: json['Address1'],
       locationAddress2: json['Address2'],
       locationCity: json['City'],
+      locationPostalCode: json['PostalCode'],
       locationState: json['State'],
       locationLogo: json['Logo'],
     );

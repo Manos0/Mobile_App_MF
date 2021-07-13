@@ -87,6 +87,7 @@ class FundraiserFund extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(bottom: 4),
               child: LinearPercentIndicator(
+                padding: EdgeInsets.all(0),
                 lineHeight: 4,
                 percent: fundPercentage(
                     fundraiser.fundRaised, fundraiser.goalAmount),

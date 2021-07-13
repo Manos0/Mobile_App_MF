@@ -9,6 +9,7 @@ import '../providers/fundraiser_details.dart';
 import '../providers/user_details.dart';
 import '../providers/user_stats.dart';
 import '../providers/locations.dart';
+import '../providers/new_fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
   // List<Fundraiser> _fundraiserList = [];
@@ -67,5 +68,51 @@ class Fundraisers with ChangeNotifier {
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedLocations = json.decode(response.body);
     return extractedLocations.map((item) => Locations.fromJson(item)).toList();
+  }
+
+  Future<List<dynamic>> fetchLineChartData() async {
+    final url = Uri.parse(baseUrl + getStats);
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    var extractedData = json.decode(response.body)['MonthlyDonationsAmount'];
+    List<dynamic> monthlyDonations =
+        extractedData != null ? List.from(extractedData) : null;
+    return monthlyDonations;
+  }
+
+  Future<List<dynamic>> fetchBarChartData() async {
+    final url = Uri.parse(baseUrl + getStats);
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    var extractedData = json.decode(response.body)['DailyDonationsCount'];
+    List<dynamic> dailyDonations =
+        extractedData != null ? List.from(extractedData) : null;
+    return dailyDonations;
+  }
+
+  void addNewFundraiser(NewFundraiser data) {
+    var request = {
+      'Contacts': data.contacts,
+      'ClientFirstName': data.firstName,
+      'ClientMiddleName': data.middleName,
+      'ClientLastName': data.lastName,
+      'ClientNickName': data.nickName,
+      'BirthDate': data.birthDate,
+      'PassingDate': data.passingDate,
+      'GoalAmount': data.goalAmount,
+      'Draft': data.draft,
+      'MFVisibility': data.mfvisibility,
+      'ExpirationDate': data.expirationDate,
+      'LocationId': data.fundLocation.id,
+      'Image': {'Name': data.clientAvatar, 'ImageData': data.clientAvatar64}
+    };
+    var requestD = json.encode(request);
+    final url = Uri.parse(baseUrl + createNewFundraiser);
+    http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: requestD);
   }
 }

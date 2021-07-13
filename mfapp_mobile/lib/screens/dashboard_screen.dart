@@ -24,16 +24,30 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   var _isInit = true;
   Future<UserStats> userData;
+  Future<List<dynamic>> lineChartData;
+  Future<List<dynamic>> barChartData;
 
   @override
   void initState() {
-    userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
+    if (_isInit) {
+      userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
+      lineChartData =
+          Provider.of<Fundraisers>(context, listen: false).fetchLineChartData();
+      barChartData =
+          Provider.of<Fundraisers>(context, listen: false).fetchBarChartData();
+    }
+    _isInit = false;
     super.initState();
   }
+
   // @override
   // void didChangeDependencies() {
   //   if (_isInit) {
   //     userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
+  //     lineChartData =
+  //         Provider.of<Fundraisers>(context, listen: false).fetchLineChartData();
+  //     barChartData =
+  //         Provider.of<Fundraisers>(context, listen: false).fetchBarChartData();
   //   }
   //   _isInit = false;
   //   super.didChangeDependencies();
@@ -56,9 +70,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return FutureBuilder<UserStats>(
       future: userData,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return DashboardWidget(snapshot.data);
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          return DashboardWidget(
+            data: snapshot.data,
+            lineData: lineChartData,
+            barData: barChartData,
+          );
         } else if (snapshot.hasError) {
+          print('user stats error: ${snapshot}');
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

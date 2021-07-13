@@ -37,9 +37,10 @@ class ProfileYourFundraisers extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: CircleBorder(),
+                      shadowColor: Colors.black12,
                       padding: EdgeInsets.all(15),
                       primary: mfPrimaryColor40,
-                      elevation: 3,
+                      elevation: 5,
                       side: BorderSide(
                         color: Colors.white,
                       ),
@@ -49,9 +50,9 @@ class ProfileYourFundraisers extends StatelessWidget {
                           context, AddFundraiserScreen.routeName);
                     },
                     child: Icon(
-                      Icons.add_outlined,
+                      Icons.add_sharp,
                       color: mfPrimaryColor,
-                      size: 30,
+                      size: 35,
                     ),
                   ),
                   SizedBox(
@@ -61,9 +62,9 @@ class ProfileYourFundraisers extends StatelessWidget {
                       child: Text(
                         'Add',
                         style: TextStyle(
-                          color: mfPrimaryColor,
+                          color: mfLettersColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -123,7 +124,7 @@ class ProfileYourFundraisers extends StatelessWidget {
                                             data.userFundraisers[index].lastName
                                         : ''),
                                 style: TextStyle(
-                                  color: mfPrimaryColor,
+                                  color: mfLettersColor,
                                   fontFamily: 'Poppins',
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,

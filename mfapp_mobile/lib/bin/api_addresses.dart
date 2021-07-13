@@ -10,5 +10,7 @@ const userStats = '/DesktopModules/sff/api/Mobile/GetUsertats';
 const fundDetails =
     '/DesktopModules/sff/api/Mobile/GetFundraiser?fundraiserId=';
 const searchFund = '/DesktopModules/sff/api/Mobile/FindFundraiser?text=';
-const userData = '/DesktopModules/sff/api/Mobile/GetUsertats?fundraiserCount=';
+const userData = '/DesktopModules/sff/api/Mobile/GetUserStats?fundraiserCount=';
 const locations = '/DesktopModules/sff/API/Locations';
+const getStats = '/DesktopModules/sff/api/Mobile/GetStats';
+const createNewFundraiser = '/DesktopModules/sff/API/Fundraisers';

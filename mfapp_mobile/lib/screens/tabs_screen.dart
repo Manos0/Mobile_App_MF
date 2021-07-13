@@ -61,7 +61,10 @@ class _TabScreenState extends State<TabsScreen> {
         ),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.logout),
+          icon: Icon(
+            Icons.logout,
+            color: mfLettersColor,
+          ),
           tooltip: 'Logout',
           color: Theme.of(context).primaryColor,
           onPressed: () {
@@ -79,6 +82,7 @@ class _TabScreenState extends State<TabsScreen> {
         actions: [
           IconButton(
             icon: cusIcon,
+            color: mfLettersColor,
             onPressed: () {
               setState(() {
                 if (this.cusIcon.icon == Icons.search_rounded) {

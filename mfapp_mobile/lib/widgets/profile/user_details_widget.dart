@@ -5,7 +5,6 @@ import '../../bin/api_addresses.dart';
 import '../../widgets/profile/profile_yourfundraisers.dart';
 import '../../widgets/profile/funds_total_and_raised.dart';
 import '../../widgets/profile/cubes_bottom.dart';
-import '../../widgets/profile/add_fundraiser_button.dart';
 
 class UserDetailsWidget extends StatelessWidget {
   final userData;
@@ -18,12 +17,12 @@ class UserDetailsWidget extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 16, right: 16, top: 10),
+          margin: EdgeInsets.only(left: 16, right: 16),
           child: Column(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(top: 10, bottom: 25),
+                margin: EdgeInsets.only(bottom: 25),
                 child: Row(
                   children: [
                     Padding(
