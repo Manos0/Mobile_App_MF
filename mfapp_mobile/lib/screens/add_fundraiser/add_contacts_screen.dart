@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 import '../../bin/colors.dart';
 import '../../providers/new_fundraiser.dart';
@@ -107,6 +106,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
                                             child: Image(
                                               width: 50,
                                               height: 50,
+                                              fit: BoxFit.fill,
                                               image: AssetImage(
                                                 'assets/images/helperImage.png',
                                               ),
@@ -123,6 +123,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
                                             child: Image(
                                               width: 55,
                                               height: 55,
+                                              fit: BoxFit.fill,
                                               image: FileImage(
                                                 locationData.contacts[index]
                                                     .contactImage,

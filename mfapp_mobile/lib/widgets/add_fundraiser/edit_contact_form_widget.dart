@@ -100,12 +100,11 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                                     if (newIndex == 0) {
                                       selectedType[0] = true;
                                       selectedType[1] = false;
-                                      widget.contact.contactType =
-                                          'Relative/Next of Kin';
+                                      widget.contact.contactType = 1;
                                     } else {
                                       selectedType[0] = false;
                                       selectedType[1] = true;
-                                      widget.contact.contactType = 'Survivor';
+                                      widget.contact.contactType = 2;
                                       setState(() {});
                                     }
                                   }
@@ -243,6 +242,7 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                                               Radius.circular(20),
                                             ),
                                             image: DecorationImage(
+                                              fit: BoxFit.fill,
                                               image: FileImage(
                                                   widget.contact.contactImage),
                                             ),

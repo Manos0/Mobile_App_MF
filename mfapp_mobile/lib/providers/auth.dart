@@ -9,7 +9,6 @@ import '../bin/api_addresses.dart';
 
 class Auth with ChangeNotifier {
   String _token;
-  String _renewToken;
   String _username;
   String _password;
   // bool _rememberMe = false;
@@ -49,7 +48,6 @@ class Auth with ChangeNotifier {
     _password = password;
     final responseData = json.decode(response.body);
     _token = responseData['accessToken'];
-    _renewToken = responseData['renewalToken'];
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getBool('rememberMe')) {

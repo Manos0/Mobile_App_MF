@@ -47,7 +47,14 @@ class MyFundraisers extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(5),
                     ),
-                    child: myFundImage(data.userFundraisers[0].clientAvatarMD),
+                    child: FadeInImage(
+                      placeholder: AssetImage('assets/images/helperImage.png'),
+                      image:
+                          myFundImage(data.userFundraisers[0].clientAvatarMD),
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Flexible(

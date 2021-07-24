@@ -103,12 +103,11 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                                     if (newIndex == 0) {
                                       selectedType[0] = true;
                                       selectedType[1] = false;
-                                      contact.contactType =
-                                          'Relative/Next of Kin';
+                                      contact.contactType = 1;
                                     } else {
                                       selectedType[0] = false;
                                       selectedType[1] = true;
-                                      contact.contactType = 'Survivor';
+                                      contact.contactType = 2;
                                       setState(() {});
                                     }
                                   }
@@ -234,6 +233,7 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                                               Radius.circular(20),
                                             ),
                                             image: DecorationImage(
+                                              fit: BoxFit.fill,
                                               image: FileImage(contactImage),
                                             ),
                                           ),
@@ -392,7 +392,7 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                                 if (data.contacts == null)
                                   data.contacts = List.empty(growable: true);
                                 if (contact.contactType == null)
-                                  contact.contactType = 'Relative/Next of Kin';
+                                  contact.contactType = 1;
                                 data.contacts.add(contact);
                                 widget.locationData.contacts = data.contacts;
                                 Navigator.of(context).pop();

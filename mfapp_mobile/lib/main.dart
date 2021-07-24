@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/widgets/add_fundraiser/decented_info/form_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +20,6 @@ import './screens/add_fundraiser/form_screen.dart';
 import './screens/add_fundraiser/add_contacts_screen.dart';
 import './screens/add_fundraiser/obituary_screen.dart';
 import './screens/add_fundraiser/funeral_service_screen.dart';
-import './screens/splash_screen.dart';
 import './screens/add_fundraiser/funeral_service_preview_screen.dart';
 
 import './providers/auth.dart';
@@ -85,11 +83,7 @@ class MyApp extends StatelessWidget {
               ? TabsScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshop) =>
-                      authResultSnapshop.connectionState ==
-                              ConnectionState.waiting
-                          ? SplashScreen()
-                          : this._Screen,
+                  builder: (ctx, authResultSnapshop) => this._Screen,
                 ),
           routes: {
             AuthScreen.routeName: (ctx) => AuthScreen(),

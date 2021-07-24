@@ -26,7 +26,7 @@ class StoryWidget extends StatelessWidget {
           ),
         ),
         ReadMoreText(
-          '${content}',
+          content,
           style: TextStyle(
             color: Color.fromRGBO(103, 107, 127, 1),
             fontFamily: 'Poppins',

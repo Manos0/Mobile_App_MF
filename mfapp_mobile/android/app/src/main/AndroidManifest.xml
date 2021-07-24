@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mfapp_mobile">
+   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="mfapp_mobile"
+        android:label="Memorial Fundraising"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

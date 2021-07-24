@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/bin/colors.dart';
 
 import '../../bin/api_addresses.dart';
 import '../../widgets/profile/profile_yourfundraisers.dart';
@@ -27,12 +26,27 @@ class UserDetailsWidget extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: CircleAvatar(
-                        radius: 35.5,
-                        backgroundImage: NetworkImage(
-                            baseUrl + userData.userDetails.photoUrl),
+                      child: ClipOval(
+                        child: FadeInImage(
+                          placeholder:
+                              AssetImage('assets/images/helperImage.png'),
+                          image: NetworkImage(
+                              baseUrl + userData.userDetails.photoUrl),
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(right: 16),
+                    //   child: CircleAvatar(
+                    //     radius: 35.5,
+                    //     backgroundImage: NetworkImage(
+                    //       baseUrl + userData.userDetails.photoUrl,
+                    //     ),
+                    //   ),
+                    // ),
                     Flexible(
                       child: Text(
                         'Hello,' + ' ' + '${userData.userDetails.displayName}',

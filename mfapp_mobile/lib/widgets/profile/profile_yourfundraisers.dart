@@ -85,19 +85,37 @@ class ProfileYourFundraisers extends StatelessWidget {
                         margin: EdgeInsets.only(right: 20),
                         child: Column(
                           children: [
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundImage: fundImage(
-                                  data.userFundraisers[index].clientAvatarMD),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      FundraiserDetailScreen.routeName,
-                                      arguments:
-                                          data.userFundraisers[index].id);
-                                },
+                            GestureDetector(
+                              child: ClipOval(
+                                child: FadeInImage(
+                                  placeholder: AssetImage(
+                                      'assets/images/MF-App-Loader.gif'),
+                                  image: yourfundImage(data
+                                      .userFundraisers[index].clientAvatarMD),
+                                  width: 65,
+                                  height: 65,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    FundraiserDetailScreen.routeName,
+                                    arguments: data.userFundraisers[index].id);
+                              },
                             ),
+                            // CircleAvatar(
+                            //   radius: 35,
+                            //   backgroundImage: fundImage(
+                            //       data.userFundraisers[index].clientAvatarMD),
+                            //   child: GestureDetector(
+                            // onTap: () {
+                            //   Navigator.of(context).pushNamed(
+                            //       FundraiserDetailScreen.routeName,
+                            //       arguments:
+                            //           data.userFundraisers[index].id);
+                            // },
+                            //   ),
+                            // ),
                             SizedBox(
                               width: 65,
                               height: 50,

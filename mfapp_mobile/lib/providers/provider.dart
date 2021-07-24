@@ -94,6 +94,7 @@ class Fundraisers with ChangeNotifier {
     var request = {
       'Contacts': data.contacts,
       'ClientFirstName': data.firstName,
+      'Template': data.template,
       'ClientMiddleName': data.middleName,
       'ClientLastName': data.lastName,
       'ClientNickName': data.nickName,
@@ -104,7 +105,37 @@ class Fundraisers with ChangeNotifier {
       'MFVisibility': data.mfvisibility,
       'ExpirationDate': data.expirationDate,
       'LocationId': data.fundLocation.id,
-      'Image': {'Name': data.clientAvatar, 'ImageData': data.clientAvatar64}
+      'LiveWebcast': data.funeralService.venueWebCast != null
+          ? data.funeralService.venueWebCast
+          : null,
+      'Image': {'Name': data.clientAvatar, 'ImageData': data.clientAvatar64},
+      'TemplateOptions': json.encode({
+        if (data.textSelection != null) 'textSelection': data.textSelection,
+        if (data.author != null) 'author': data.author,
+        if (data.eventTime != null) 'eventTime': data.eventTime,
+        if (data.eventDate != null) 'eventDate': data.eventTime,
+        if (data.gender != null) 'gender': data.gender
+      }),
+      'FuneralService': json.encode({
+        if (data.funeralService.venueName != null)
+          'Venue': data.funeralService.venueName,
+        if (data.funeralService.venuePhoneNumber != null)
+          'VenuePhoneNumber': data.funeralService.venuePhoneNumber,
+        if (data.funeralService.venueAddress != null)
+          'Address': data.funeralService.venueAddress,
+        if (data.funeralService.venueCity != null)
+          'City': data.funeralService.venueCity,
+        if (data.funeralService.venueState != null)
+          'State': data.funeralService.venueState,
+        if (data.funeralService.venueZipCode != null)
+          'ZipCode': data.funeralService.venueZipCode,
+        if (data.funeralService.venueDate != null)
+          'Date': data.funeralService.venueDate,
+        if (data.funeralService.venueTime != null)
+          'Time': data.funeralService.venueTime,
+        if (data.funeralService.venueAdditionalInfo != null)
+          'AdditionalInfo': data.funeralService.venueAdditionalInfo,
+      }),
     };
     var requestD = json.encode(request);
     final url = Uri.parse(baseUrl + createNewFundraiser);

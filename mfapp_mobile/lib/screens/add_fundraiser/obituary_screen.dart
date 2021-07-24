@@ -23,12 +23,17 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
   ];
   List<bool> isSelected = [true, false];
   List<bool> selectedGender = [true, false];
+  List<bool> selectedGenderFam = [true, false];
+  List<bool> selectedGenderSud = [true, false];
+  List<bool> selectedGenderATE = [true, false];
   bool writenByYou = false;
   bool checkedValue = false;
   bool checkedValueFam = false;
   bool checkedValueSud = false;
   bool checkedValueATE = false;
   String gend = 'him';
+  String gendFamily = 'him';
+  String gendSudden = 'him';
   String fromTheFamily1 = 'I am';
   String fromTheFamily2 = 'I';
   String fromTheFamily3 = '';
@@ -41,8 +46,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
   String aTegend1 = 'man';
   String aTegend2 = 'His';
   String _chosenValue = 'Default Template';
-  // static const values = <String>['Morning', 'Evening'];
-  static const values = <String>['early morning hours', 'late evening hours'];
+  static const values = <String>['morning', 'evening'];
   String selectedValue = values.first;
   final _controllerWritenByYou = TextEditingController();
   final _controllerFullName = TextEditingController();
@@ -53,6 +57,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
   final _controllerATE = TextEditingController();
   TextEditingController _selectedDateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  String occured = 'early morning hours';
 
   _selectBDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -86,7 +91,15 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                   fontSize: 14,
                 ),
               ),
-              onChanged: (value) => setState(() => this.selectedValue = value),
+              onChanged: (value) => setState(() {
+                if (selectedValue == 'morning') {
+                  this.selectedValue = value;
+                  return occured = 'late evening hours';
+                } else {
+                  this.selectedValue = value;
+                  return occured = 'early morning hours';
+                }
+              }),
             ),
           );
         }).toList(),
@@ -101,13 +114,13 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
     _controllerDefaultTemplate.text =
         'The ${locationData.lastName} family is deeply saddened to announce the passing of ${locationData.firstName} and offers a special way to honor $gend.\n\nIn lieu of flowers, food, sympathy cards or charitable donations the family is requesting donations by clicking on the \'Donate Now\' button in order to allow those who loved and knew $gend the answer to the question...\“Is there anything I can do?\”.\n\nWhile donating you will be able to offer your condolences by writing a message which will appear below as well as choose to remain anonymous.\n\nAll donations are directly deposited to ${locationData.fundLocation.name} for complete transparency & security.\n\n${locationData.fundLocation.name} has been entrusted with funeral arrangements.';
     _controllerFromTheFamily.text =
-        '$fromTheFamily1 deeply saddened to announce the passing of my beloved ${locationData.firstName} ${locationData.lastName} and have decided to honor $gend by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and $fromTheFamily2 thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then $fromTheFamily2 ask that you please click and \"Share this Fundraiser\" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n$fromTheFamily3';
+        '$fromTheFamily1 deeply saddened to announce the passing of my beloved ${locationData.firstName} ${locationData.lastName} and have decided to honor $gendFamily by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and $fromTheFamily2 thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then $fromTheFamily2 ask that you please click and \"Share this Fundraiser\" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n$fromTheFamily3';
     _controllerFromTheDeceased.text =
         '"Hello Family and Friends. I want to thank everyone for their thoughts and prayers. I know my family and friends will miss me dearly, but this is not goodbye, this is... ‘we will meet again’. Until then, I would truly appreciate, and ask in lieu of flowers, food or charitable donations, that a contribution be made to my fundraiser and... I thank you in advance. In order to donate, please click on the \'Donate\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences as well as choose to have your name or contribution amount remain anonymous.\n\nIf you are unable to donate then I ask that you please click on the ‘Share This Fundraiser’ button located under the ‘Donate Now’ button. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nMay my smile forever stay within your heart.\n\n${locationData.firstName}${locationData.nickName == null ? '' : ' ' + locationData.nickName}${locationData.middleName == null ? '' : ' ' + locationData.middleName} ${locationData.lastName}';
     _controllerSuddenPassing.text =
         '$sudden1 deeply saddened to announce the sudden passing of our beloved ${locationData.firstName} ${locationData.lastName}. With this passing being so sudden, $sudden2 ${locationData.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and $sudden3 thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then $sudden3 ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n$sudden4';
     _controllerATE.text =
-        'In the $selectedValue of $formatted my family and I suffered a major loss. ${locationData.firstName} was an amazing $aTegend1 loved by many and will be missed by all. $aTegend2 untimely passing has left us with many unexpected financial burdens. $aTE1 have decided to honor my ${locationData.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and $aTE1 thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then $aTE1 ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n$aTE2';
+        'In the $occured of $formatted my family and I suffered a major loss. ${locationData.firstName} was an amazing $aTegend1 loved by many and will be missed by all. $aTegend2 untimely passing has left us with many unexpected financial burdens. $aTE1 have decided to honor my ${locationData.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and $aTE1 thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then $aTE1 ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n$aTE2';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -199,15 +212,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                     ),
                   ),
                   child: TextField(
-                    onSubmitted: (value) {
-                      setState(() {
-                        locationData.obituary = '';
-                        locationData.template = false;
-                        locationData.obituary = _controllerWritenByYou.text;
-                      });
-                    },
                     controller: _controllerWritenByYou,
-                    // keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.done,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -366,7 +371,6 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                             selectedGender[0] = false;
                                             selectedGender[1] = true;
                                             gend = 'her';
-                                            setState(() {});
                                           }
                                         }
                                       },
@@ -482,7 +486,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                     ),
                                   ),
                                   ToggleButtons(
-                                    isSelected: selectedGender,
+                                    isSelected: selectedGenderFam,
                                     selectedColor: Colors.white,
                                     color: mfLightGrey,
                                     fillColor: mfPrimaryColor,
@@ -499,17 +503,16 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                       setState(
                                         () {
                                           for (int index = 0;
-                                              index < selectedGender.length;
+                                              index < selectedGenderFam.length;
                                               index++) {
                                             if (newIndex == 0) {
-                                              selectedGender[0] = true;
-                                              selectedGender[1] = false;
-                                              gend = 'him';
+                                              selectedGenderFam[0] = true;
+                                              selectedGenderFam[1] = false;
+                                              gendFamily = 'him';
                                             } else {
-                                              selectedGender[0] = false;
-                                              selectedGender[1] = true;
-                                              gend = 'her';
-                                              setState(() {});
+                                              selectedGenderFam[0] = false;
+                                              selectedGenderFam[1] = true;
+                                              gendFamily = 'her';
                                             }
                                           }
                                         },
@@ -658,7 +661,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                     ),
                                   ),
                                   ToggleButtons(
-                                    isSelected: selectedGender,
+                                    isSelected: selectedGenderSud,
                                     selectedColor: Colors.white,
                                     color: mfLightGrey,
                                     fillColor: mfPrimaryColor,
@@ -675,17 +678,16 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                       setState(
                                         () {
                                           for (int index = 0;
-                                              index < selectedGender.length;
+                                              index < selectedGenderSud.length;
                                               index++) {
                                             if (newIndex == 0) {
-                                              selectedGender[0] = true;
-                                              selectedGender[1] = false;
-                                              gend = 'him';
+                                              selectedGenderSud[0] = true;
+                                              selectedGenderSud[1] = false;
+                                              gendSudden = 'him';
                                             } else {
-                                              selectedGender[0] = false;
-                                              selectedGender[1] = true;
-                                              gend = 'her';
-                                              setState(() {});
+                                              selectedGenderSud[0] = false;
+                                              selectedGenderSud[1] = true;
+                                              gendSudden = 'her';
                                             }
                                           }
                                         },
@@ -806,7 +808,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                     ),
                                   ),
                                   ToggleButtons(
-                                    isSelected: selectedGender,
+                                    isSelected: selectedGenderATE,
                                     selectedColor: Colors.white,
                                     color: mfLightGrey,
                                     fillColor: mfPrimaryColor,
@@ -823,19 +825,18 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                       setState(
                                         () {
                                           for (int index = 0;
-                                              index < selectedGender.length;
+                                              index < selectedGenderATE.length;
                                               index++) {
                                             if (newIndex == 0) {
-                                              selectedGender[0] = true;
-                                              selectedGender[1] = false;
+                                              selectedGenderATE[0] = true;
+                                              selectedGenderATE[1] = false;
                                               aTegend1 = 'man';
                                               aTegend2 = 'His';
                                             } else {
-                                              selectedGender[0] = false;
-                                              selectedGender[1] = true;
+                                              selectedGenderATE[0] = false;
+                                              selectedGenderATE[1] = true;
                                               aTegend1 = 'woman';
                                               aTegend2 = 'Her';
-                                              setState(() {});
                                             }
                                           }
                                         },
@@ -932,24 +933,72 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (_chosenValue == 'Default Template') {
-                      locationData.obituary = _controllerDefaultTemplate.text;
-                      locationData.template = true;
-                    } else if (_chosenValue == 'From the family') {
-                      locationData.obituary = _controllerFromTheFamily.text;
-                      locationData.template = true;
-                    } else if (_chosenValue == 'From the deceased') {
-                      locationData.obituary = _controllerFromTheDeceased.text;
-                      locationData.template = true;
-                    } else if (_chosenValue == 'Sudden passing') {
-                      locationData.obituary = _controllerSuddenPassing.text;
-                      locationData.template = true;
-                    } else if (_chosenValue == 'Accident / Tragedy / Event') {
-                      locationData.obituary = _controllerATE.text;
-                      locationData.template = true;
+                    if (writenByYou) {
+                      locationData.obituary = _controllerWritenByYou.text;
+                      locationData.template = false;
+                    } else {
+                      if (_chosenValue == 'Default Template') {
+                        // locationData.obituary = _controllerDefaultTemplate.text;
+                        locationData.obituary = null;
+                        locationData.template = true;
+                        locationData.textSelection = 1;
+                        locationData.eventTime = null;
+                        locationData.eventDate = null;
+                        if (gend == 'him') {
+                          locationData.gender = 'male';
+                        } else {
+                          locationData.gender = 'female';
+                        }
+                      } else if (_chosenValue == 'From the family') {
+                        // locationData.obituary = _controllerFromTheFamily.text;
+                        locationData.obituary = null;
+                        locationData.template = true;
+                        locationData.textSelection = 2;
+                        locationData.eventTime = null;
+                        locationData.eventDate = null;
+                        if (gendFamily == 'him') {
+                          locationData.gender = 'male';
+                        } else {
+                          locationData.gender = 'female';
+                        }
+                      } else if (_chosenValue == 'From the deceased') {
+                        // locationData.obituary = _controllerFromTheDeceased.text;
+                        locationData.obituary = null;
+                        locationData.template = true;
+                        locationData.textSelection = 3;
+                        locationData.eventTime = null;
+                        locationData.eventDate = null;
+                        locationData.gender = null;
+                      } else if (_chosenValue == 'Sudden passing') {
+                        // locationData.obituary = _controllerSuddenPassing.text;
+                        locationData.obituary = null;
+                        locationData.template = true;
+                        locationData.textSelection = 4;
+                        locationData.eventTime = null;
+                        locationData.eventDate = null;
+                        if (gendSudden == 'him') {
+                          locationData.gender = 'male';
+                        } else {
+                          locationData.gender = 'female';
+                        }
+                      } else if (_chosenValue == 'Accident / Tragedy / Event') {
+                        // locationData.obituary = _controllerATE.text;
+                        locationData.obituary = null;
+                        locationData.template = true;
+                        locationData.textSelection = 5;
+                        if (aTegend1 == 'man') {
+                          locationData.gender = 'male';
+                        } else {
+                          locationData.gender = 'female';
+                        }
+                        if (occured == 'early morning hours') {
+                          locationData.eventTime = 'morning';
+                        } else if (occured == 'late evening hours') {
+                          locationData.eventTime = 'evening';
+                        }
+                        locationData.eventDate = selectedDate.toString();
+                      }
                     }
-                    // Provider.of<Fundraisers>(context, listen: false)
-                    //     .addNewFundraiser(locationData);
                     Navigator.pushNamed(context, FuneralServiceScreen.routeName,
                         arguments: locationData);
                   },

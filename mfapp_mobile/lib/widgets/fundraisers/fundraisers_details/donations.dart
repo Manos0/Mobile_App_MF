@@ -112,7 +112,7 @@ class Donations extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '${payDate}',
+                                  '$payDate',
                                   style: TextStyle(
                                     color: mfLightGrey,
                                     fontSize: 14,

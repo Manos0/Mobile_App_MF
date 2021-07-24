@@ -109,7 +109,7 @@ class FuneralServicesWidget extends StatelessWidget {
                         padding: EdgeInsets.all(0),
                         onPressed: () async {
                           String address =
-                              '${locationAddress1}${locationCity}${locationPostal}${locationName}';
+                              '$locationAddress1$locationCity$locationPostal$locationName';
                           // String address =
                           //     '${locationAddress1}${locationCity}${locationPostal}';
                           String query = Uri.encodeFull(address);
@@ -168,7 +168,7 @@ class FuneralServicesWidget extends StatelessWidget {
                             EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                           ),
                         ),
-                        onPressed: () => launch('mailto:${locationEmail}'),
+                        onPressed: () => launch('mailto:$locationEmail'),
                       ),
                     ),
                     Container(
@@ -202,7 +202,7 @@ class FuneralServicesWidget extends StatelessWidget {
                             EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                           ),
                         ),
-                        onPressed: () => launch('tel://${locationPhone}'),
+                        onPressed: () => launch('tel://$locationPhone'),
                       ),
                     ),
                   ],

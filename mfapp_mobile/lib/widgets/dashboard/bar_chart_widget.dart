@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mfapp_mobile/bin/colors.dart';
 
-import '../../providers/bar_data.dart';
 import '../../providers/data.dart';
 
 class BarChartWidget extends StatelessWidget {

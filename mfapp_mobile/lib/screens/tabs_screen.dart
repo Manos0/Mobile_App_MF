@@ -8,7 +8,6 @@ import './profile_screen.dart';
 import '../widgets/fundraisers/fundraiser_searchbar.dart';
 import '../providers/auth.dart';
 import '../screens/auth_screen.dart';
-import '../screens/settings_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const String routeName = "/tabs_screen";

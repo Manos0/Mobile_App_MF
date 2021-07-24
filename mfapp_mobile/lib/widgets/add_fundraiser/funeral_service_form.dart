@@ -19,9 +19,13 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _selectedDateController = TextEditingController();
   final _controllerAdditionalInfo = TextEditingController();
+  final _controllerWebCast = TextEditingController();
   String info;
   DateTime selectedDate = DateTime.now();
   FuneralService funeral = FuneralService();
+  String name;
+  String address;
+  String number;
 
   _selectBDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -63,6 +67,8 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                     if (val.isEmpty) {
                       return null;
                     } else {
+                      name = '\"Venue\":\"$val\",';
+                      print(name);
                       return funeral.venueName = val;
                     }
                   },
@@ -83,6 +89,8 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                     if (val.isEmpty) {
                       return null;
                     } else {
+                      number = '\"VenuePhoneNumber\":\"$val\",';
+                      print(number);
                       return funeral.venuePhoneNumber = val.toString();
                     }
                   },
@@ -104,6 +112,8 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                     if (val.isEmpty) {
                       return null;
                     } else {
+                      address = '\"Address\":\"$val\",';
+                      print(address);
                       return funeral.venueAddress = val.toString();
                     }
                   },
@@ -184,7 +194,11 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   child: TextFormField(
                     style: TextStyle(color: mfPrimaryColor),
                     onSaved: (val) {
-                      funeral.venueDate = selectedDate.toString();
+                      if (val.isEmpty) {
+                        return null;
+                      } else {
+                        return funeral.venueDate = selectedDate.toString();
+                      }
                     },
                     controller: _selectedDateController,
                     decoration: InputDecoration(
@@ -214,6 +228,26 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                       borderRadius: BorderRadius.circular(7),
                       borderSide: BorderSide(color: mfPrimaryColor),
                     ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 8, bottom: 8),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      funeral.venueWebCast = _controllerWebCast.text;
+                    });
+                  },
+                  controller: _controllerWebCast,
+                  keyboardType: TextInputType.url,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      borderSide: BorderSide(color: mfPrimaryColor),
+                    ),
+                    labelText: 'Live Webcast',
                   ),
                 ),
               ),
@@ -269,7 +303,9 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                       venueZipCode: funeral.venueZipCode,
                       venueDate: funeral.venueDate,
                       venueTime: funeral.venueTime,
+                      venueWebCast: funeral.venueWebCast,
                       venueAdditionalInfo: funeral.venueAdditionalInfo,
+                      service: '{$name$number$address}',
                     );
                     widget.data.funeralService = newService;
                     Navigator.pushNamed(

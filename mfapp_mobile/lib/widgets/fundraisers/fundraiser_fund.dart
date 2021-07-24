@@ -29,19 +29,28 @@ class FundraiserFund extends StatelessWidget {
                         FundraiserDetailScreen.routeName,
                         arguments: fundraiser.id);
                   },
-                  child: Container(
+                  child: FadeInImage(
+                    placeholder: AssetImage('assets/images/helperImage.png'),
+                    image: fundImage(fundraiser.clientAvatarMD),
                     width: MediaQuery.of(context).size.width,
                     height: (MediaQuery.of(context).size.width < 768
                         ? MediaQuery.of(context).size.height / 6
                         : MediaQuery.of(context).size.height / 3),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: fundImage(fundraiser.clientAvatarMD),
-                      ),
-                      shape: BoxShape.rectangle,
-                    ),
+                    fit: BoxFit.fill,
                   ),
+                  // child: Container(
+                  //   width: MediaQuery.of(context).size.width,
+                  // height: (MediaQuery.of(context).size.width < 768
+                  //     ? MediaQuery.of(context).size.height / 6
+                  //     : MediaQuery.of(context).size.height / 3),
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       fit: BoxFit.fill,
+                  //       image: fundImage(fundraiser.clientAvatarMD),
+                  //     ),
+                  //     shape: BoxShape.rectangle,
+                  //   ),
+                  // ),
                 ),
               ),
             ),

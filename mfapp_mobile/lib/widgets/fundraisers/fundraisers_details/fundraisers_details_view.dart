@@ -78,7 +78,7 @@ class FundraisersDetailsView extends StatelessWidget {
                 width: 130,
                 height: 130,
               ),
-              Text('${birth} - ${passing}'),
+              Text('$birth - $passing'),
               Container(
                 margin: EdgeInsets.only(top: 17, bottom: 30),
                 width: MediaQuery.of(context).size.width,

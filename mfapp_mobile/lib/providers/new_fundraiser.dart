@@ -19,6 +19,11 @@ class NewFundraiser with ChangeNotifier {
   String dateCreated;
   String expirationDate;
   String obituary;
+  int textSelection;
+  bool author;
+  String eventTime;
+  String eventDate;
+  String gender;
   double fundRaised;
   bool template;
   bool draft;
@@ -52,6 +57,11 @@ class NewFundraiser with ChangeNotifier {
     this.draft,
     this.mfvisibility,
     this.funeralService,
+    this.textSelection,
+    this.gender,
+    this.author,
+    this.eventDate,
+    this.eventTime,
   });
 }
 
@@ -120,7 +130,7 @@ class NewFundLocation {
 class Contacts {
   String image;
   String image64;
-  String contactType;
+  int contactType;
   String firstName;
   String lastName;
   String relationship;
@@ -147,7 +157,7 @@ class Contacts {
       "Relationship": this.relationship,
       "PrimaryPhone": this.phoneNumber,
       "Email": this.email,
-      "Type": 1
+      "Type": this.contactType
     };
   }
 }
@@ -162,6 +172,8 @@ class FuneralService {
   String venueDate;
   String venueTime;
   String venueAdditionalInfo;
+  String venueWebCast;
+  String service;
 
   FuneralService({
     this.venueName,
@@ -173,5 +185,7 @@ class FuneralService {
     this.venueDate,
     this.venueTime,
     this.venueAdditionalInfo,
+    this.venueWebCast,
+    this.service,
   });
 }

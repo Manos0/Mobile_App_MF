@@ -69,7 +69,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ),
                       );
                     } else if (snapshot.hasError) {
-                      print('line chart error: ${snapshot}');
+                      print('line chart error: $snapshot');
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +138,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ),
                       );
                     } else if (snapshot.hasError) {
-                      print('bar chart error: ${snapshot}');
+                      print('bar chart error: $snapshot');
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
