@@ -87,7 +87,7 @@ class FundraiserFund extends StatelessWidget {
                 '\$${fundraiser.fundRaised.toStringAsFixed(0)}',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: mfLightBlueColor,
                   fontFamily: 'Poppins',
                   fontSize: 16,
                 ),
@@ -101,7 +101,7 @@ class FundraiserFund extends StatelessWidget {
                 percent: fundPercentage(
                     fundraiser.fundRaised, fundraiser.goalAmount),
                 backgroundColor: Colors.grey[300],
-                progressColor: Theme.of(context).primaryColor,
+                progressColor: mfLightBlueColor,
               ),
             ),
             Row(

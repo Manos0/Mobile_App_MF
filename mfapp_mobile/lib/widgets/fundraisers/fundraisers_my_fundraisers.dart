@@ -112,7 +112,7 @@ class MyFundraisers extends StatelessWidget {
                           // padding: EdgeInsets.all(5),
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Date Publiced: ' + creationDate,
+                            'Published: ' + creationDate,
                             style: TextStyle(
                               color: mfLightGrey,
                               fontSize: 14,
@@ -126,37 +126,37 @@ class MyFundraisers extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Raised',
-                style: TextStyle(
-                  color: Color.fromRGBO(128, 128, 128, 1),
-                  fontFamily: 'Poppins',
-                  fontSize: 13,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Text(
-                  '\$${data.userFundraisers[0].fundRaised.toStringAsFixed(0)}',
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Raised',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    color: Color.fromRGBO(128, 128, 128, 1),
                     fontFamily: 'Poppins',
-                    fontSize: 16,
+                    fontSize: 13,
                   ),
                 ),
-              ),
-              Text(
-                'of \$${data.userFundraisers[0].goalAmount.toStringAsFixed(0)}',
-                style: TextStyle(
-                  color: Color.fromRGBO(128, 128, 128, 1),
-                  fontFamily: 'Poppins',
-                  fontSize: 13,
+                Text(
+                  ' \$${data.userFundraisers[0].fundRaised.toStringAsFixed(0)} ',
+                  style: TextStyle(
+                    color: mfLightBlueColor,
+                    fontFamily: 'Poppins',
+                    fontSize: 13,
+                  ),
                 ),
-              ),
-            ],
+                Text(
+                  'of \$${data.userFundraisers[0].goalAmount.toStringAsFixed(0)}',
+                  style: TextStyle(
+                    color: Color.fromRGBO(128, 128, 128, 1),
+                    fontFamily: 'Poppins',
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5, bottom: 5),

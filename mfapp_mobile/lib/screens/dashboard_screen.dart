@@ -59,7 +59,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       username = prefs.getString('username');
       password = prefs.getString('password');
       await Provider.of<Auth>(context, listen: false).login(username, password);
-      await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      await Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => TabsScreen(),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
+      // await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
     } else {
       await Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
     }

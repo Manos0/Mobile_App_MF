@@ -80,7 +80,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                             ),
                             image: DecorationImage(
                               image: FileImage(locationData.galleryImage),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         )

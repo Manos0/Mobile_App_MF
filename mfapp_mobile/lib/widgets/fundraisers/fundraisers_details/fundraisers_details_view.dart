@@ -63,7 +63,7 @@ class FundraisersDetailsView extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10, bottom: 5),
+                margin: EdgeInsets.only(top: 8, bottom: 8),
                 child: CircularPercentIndicator(
                   radius: 130,
                   lineWidth: 10,
@@ -73,14 +73,16 @@ class FundraisersDetailsView extends StatelessWidget {
                   center: fundDetailImage(data.clientAvatarMD),
                   backgroundColor: Colors.grey[200],
                   circularStrokeCap: CircularStrokeCap.round,
-                  progressColor: Theme.of(context).primaryColor,
+                  progressColor: mfLightBlueColor,
                 ),
                 width: 130,
                 height: 130,
               ),
               Text('$birth - $passing'),
               Container(
-                margin: EdgeInsets.only(top: 17, bottom: 30),
+                margin: EdgeInsets.only(top: 8, bottom: 40),
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                 width: MediaQuery.of(context).size.width,
                 decoration: new BoxDecoration(
                   borderRadius: new BorderRadius.circular(13.0),
@@ -89,41 +91,32 @@ class FundraisersDetailsView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 24),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Text(
-                              '\$${data.fundRaised.toStringAsFixed(0)}',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontFamily: 'Poppins',
-                                fontSize: 16,
-                              ),
-                            ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$${data.fundRaised.toStringAsFixed(0)} ',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
                           ),
-                          Text(
-                            'Raised of \$${data.goalAmount.toStringAsFixed(0)}',
-                            style: TextStyle(
-                              color: Color.fromRGBO(128, 128, 128, 1),
-                              fontFamily: 'Poppins',
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 24),
-                      child: Text(
-                        '${(fundPercentage(data.fundRaised, data.goalAmount) * 100).toStringAsFixed(2)}%',
-                        style: TextStyle(
-                          color: Color.fromRGBO(128, 128, 128, 1),
-                          fontFamily: 'Poppins',
-                          fontSize: 13,
                         ),
+                        Text(
+                          'Raised of \$${data.goalAmount.toStringAsFixed(0)}',
+                          style: TextStyle(
+                            color: Color.fromRGBO(128, 128, 128, 1),
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '${(fundPercentage(data.fundRaised, data.goalAmount) * 100).toStringAsFixed(2)}%',
+                      style: TextStyle(
+                        color: Color.fromRGBO(128, 128, 128, 1),
+                        fontFamily: 'Poppins',
+                        fontSize: 13,
                       ),
                     ),
                   ],
@@ -135,39 +128,6 @@ class FundraisersDetailsView extends StatelessWidget {
                   children: [
                     if (data.fundContent != null)
                       StoryWidget(content: data.fundContent),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      margin: EdgeInsets.only(top: 11),
-                      child: ElevatedButton.icon(
-                        icon: Icon(
-                          Icons.share_outlined,
-                          color: Colors.white,
-                          size: 23,
-                        ),
-                        label: Text(
-                          'Share',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Color.fromRGBO(0, 219, 176, 1),
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                              EdgeInsets.fromLTRB(25, 10, 25, 10)),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
                     FuneralServicesWidget(
                       locationName: data.location.locationName,
                       locationAddress1: data.location.locationAddress1,

@@ -58,7 +58,7 @@ class Auth with ChangeNotifier {
     }
     prefs.setString('userData', _token);
     // Gia dokimes !!!
-    // Timer(Duration(seconds: 10), () {
+    // Timer(Duration(seconds: 5), () {
     //   print('Here it comes');
     //   logout();
     // });

@@ -10,6 +10,7 @@ fundDetailImage(image) {
         baseUrl + image,
         height: 100,
         width: 100,
+        fit: BoxFit.fill,
       ),
     );
   } else {
