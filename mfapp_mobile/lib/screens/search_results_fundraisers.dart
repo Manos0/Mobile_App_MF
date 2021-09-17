@@ -41,5 +41,3 @@ class _SearchResultsFundraisersState extends State<SearchResultsFundraisers> {
     );
   }
 }
-//Mporw na ton pigenw se diaforetiki alla paromia selida kai oxi sto
-//FundraiserGrid gia na tin kanw pio omorfi!

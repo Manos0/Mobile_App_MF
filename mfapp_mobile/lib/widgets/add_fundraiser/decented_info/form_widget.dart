@@ -32,6 +32,20 @@ class _FormWidgetState extends State<FormWidget> {
   _selectBDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: mfPrimaryColor,
+                onPrimary: Colors.white,
+                surface: mfPrimaryColor,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        },
         initialDate: selectedBdate,
         firstDate: DateTime(1900),
         lastDate: DateTime(2150));
@@ -47,6 +61,20 @@ class _FormWidgetState extends State<FormWidget> {
   _selectPDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: mfPrimaryColor,
+                onPrimary: Colors.white,
+                surface: mfPrimaryColor,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        },
         initialDate: selectedPdate,
         firstDate: DateTime(1900),
         lastDate: DateTime(2150));
@@ -62,6 +90,20 @@ class _FormWidgetState extends State<FormWidget> {
   _selectEDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: mfPrimaryColor,
+                onPrimary: Colors.white,
+                surface: mfPrimaryColor,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        },
         initialDate: selectedEdate,
         firstDate: DateTime(1900),
         lastDate: DateTime(2150));
@@ -140,10 +182,31 @@ class _FormWidgetState extends State<FormWidget> {
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'First Name',
-                    // icon: Icon(Icons.account_circle),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -161,10 +224,31 @@ class _FormWidgetState extends State<FormWidget> {
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Nick Name',
-                    // icon: Icon(Icons.account_circle),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -183,8 +267,30 @@ class _FormWidgetState extends State<FormWidget> {
                   decoration: InputDecoration(
                     labelText: 'Middle Name',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -203,8 +309,30 @@ class _FormWidgetState extends State<FormWidget> {
                   decoration: InputDecoration(
                     labelText: 'Last Name',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -277,8 +405,30 @@ class _FormWidgetState extends State<FormWidget> {
                   decoration: InputDecoration(
                     labelText: 'Fundraiser Goal Amount',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),

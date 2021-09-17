@@ -14,32 +14,33 @@ class Cubes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(11.0),
       ),
-      elevation: 5,
+      elevation: 1,
       shadowColor: Colors.grey.withOpacity(0.3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(15, 15, 15, 10),
-            width: 55,
-            height: 55,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(11)),
-              color: color,
+      child: Container(
+        padding: EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 55,
+              height: 55,
+              margin: EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(11),
+                ),
+                color: color,
+              ),
+              child: Icon(
+                icon,
+                size: 35,
+                color: Colors.white,
+              ),
             ),
-            child: Icon(
-              icon,
-              size: 35,
-              color: Colors.white,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(15, 0, 13, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                   child: Text(
@@ -52,21 +53,18 @@ class Cubes extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text(
-                    price.toStringAsFixed(0),
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Text(
+                  price.toStringAsFixed(0),
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

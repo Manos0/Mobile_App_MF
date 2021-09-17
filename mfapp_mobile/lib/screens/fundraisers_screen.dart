@@ -25,7 +25,7 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
   var _isInit = true;
   // var _isLoading = false;
   Future<UserStats> userData;
-  Future<List<Fundraiser>> fundraisers;
+  // Future<List<Fundraiser>> fundraisers;
 
   @override
   void didChangeDependencies() {
@@ -34,8 +34,8 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
       //   _isLoading = true;
       // });
       userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
-      fundraisers = Provider.of<Fundraisers>(context, listen: false)
-          .fetchAndSetFundraisers();
+      // fundraisers = Provider.of<Fundraisers>(context, listen: false)
+      //     .fetchAndSetFundraisers();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -47,7 +47,14 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
       username = prefs.getString('username');
       password = prefs.getString('password');
       await Provider.of<Auth>(context, listen: false).login(username, password);
-      await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      await Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => TabsScreen(),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
+      // await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
     } else {
       await Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
     }
@@ -55,11 +62,14 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Fundraiser>>(
-      future: fundraisers,
+    // return FutureBuilder<List<Fundraiser>>(
+    return FutureBuilder<UserStats>(
+      // future: fundraisers,
+      future: userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return FundraisersGrid(snapshot.data, userData);
+          // return FundraisersGrid(snapshot.data, userData);
+          return FundraisersGrid(snapshot.data);
         } else if (snapshot.hasError) {
           return Center(
             child: Column(

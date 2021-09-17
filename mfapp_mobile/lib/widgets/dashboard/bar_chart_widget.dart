@@ -6,7 +6,7 @@ import 'package:mfapp_mobile/bin/colors.dart';
 import '../../providers/data.dart';
 
 class BarChartWidget extends StatelessWidget {
-  final double barWidth = 8;
+  final double barWidth = 10;
   final List<dynamic> data;
 
   BarChartWidget(this.data);
@@ -19,7 +19,7 @@ class BarChartWidget extends StatelessWidget {
         name: DateFormat.E().format(DateTime.now().subtract(Duration(days: i))),
         id: i,
         y: data[i].toDouble(),
-        color: mfPrimaryColor,
+        color: mfLightBlueColor,
       );
     }
 

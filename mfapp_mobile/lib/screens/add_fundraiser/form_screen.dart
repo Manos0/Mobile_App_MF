@@ -39,6 +39,13 @@ class FormScreen extends StatelessWidget {
         ),
       ),
       body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color, color2],
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: FormWidget(

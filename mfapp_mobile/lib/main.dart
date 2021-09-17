@@ -9,7 +9,6 @@ import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
 import './screens/fundraisers_screen.dart';
 import './screens/profile_screen.dart';
-import './screens/settings_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/intro_screen.dart';
 import './screens/fundraiser_detail_screen.dart';
@@ -65,7 +64,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: 'Poppins',
             primaryColor: mfPrimaryColor,
-            accentColor: mfPrimaryColor,
+            accentColor: mfLightBlueColor,
             canvasColor: Colors.white,
             textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(
@@ -92,7 +91,6 @@ class MyApp extends StatelessWidget {
             DashboardScreen.routeName: (ctx) => DashboardScreen(),
             FundraisersScreen.routeName: (ctx) => FundraisersScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),
-            SettingsScreen.routeName: (ctx) => SettingsScreen(),
             SearchResultsFundraisers.routeName: (ctx) =>
                 SearchResultsFundraisers(),
             AddFundraiserScreen.routeName: (ctx) => AddFundraiserScreen(),

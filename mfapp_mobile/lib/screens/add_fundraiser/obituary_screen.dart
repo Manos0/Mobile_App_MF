@@ -136,9 +136,17 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
           ),
         ),
       ),
+      backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.topLeft,
+          //     end: Alignment.bottomRight,
+          //     colors: [color, color2],
+          //   ),
+          // ),
           child: Column(
             children: [
               ReadMoreText(
@@ -214,7 +222,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                   child: TextField(
                     controller: _controllerWritenByYou,
                     textInputAction: TextInputAction.done,
-                    maxLines: null,
+                    maxLines: 8,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Insert text here ...',

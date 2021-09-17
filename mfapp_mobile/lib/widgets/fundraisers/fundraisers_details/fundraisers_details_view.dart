@@ -20,6 +20,7 @@ class FundraisersDetailsView extends StatelessWidget {
     var passing = DateFormat.yMMMMd().format(passingDate);
 
     return Scaffold(
+      backgroundColor: mfLightlightGrey,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -63,7 +64,7 @@ class FundraisersDetailsView extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 8, bottom: 8),
+                margin: EdgeInsets.only(top: 25),
                 child: CircularPercentIndicator(
                   radius: 130,
                   lineWidth: 10,
@@ -78,15 +79,30 @@ class FundraisersDetailsView extends StatelessWidget {
                 width: 130,
                 height: 130,
               ),
-              Text('$birth - $passing'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('$birth - $passing'),
+              ),
               Container(
-                margin: EdgeInsets.only(top: 8, bottom: 40),
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
+                margin: EdgeInsets.only(bottom: 0),
+                padding: EdgeInsets.all(12),
                 width: MediaQuery.of(context).size.width,
                 decoration: new BoxDecoration(
                   borderRadius: new BorderRadius.circular(13.0),
-                  color: mfLightGreen,
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [mfLightBlueColor, mfLightBlueGradColor],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(1),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                  color: mfLightBlueColor,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,15 +112,16 @@ class FundraisersDetailsView extends StatelessWidget {
                         Text(
                           '\$${data.fundRaised.toStringAsFixed(0)} ',
                           style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.white,
                             fontFamily: 'Poppins',
                             fontSize: 13,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           'Raised of \$${data.goalAmount.toStringAsFixed(0)}',
                           style: TextStyle(
-                            color: Color.fromRGBO(128, 128, 128, 1),
+                            color: mfLightlightGrey,
                             fontFamily: 'Poppins',
                             fontSize: 13,
                           ),
@@ -114,7 +131,7 @@ class FundraisersDetailsView extends StatelessWidget {
                     Text(
                       '${(fundPercentage(data.fundRaised, data.goalAmount) * 100).toStringAsFixed(2)}%',
                       style: TextStyle(
-                        color: Color.fromRGBO(128, 128, 128, 1),
+                        color: mfLightlightGrey,
                         fontFamily: 'Poppins',
                         fontSize: 13,
                       ),
@@ -123,7 +140,7 @@ class FundraisersDetailsView extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(bottom: 25),
                 child: Column(
                   children: [
                     if (data.fundContent != null)
@@ -139,17 +156,6 @@ class FundraisersDetailsView extends StatelessWidget {
                   ],
                 ),
               ),
-              // Container(
-              //   alignment: Alignment.centerLeft,
-              //   margin: EdgeInsets.only(bottom: 30),
-              //   child: Text(
-              //     'Donations',
-              //     style: TextStyle(
-              //         color: mfLettersColor,
-              //         fontSize: 16,
-              //         fontWeight: FontWeight.w600),
-              //   ),
-              // ),
               if (data.payment.length > 0) Donations(data),
             ],
           ),

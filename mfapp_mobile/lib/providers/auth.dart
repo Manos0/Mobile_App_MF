@@ -11,7 +11,6 @@ class Auth with ChangeNotifier {
   String _token;
   String _username;
   String _password;
-  // bool _rememberMe = false;
 
   bool get isAuth {
     if (token != null && _username != null && _password != null) {
@@ -19,7 +18,6 @@ class Auth with ChangeNotifier {
     } else {
       return false;
     }
-    // return token != null;
   }
 
   String get token {
@@ -58,7 +56,7 @@ class Auth with ChangeNotifier {
     }
     prefs.setString('userData', _token);
     // Gia dokimes !!!
-    // Timer(Duration(seconds: 5), () {
+    // Timer(Duration(seconds: 20), () {
     //   print('Here it comes');
     //   logout();
     // });

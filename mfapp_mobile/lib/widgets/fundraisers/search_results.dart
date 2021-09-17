@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
-import './fundraiser_fund.dart';
+import '../../bin/colors.dart';
 import '../../providers/fundraiser.dart';
+import './fundraisers_search_results.dart';
 
 class SearchResults extends StatelessWidget {
   final List<Fundraiser> data;
@@ -15,12 +15,13 @@ class SearchResults extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: color,
         title: Text(
           'Search Results',
           style: TextStyle(
-            color: Color.fromRGBO(23, 33, 42, 1),
-            fontSize: 20,
+            color: mfLettersColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
         ),
         elevation: 0,
@@ -28,41 +29,50 @@ class SearchResults extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_outlined),
           color: Theme.of(context).primaryColor,
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
-            // Navigator.of(context).popAndPushNamed(TabsScreen.routeName);
+            Navigator.pop(context);
+            // Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
           },
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // FundraiserSearchbar(),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(10.0),
-              itemCount: data.length,
-              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                value: data[i],
-                child: FundraiserFund(),
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    (MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 2
-                        : 4),
-                childAspectRatio: MediaQuery.of(context).size.height < 684
-                    ? MediaQuery.of(context).size.width /
-                        MediaQuery.of(context).size.height /
-                        0.945
-                    : MediaQuery.of(context).size.width /
-                        MediaQuery.of(context).size.height /
-                        0.86,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 20,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color, color2],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // FundraiserSearchbar(),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.all(10.0),
+                itemCount: data.length,
+                itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                  value: data[i],
+                  child: FundraisersSearchResults(),
+                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: (MediaQuery.of(context).orientation ==
+                          Orientation.portrait
+                      ? 2
+                      : 4),
+                  childAspectRatio: MediaQuery.of(context).size.height < 684
+                      ? MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.height /
+                          0.945
+                      : MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.height /
+                          0.90,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

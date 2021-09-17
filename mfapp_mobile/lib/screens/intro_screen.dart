@@ -19,7 +19,7 @@ class IntroScreen extends StatelessWidget {
               image: buildImage('assets/images/Welcome @2x.png'),
               decoration: getPageDecoration(),
               footer: SizedBox(
-                height: 60,
+                height: 80,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
@@ -30,7 +30,7 @@ class IntroScreen extends StatelessWidget {
               image: buildImage('assets/images/Create a Fundraiser@2x.png'),
               decoration: getPageDecoration(),
               footer: SizedBox(
-                height: 60,
+                height: 130,
                 width: MediaQuery.of(context).size.width,
               ),
             ),

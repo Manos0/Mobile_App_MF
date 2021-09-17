@@ -18,6 +18,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
     final locationData =
         ModalRoute.of(context).settings.arguments as NewFundraiser;
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,

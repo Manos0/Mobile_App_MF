@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mfapp_mobile/providers/user_stats.dart';
+import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../screens/fundraiser_detail_screen.dart';
+import '../../providers/fundraiser.dart';
 import '../../bin/functions.dart';
 import '../../bin/colors.dart';
 
-class FundraiserFund extends StatelessWidget {
-  List<UserFundraisers> widgetData;
-  int i;
-  FundraiserFund({this.widgetData, this.i});
-
+class FundraisersSearchResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final fundraiser = Provider.of<Fundraiser>(context, listen: false);
+    final fundraiser = Provider.of<Fundraiser>(context, listen: false);
 
     return Material(
       elevation: 1,
@@ -35,12 +32,12 @@ class FundraiserFund extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             FundraiserDetailScreen.routeName,
-                            arguments: widgetData[i].id);
+                            arguments: fundraiser.id);
                       },
                       child: FadeInImage(
                         placeholder:
                             AssetImage('assets/images/helperImage.png'),
-                        image: fundImage(widgetData[i].clientAvatarMD),
+                        image: fundImage(fundraiser.clientAvatarMD),
                         width: MediaQuery.of(context).size.width,
                         height: (MediaQuery.of(context).size.width < 768
                             ? MediaQuery.of(context).size.height / 6
@@ -54,10 +51,10 @@ class FundraiserFund extends StatelessWidget {
                   child: Wrap(
                     direction: Axis.horizontal,
                     children: [
-                      if (widgetData[i].firstName != null &&
-                          widgetData[i].firstName.length > 0)
+                      if (fundraiser.firstName != null &&
+                          fundraiser.firstName.length > 0)
                         Text(
-                          widgetData[i].firstName + ' ',
+                          fundraiser.firstName + ' ',
                           style: TextStyle(
                             color: mfLettersColor,
                             fontFamily: 'Poppins',
@@ -65,10 +62,10 @@ class FundraiserFund extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      if (widgetData[i].nickName != null &&
-                          widgetData[i].nickName.length > 0)
+                      if (fundraiser.nickName != null &&
+                          fundraiser.nickName.length > 0)
                         Text(
-                          '"' + widgetData[i].nickName + '"' + ' ',
+                          '"' + fundraiser.nickName + '"' + ' ',
                           style: TextStyle(
                             color: mfLettersColor,
                             fontFamily: 'Poppins',
@@ -76,10 +73,10 @@ class FundraiserFund extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      if (widgetData[i].middleName != null &&
-                          widgetData[i].middleName.length > 0)
+                      if (fundraiser.middleName != null &&
+                          fundraiser.middleName.length > 0)
                         Text(
-                          widgetData[i].middleName + ' ',
+                          fundraiser.middleName + ' ',
                           style: TextStyle(
                             color: mfLettersColor,
                             fontFamily: 'Poppins',
@@ -87,10 +84,10 @@ class FundraiserFund extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      if (widgetData[i].lastName != null &&
-                          widgetData[i].lastName.length > 0)
+                      if (fundraiser.lastName != null &&
+                          fundraiser.lastName.length > 0)
                         Text(
-                          widgetData[i].lastName,
+                          fundraiser.lastName,
                           style: TextStyle(
                             color: mfLettersColor,
                             fontFamily: 'Poppins',
@@ -136,7 +133,7 @@ class FundraiserFund extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 7),
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    '\$${widgetData[i].fundRaised.toStringAsFixed(0)}',
+                    '\$${fundraiser.fundRaised.toStringAsFixed(0)}',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: mfLightBlueColor,
@@ -151,7 +148,7 @@ class FundraiserFund extends StatelessWidget {
                     padding: EdgeInsets.all(0),
                     lineHeight: 4,
                     percent: fundPercentage(
-                        widgetData[i].fundRaised, widgetData[i].goalAmount),
+                        fundraiser.fundRaised, fundraiser.goalAmount),
                     backgroundColor: Colors.grey[300],
                     progressColor: mfLightBlueColor,
                   ),
@@ -160,7 +157,7 @@ class FundraiserFund extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Goal: \$${widgetData[i].goalAmount.toStringAsFixed(0)}',
+                      'Goal: \$${fundraiser.goalAmount.toStringAsFixed(0)}',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Color.fromRGBO(128, 128, 128, 1),
@@ -169,7 +166,7 @@ class FundraiserFund extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${(fundPercentage(widgetData[i].fundRaised, widgetData[i].goalAmount) * 100).toStringAsFixed(2)}%',
+                      '${(fundPercentage(fundraiser.fundRaised, fundraiser.goalAmount) * 100).toStringAsFixed(2)}%',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Color.fromRGBO(128, 128, 128, 1),

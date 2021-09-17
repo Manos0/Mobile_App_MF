@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/provider.dart';
-import '../widgets/profile/user_details_widget.dart';
-import '../providers/user_stats.dart';
-import '../screens/tabs_screen.dart';
 import '../bin/colors.dart';
+import '../providers/provider.dart';
 import '../providers/auth.dart';
+import '../providers/user_stats.dart';
+import '../providers/locations.dart';
+import '../widgets/profile/user_details_widget.dart';
+import '../screens/tabs_screen.dart';
 import '../screens/auth_screen.dart';
 
 String username = '';
@@ -23,11 +24,14 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var _isInit = true;
   Future<UserStats> userData;
+  Future<List<Locations>> locations;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
       userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
+      locations =
+          Provider.of<Fundraisers>(context, listen: false).fetchLocations();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -39,7 +43,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       username = prefs.getString('username');
       password = prefs.getString('password');
       await Provider.of<Auth>(context, listen: false).login(username, password);
-      await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      await Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => TabsScreen(),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
+      // await Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
     } else {
       await Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
     }
@@ -51,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       future: userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return UserDetailsWidget(snapshot.data);
+          return UserDetailsWidget(snapshot.data, locations);
         } else if (snapshot.hasError) {
           return Center(
             child: Column(

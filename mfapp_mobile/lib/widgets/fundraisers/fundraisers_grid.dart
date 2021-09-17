@@ -9,95 +9,128 @@ import '../../providers/fundraiser.dart';
 import '../../widgets/fundraisers/fundraisers_my_fundraisers.dart';
 
 class FundraisersGrid extends StatelessWidget {
-  final List<Fundraiser> data;
-  final userData;
+  final UserStats data;
+  // final List<Fundraiser> data;
+  // final userData;
 
-  FundraisersGrid(this.data, this.userData);
+// FundraisersGrid(this.data, this.userData);
+  FundraisersGrid(this.data);
 
   @override
   Widget build(BuildContext context) {
+    List<UserFundraisers> newData = data.userFundraisers.sublist(1);
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // FundraiserSearchbar(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Text(
-              'My Fundraisers',
-              style: TextStyle(
-                color: mfLettersColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+      body: Container(
+        padding: EdgeInsets.only(top: 70),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color, color2],
           ),
-          Container(
-            height: (MediaQuery.of(context).size.height < 684
-                ? MediaQuery.of(context).size.height / 5.5
-                : MediaQuery.of(context).size.height / 6.5),
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(11),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 15, 16, 0),
+              child: Text(
+                'Latest Fundraiser',
+                style: TextStyle(
+                  color: mfLettersColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              color: mfLightGreen,
             ),
-            child: FutureBuilder<UserStats>(
-              future: userData,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return MyFundraisers(snapshot.data);
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-                return Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
+            Container(
+              height: (MediaQuery.of(context).size.height < 684
+                  ? MediaQuery.of(context).size.height / 5.5
+                  : MediaQuery.of(context).size.height / 6.5),
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.fromLTRB(16, 15, 16, 25),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(11),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [mfLightBlueColor, mfLightBlueGradColor],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 1),
                   ),
-                );
-              },
+                ],
+              ),
+              child: MyFundraisers(data),
+              // child: FutureBuilder<UserStats>(
+              //   future: userData,
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       return MyFundraisers(snapshot.data);
+              //     } else if (snapshot.hasError) {
+              //       return Text("${snapshot.error}");
+              //     }
+              //     return Scaffold(
+              //       body: Center(
+              //         child: CircularProgressIndicator(),
+              //       ),
+              //     );
+              //   },
+              // ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
-            child: Text(
-              'Featured Fundraisers',
-              style: TextStyle(
-                color: mfLettersColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
+              child: Text(
+                'My Fundraisers',
+                style: TextStyle(
+                  color: mfLettersColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                value: data[i],
-                child: FundraiserFund(),
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    (MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 2
-                        : 4),
-                childAspectRatio: MediaQuery.of(context).size.height < 684
-                    ? MediaQuery.of(context).size.width /
-                        MediaQuery.of(context).size.height /
-                        0.945
-                    : MediaQuery.of(context).size.width /
-                        MediaQuery.of(context).size.height /
-                        0.86,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 20,
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                shrinkWrap: true,
+                itemCount: newData.length,
+                itemBuilder: (ctx, i) {
+                  return FundraiserFund(
+                    widgetData: newData,
+                    i: i,
+                  );
+                },
+                // itemCount: data.length,
+                // itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                //   value: data[i],
+                //   child: FundraiserFund(),
+                // ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: (MediaQuery.of(context).orientation ==
+                          Orientation.portrait
+                      ? 2
+                      : 4),
+                  childAspectRatio: MediaQuery.of(context).size.height < 684
+                      ? MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.height /
+                          0.945
+                      : MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.height /
+                          0.90,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

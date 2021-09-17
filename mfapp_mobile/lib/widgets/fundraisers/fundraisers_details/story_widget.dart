@@ -11,22 +11,27 @@ class StoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(13.0),
-        color: mfPrimaryColor,
+      margin: EdgeInsets.only(top: 25),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+            bottomLeft: Radius.circular(13),
+            bottomRight: Radius.circular(13)),
       ),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.only(bottom: 15),
             alignment: Alignment.centerLeft,
             child: Text(
               'Story',
               style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'Poppins',
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600),
               textAlign: TextAlign.left,
             ),
@@ -36,13 +41,13 @@ class StoryWidget extends StatelessWidget {
             style: TextStyle(
               color: Color.fromRGBO(103, 107, 127, 1),
               fontFamily: 'Poppins',
-              fontSize: 16,
+              fontSize: 14,
             ),
             textAlign: TextAlign.left,
-            trimCollapsedText: '  Show more',
-            trimExpandedText: ' Show less',
-            moreStyle: TextStyle(fontSize: 16, color: mfPrimaryColor),
-            lessStyle: TextStyle(fontSize: 16, color: mfPrimaryColor),
+            trimCollapsedText: '  \nShow more',
+            trimExpandedText: ' \nShow less',
+            moreStyle: TextStyle(fontSize: 14, color: mfPrimaryColor),
+            lessStyle: TextStyle(fontSize: 14, color: mfPrimaryColor),
             trimMode: TrimMode.Line,
             trimLines: 5,
             delimiter: '',

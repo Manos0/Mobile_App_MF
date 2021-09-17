@@ -20,7 +20,7 @@ class Donations extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.centerLeft,
-          margin: EdgeInsets.only(bottom: 30),
+          margin: EdgeInsets.only(bottom: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -35,7 +35,7 @@ class Donations extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                 decoration: BoxDecoration(
-                  color: mfLightGreen,
+                  color: mfLightlightBlueColor,
                   borderRadius: BorderRadius.all(
                     Radius.circular(6),
                   ),
@@ -43,7 +43,7 @@ class Donations extends StatelessWidget {
                 child: Text(
                   '${data.payment.length}',
                   style: TextStyle(
-                    color: mfPrimaryColor,
+                    color: mfLightBlueColor,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
@@ -105,7 +105,7 @@ class Donations extends StatelessWidget {
                                         ? '(hidden)'
                                         : '\$${data.payment[index].paymentAmount.toStringAsFixed(0)}',
                                     style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
+                                      color: mfLightBlueColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -197,9 +197,10 @@ class Donations extends StatelessWidget {
                                     )
                                   : Text(''),
                             ),
-                            Divider(
-                              thickness: 2,
-                            ),
+                            if (data.payment.length > 1)
+                              Divider(
+                                thickness: 2,
+                              ),
                           ],
                         ),
                       ),

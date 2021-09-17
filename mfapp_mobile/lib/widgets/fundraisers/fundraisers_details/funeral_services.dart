@@ -23,91 +23,120 @@ class FuneralServicesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 25),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(0, 0, 0, 0.05),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+            bottomLeft: Radius.circular(13),
+            bottomRight: Radius.circular(13)),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.red.withOpacity(0.175),
+        //     spreadRadius: 1,
+        //     blurRadius: 7,
+        //     offset: Offset(1, 1),
+        //   ),
+        // ],
+      ),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 12),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Funeral Services',
-              style: TextStyle(
-                  color: mfSecondaryLetterColor,
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height / 3.5,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
-                  bottomLeft: Radius.circular(13),
-                  bottomRight: Radius.circular(13)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 7,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Row(
-                  children: [
-                    Container(
+                Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Funeral Services',
+                    style: TextStyle(
+                        color: mfSecondaryLetterColor,
+                        fontFamily: 'Poppins',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      Container(
                         height: 35,
                         width: 35,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(right: 15),
+                        margin: EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(11),
-                          color: Theme.of(context).primaryColor,
+                          color: mfLightGrey,
                         ),
                         child: Icon(
                           Icons.home_outlined,
                           color: Colors.white,
-                        )),
-                    Text(
-                      locationName,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Poppins',
-                        fontSize: 13,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      height: 35,
-                      width: 35,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(right: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(11),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.location_on_outlined,
-                          color: Colors.white,
                         ),
+                      ),
+                      Text(
+                        locationName,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 35,
+                        width: 35,
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(0),
-                        onPressed: () async {
+                        margin: EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(11),
+                          color: mfPrimaryColor,
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(0),
+                          onPressed: () async {
+                            String address =
+                                '$locationAddress1$locationCity$locationPostal$locationName';
+                            // String address =
+                            //     '${locationAddress1}${locationCity}${locationPostal}';
+                            String query = Uri.encodeFull(address);
+                            String googleUrl =
+                                'https://www.google.com/maps/search/?api=1&query=$query';
+
+                            if (await canLaunch(googleUrl)) {
+                              await launch(googleUrl);
+                            }
+                          },
+                        ),
+                      ),
+                      GestureDetector(
+                        child: Text(
+                          locationAddress1,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        onTap: () async {
                           String address =
                               '$locationAddress1$locationCity$locationPostal$locationName';
                           // String address =
@@ -121,89 +150,79 @@ class FuneralServicesWidget extends StatelessWidget {
                           }
                         },
                       ),
-                    ),
-                    Text(
-                      locationAddress1,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Poppins',
-                        fontSize: 13,
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 35,
+                        width: 35,
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(11),
+                          color: mfPrimaryColor,
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.message_outlined,
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(0),
+                          onPressed: () => launch('mailto:$locationEmail'),
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                      GestureDetector(
+                        child: Text(
+                          locationEmail,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        onTap: () => launch('mailto:$locationEmail'),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      alignment: Alignment.centerLeft,
-                      // margin:
-                      //     EdgeInsets.fromLTRB(20, 6, 12, 15),
-                      child: ElevatedButton.icon(
-                        icon: Icon(
-                          Icons.message_outlined,
-                          color: Colors.white,
-                          size: 23,
-                        ),
-                        label: Text(
-                          'Message',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 15,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            mfPrimaryColor,
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                          ),
-                        ),
-                        onPressed: () => launch('mailto:$locationEmail'),
+                      height: 35,
+                      width: 35,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: mfPrimaryColor,
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      // margin: EdgeInsets.fromLTRB(0, 6, 12, 15),
-                      child: ElevatedButton.icon(
+                      child: IconButton(
                         icon: Icon(
                           Icons.call_outlined,
                           color: Colors.white,
-                          size: 23,
                         ),
-                        label: Text(
-                          'Call',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 15,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            mfLightBlueColor,
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                          ),
-                        ),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(0),
                         onPressed: () => launch('tel://$locationPhone'),
                       ),
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        locationPhone,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      onTap: () => launch('tel://$locationPhone'),
                     ),
                   ],
                 ),

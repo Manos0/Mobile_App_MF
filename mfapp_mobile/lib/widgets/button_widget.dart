@@ -11,21 +11,18 @@ class GoToLogin extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: RaisedButton(
-          onPressed: onClicked,
-          color: Theme.of(context).primaryColor,
-          shape: StadiumBorder(),
-          padding: EdgeInsets.symmetric(horizontal: 60, vertical: 12.5),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 21,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Poppins',
-            ),
+  Widget build(BuildContext context) => RaisedButton(
+        onPressed: onClicked,
+        color: Theme.of(context).primaryColor,
+        shape: StadiumBorder(),
+        padding: EdgeInsets.symmetric(horizontal: 60, vertical: 12.5),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 21,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Poppins',
           ),
         ),
       );

@@ -42,15 +42,15 @@ class LineChartWidget extends StatelessWidget {
             spots: spots,
             isCurved: true,
             colors: gradientColors,
-            barWidth: 1,
+            barWidth: 3,
             dotData: FlDotData(
               show: true,
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
-                  radius: 5,
-                  color: gradientColors[0],
-                  strokeWidth: 2,
-                  strokeColor: Colors.white,
+                  radius: 6,
+                  color: Colors.white,
+                  strokeWidth: 3,
+                  strokeColor: gradientColors[0],
                 );
               },
             ),

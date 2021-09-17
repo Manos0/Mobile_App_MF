@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../bin/colors.dart';
+import '../../providers/provider.dart';
 import '../../providers/new_fundraiser.dart';
+import '../../screens/tabs_screen.dart';
 import '../../screens/add_fundraiser/funeral_service_preview_screen.dart';
 
 class FuneralServiceForm extends StatefulWidget {
@@ -275,43 +278,91 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 40, 8, 40),
-                child: ElevatedButton(
-                  child: Text(
-                    'Preview',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      child: Text(
+                        'Preview:\nFuneral Service',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: mfPrimaryColor,
+                        shadowColor: mfPrimaryColor,
+                        elevation: 5,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                      onPressed: () {
+                        _formKey.currentState.save();
+                        var newService = FuneralService(
+                          venueName: funeral.venueName,
+                          venuePhoneNumber: funeral.venuePhoneNumber,
+                          venueAddress: funeral.venueAddress,
+                          venueCity: funeral.venueCity,
+                          venueState: funeral.venueState,
+                          venueZipCode: funeral.venueZipCode,
+                          venueDate: funeral.venueDate,
+                          venueTime: funeral.venueTime,
+                          venueWebCast: funeral.venueWebCast,
+                          venueAdditionalInfo: funeral.venueAdditionalInfo,
+                          service: '{$name$number$address}',
+                        );
+                        widget.data.funeralService = newService;
+                        Navigator.pushNamed(
+                            context, FuneralServicePreviewScreen.routeName,
+                            arguments: widget.data);
+                      },
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: mfPrimaryColor,
-                    shadowColor: mfPrimaryColor,
-                    elevation: 5,
-                    padding: EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
+                    ElevatedButton(
+                      child: Text(
+                        'Complete\nFundraiser',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: mfPrimaryColor,
+                        shadowColor: mfPrimaryColor,
+                        elevation: 5,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                      onPressed: () {
+                        _formKey.currentState.save();
+                        var newService = FuneralService(
+                          venueName: funeral.venueName,
+                          venuePhoneNumber: funeral.venuePhoneNumber,
+                          venueAddress: funeral.venueAddress,
+                          venueCity: funeral.venueCity,
+                          venueState: funeral.venueState,
+                          venueZipCode: funeral.venueZipCode,
+                          venueDate: funeral.venueDate,
+                          venueTime: funeral.venueTime,
+                          venueWebCast: funeral.venueWebCast,
+                          venueAdditionalInfo: funeral.venueAdditionalInfo,
+                          service: '{$name$number$address}',
+                        );
+                        widget.data.funeralService = newService;
+                        Provider.of<Fundraisers>(context, listen: false)
+                            .addNewFundraiser(widget.data);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, TabsScreen.routeName, (r) => false);
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    _formKey.currentState.save();
-                    var newService = FuneralService(
-                      venueName: funeral.venueName,
-                      venuePhoneNumber: funeral.venuePhoneNumber,
-                      venueAddress: funeral.venueAddress,
-                      venueCity: funeral.venueCity,
-                      venueState: funeral.venueState,
-                      venueZipCode: funeral.venueZipCode,
-                      venueDate: funeral.venueDate,
-                      venueTime: funeral.venueTime,
-                      venueWebCast: funeral.venueWebCast,
-                      venueAdditionalInfo: funeral.venueAdditionalInfo,
-                      service: '{$name$number$address}',
-                    );
-                    widget.data.funeralService = newService;
-                    Navigator.pushNamed(
-                        context, FuneralServicePreviewScreen.routeName,
-                        arguments: widget.data);
-                  },
+                  ],
                 ),
               ),
             ],

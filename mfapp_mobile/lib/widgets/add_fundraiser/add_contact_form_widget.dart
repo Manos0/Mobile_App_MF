@@ -130,8 +130,30 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                             decoration: InputDecoration(
                               labelText: 'First Name',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide(color: mfPrimaryColor),
+                                borderSide: BorderSide(
+                                  color: mfLightGrey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: mfPrimaryColor, width: 2.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                           ),
@@ -150,8 +172,30 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                             decoration: InputDecoration(
                               labelText: 'Last Name',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide(color: mfPrimaryColor),
+                                borderSide: BorderSide(
+                                  color: mfLightGrey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: mfPrimaryColor, width: 2.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                           ),
@@ -170,8 +214,30 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                             decoration: InputDecoration(
                               labelText: 'Relationship',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide(color: mfPrimaryColor),
+                                borderSide: BorderSide(
+                                  color: mfLightGrey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: mfPrimaryColor, width: 2.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                           ),
@@ -191,8 +257,30 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                             decoration: InputDecoration(
                               labelText: 'Email',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide(color: mfPrimaryColor),
+                                borderSide: BorderSide(
+                                  color: mfLightGrey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: mfPrimaryColor, width: 2.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                           ),
@@ -212,8 +300,30 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                             decoration: InputDecoration(
                               labelText: 'Phone Number',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide(color: mfPrimaryColor),
+                                borderSide: BorderSide(
+                                  color: mfLightGrey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(7),
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: mfPrimaryColor, width: 2.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                           ),
@@ -276,89 +386,83 @@ class _AddContactFormWidgetState extends State<AddContactFormWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            final pickedFile =
-                                                await picker.getImage(
-                                                    source: ImageSource.camera);
-                                            setState(() {
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await picker.getImage(
+                                                  source: ImageSource.camera);
+                                          setState(() {
+                                            contactImage =
+                                                File(pickedFile.path);
+                                            final bytes = File(pickedFile.path)
+                                                .readAsBytesSync();
+                                            final fileName =
+                                                basename(contactImage.path);
+                                            contact.contactImage = contactImage;
+                                            contact.image64 =
+                                                base64Encode(bytes);
+                                            contact.image = fileName.toString();
+                                          });
+                                        },
+                                        child: Text(
+                                          'Camera',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 25, vertical: 15),
+                                          primary: Colors.white,
+                                          elevation: 1,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(40),
+                                              bottomLeft: Radius.circular(40),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await picker.getImage(
+                                                  source: ImageSource.gallery);
+                                          setState(
+                                            () {
                                               contactImage =
                                                   File(pickedFile.path);
                                               final bytes =
                                                   File(pickedFile.path)
                                                       .readAsBytesSync();
-                                              final fileName =
-                                                  basename(contactImage.path);
                                               contact.contactImage =
                                                   contactImage;
+                                              final fileName =
+                                                  basename(contactImage.path);
                                               contact.image64 =
                                                   base64Encode(bytes);
                                               contact.image =
                                                   fileName.toString();
-                                            });
-                                          },
-                                          child: Text(
-                                            'Camera',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 25, vertical: 15),
-                                            primary: mfLightlightGrey,
-                                            elevation: 1,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          'Gallery',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            final pickedFile =
-                                                await picker.getImage(
-                                                    source:
-                                                        ImageSource.gallery);
-                                            setState(
-                                              () {
-                                                contactImage =
-                                                    File(pickedFile.path);
-                                                final bytes =
-                                                    File(pickedFile.path)
-                                                        .readAsBytesSync();
-                                                contact.contactImage =
-                                                    contactImage;
-                                                final fileName =
-                                                    basename(contactImage.path);
-                                                contact.image64 =
-                                                    base64Encode(bytes);
-                                                contact.image =
-                                                    fileName.toString();
-                                              },
-                                            );
-                                          },
-                                          child: Text(
-                                            'Gallery',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 25, vertical: 15),
-                                            primary: Colors.white,
-                                            elevation: 1,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 25, vertical: 15),
+                                          primary: Colors.white,
+                                          elevation: 1,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(40),
+                                              bottomRight: Radius.circular(40),
                                             ),
                                           ),
                                         ),

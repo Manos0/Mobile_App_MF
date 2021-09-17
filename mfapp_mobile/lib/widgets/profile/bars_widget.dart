@@ -2,20 +2,16 @@ import 'package:flutter/material.dart';
 import '../../bin/colors.dart';
 
 class BarsWidget extends StatelessWidget {
-  final dashboardData;
   final String text;
   final info;
   final IconData icon;
   final Color color;
-  final Color secondColor;
 
   BarsWidget({
-    this.dashboardData,
     this.text,
     this.info,
     this.icon,
     this.color,
-    this.secondColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -57,6 +53,7 @@ class BarsWidget extends StatelessWidget {
                 Text(
                   info.toStringAsFixed(0),
                   style: TextStyle(
+                    // color: mfLettersColor,
                     color: color,
                     fontSize: 22,
                     fontWeight: FontWeight.w600,

@@ -8,31 +8,28 @@ class FundraiserSearchbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
-        elevation: 4,
+        margin: EdgeInsets.only(left: 16, right: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(11),
+        ),
+        elevation: 3,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 5, right: 5),
-                  child: Icon(
-                    Icons.search_rounded,
-                    color: mfLettersColor,
-                  ),
-                ),
-                Container(
+                  padding: EdgeInsets.only(left: 12),
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Search Fundraisers',
                       hintStyle: TextStyle(
-                          color: mfThrirdLetterColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                        color: mfThrirdLetterColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
                     controller: searchController,
                     onSubmitted: (value) {
@@ -46,7 +43,7 @@ class FundraiserSearchbar extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.arrow_forward_ios,
+                Icons.search_rounded,
                 color: mfLettersColor,
               ),
               onPressed: () {

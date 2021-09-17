@@ -12,14 +12,9 @@ import '../providers/locations.dart';
 import '../providers/new_fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
-  // List<Fundraiser> _fundraiserList = [];
   final String authToken;
 
   Fundraisers(this.authToken);
-
-  // List<Fundraiser> get fundraiserList {
-  //   return [..._fundraiserList];
-  // }
 
   Future<FundraiserDetails> findById(int id) async {
     final url = Uri.parse(baseUrl + fundDetails + id.toString());
@@ -60,6 +55,23 @@ class Fundraisers with ChangeNotifier {
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserStats.fromJson(json.decode(response.body));
+    // try {
+    //   final url = Uri.parse(baseUrl + userData + '30');
+    //   final response = await http
+    //       .get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    //   return UserStats.fromJson(json.decode(response.body));
+    // } catch (e) {
+    //   print('An CRITICAL error has occured:$e');
+    //   final prefs = await SharedPreferences.getInstance();
+
+    //   if (prefs.getBool('rememberMe')) {
+    //     username = prefs.getString('username');
+    //     password = prefs.getString('password');
+    //     await Auth().login(username, password);
+    //   } else {
+    //     Get.off(AuthScreen.routeName);
+    //   }
+    // }
   }
 
   Future<List<Locations>> fetchLocations() async {

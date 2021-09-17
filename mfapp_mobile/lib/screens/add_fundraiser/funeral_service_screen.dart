@@ -27,6 +27,13 @@ class FuneralServiceScreen extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color, color2],
+          ),
+        ),
         child: FuneralServiceForm(data: newFund),
       ),
     );

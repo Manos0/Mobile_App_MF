@@ -22,25 +22,35 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(16),
+          padding: EdgeInsets.only(top: 70, left: 16, right: 16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [color, color2],
+            ),
+          ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
+              Divider(),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 2.7,
+                // height: MediaQuery.of(context).size.height < 684
+                //     ? MediaQuery.of(context).size.height / 2.7
+                //     : MediaQuery.of(context).size.height / 2.7,
                 child: FutureBuilder<List<dynamic>>(
                   future: widget.lineData,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&
                         snapshot.hasData) {
                       return Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: EdgeInsets.only(top: 15, bottom: 25),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(11),
                           ),
-                          color: mfLightlightGrey,
+                          color: color2,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -52,8 +62,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 'Monthly Total Fundraised',
                                 style: TextStyle(
                                   color: mfSecondaryLetterColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
@@ -97,19 +107,22 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 2.9,
+                // height: MediaQuery.of(context).size.height < 684
+                //     ? MediaQuery.of(context).size.height / 2.89
+                //     : MediaQuery.of(context).size.height / 3,
                 child: FutureBuilder<List<dynamic>>(
                   future: widget.barData,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&
                         snapshot.hasData) {
                       return Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: EdgeInsets.only(bottom: 25),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(11),
                           ),
-                          color: mfLightGreen,
+                          color: color2,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -121,8 +134,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 'Daily Donations',
                                 style: TextStyle(
                                   color: mfSecondaryLetterColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 textAlign: TextAlign.left,
                               ),

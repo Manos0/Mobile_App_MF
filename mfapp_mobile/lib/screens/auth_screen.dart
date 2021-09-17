@@ -23,7 +23,7 @@ class AuthScreen extends StatelessWidget {
             children: <Widget>[
               Flexible(
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(32, 0, 32, 40),
+                  padding: EdgeInsets.fromLTRB(32, 0, 32, 80),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -158,10 +158,15 @@ class _AuthCardState extends State<AuthCard> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(25, 18, 18, 18),
                     labelText: 'Email or Username',
-                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    fillColor: mfPrimaryColor,
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color.fromRGBO(175, 178, 188, 0.20),
+                        color: mfLightGrey,
                       ),
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(40),
@@ -169,11 +174,16 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color.fromRGBO(240, 240, 240, 1),
+                        color: Colors.black26,
                       ),
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(40),
                       ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfLightGrey, width: 2.0),
+                      borderRadius: BorderRadius.circular(40.0),
                     ),
                   ),
                   keyboardType: TextInputType.text,
@@ -190,15 +200,21 @@ class _AuthCardState extends State<AuthCard> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(bottom: 8),
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: TextFormField(
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(25, 18, 18, 18),
                     labelText: 'Password',
-                    labelStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    fillColor: mfPrimaryColor,
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color.fromRGBO(175, 178, 188, 0.20),
+                        color: mfLightGrey,
                       ),
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(40),
@@ -206,11 +222,16 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color.fromRGBO(240, 240, 240, 1),
+                        color: Colors.black26,
                       ),
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(40),
                       ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfLightGrey, width: 2.0),
+                      borderRadius: BorderRadius.circular(40.0),
                     ),
                   ),
                   // obscureText: true,
@@ -228,24 +249,57 @@ class _AuthCardState extends State<AuthCard> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 35, bottom: 30),
-                child: Column(
+                margin: EdgeInsets.only(bottom: 80, left: 40),
+                child: CheckboxListTile(
+                  activeColor: Theme.of(context).primaryColor,
+                  contentPadding: EdgeInsets.all(0),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Text('Show password'),
+                  value: _showPassword,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _showPassword = value;
+                    });
+                  },
+                ),
+              ),
+              if (_isLoading)
+                CircularProgressIndicator()
+              else
+                Column(
                   children: [
-                    CheckboxListTile(
-                      activeColor: Theme.of(context).primaryColor,
-                      contentPadding: EdgeInsets.only(left: 40),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      title: Text('Show password'),
-                      value: _showPassword,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _showPassword = value;
-                        });
-                      },
+                    ElevatedButton(
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Color.fromRGBO(0, 219, 176, 1),
+                        ),
+                        elevation: MaterialStateProperty.all(8),
+                        shadowColor: MaterialStateProperty.all(
+                          Color.fromRGBO(0, 219, 176, 1),
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        padding: MaterialStateProperty.all(
+                          EdgeInsets.fromLTRB(137, 15, 137, 15),
+                        ),
+                      ),
+                      onPressed: _submit,
                     ),
                     CheckboxListTile(
                       activeColor: Theme.of(context).primaryColor,
-                      contentPadding: EdgeInsets.only(left: 40),
+                      contentPadding: EdgeInsets.only(left: 40, top: 8),
                       controlAffinity: ListTileControlAffinity.leading,
                       title: Text('Keep me signed in'),
                       value: _rememberMe,
@@ -256,39 +310,7 @@ class _AuthCardState extends State<AuthCard> {
                       },
                     ),
                   ],
-                ),
-              ),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                ElevatedButton(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color.fromRGBO(0, 219, 176, 1),
-                    ),
-                    elevation: MaterialStateProperty.all(8),
-                    shadowColor: MaterialStateProperty.all(
-                      Color.fromRGBO(0, 219, 176, 1),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
-                    ),
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.fromLTRB(137, 15, 137, 15),
-                    ),
-                  ),
-                  onPressed: _submit,
-                ),
+                )
             ],
           ),
         ),

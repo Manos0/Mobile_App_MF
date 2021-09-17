@@ -54,6 +54,13 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color, color2],
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -80,7 +87,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                             ),
                             image: DecorationImage(
                               image: FileImage(locationData.galleryImage),
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         )
@@ -117,52 +124,52 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            chooseImage(ImageSource.camera, locationData);
-                          },
-                          child: Text(
-                            'Camera',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
+                      ElevatedButton(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera, locationData);
+                        },
+                        child: Text(
+                          'Camera',
+                          style: TextStyle(
+                            color: Colors.black,
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: mfLightlightGrey,
-                            // shadowColor: mfLightGrey,
-                            elevation: 1,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 35, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          // shadowColor: mfLightGrey,
+                          elevation: 1,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              bottomLeft: Radius.circular(40),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            chooseImage(ImageSource.gallery, locationData);
-                          },
-                          child: Text(
-                            'Gallery',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
+                      ElevatedButton(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery, locationData);
+                        },
+                        child: Text(
+                          'Gallery',
+                          style: TextStyle(
+                            color: Colors.black,
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                            elevation: 1,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 35, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          elevation: 1,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
                             ),
                           ),
                         ),
