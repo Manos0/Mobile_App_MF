@@ -95,6 +95,9 @@ class UserFundraisers {
   final String clientAvatarMD;
   final String clientAvatarSM;
   final String fundContent;
+  bool draft;
+  bool closed;
+  bool featured;
   final double goalAmount;
   final double fundRaised;
 
@@ -110,6 +113,9 @@ class UserFundraisers {
     this.clientAvatarMD,
     this.clientAvatarSM,
     this.fundContent,
+    this.draft,
+    this.closed,
+    this.featured,
     this.goalAmount,
     this.fundRaised,
   });
@@ -127,6 +133,9 @@ class UserFundraisers {
       clientAvatarMD: json['ClientAvatarMD'],
       clientAvatarSM: json['ClientAvatarSM'],
       fundContent: json['FundContent'],
+      draft: json['Draft'],
+      closed: json['Closed'],
+      featured: json['Featured'],
       goalAmount: json['GoalAmount'],
       fundRaised: json['FundRaised'],
     );

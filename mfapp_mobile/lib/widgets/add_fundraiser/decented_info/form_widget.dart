@@ -34,7 +34,7 @@ class _FormWidgetState extends State<FormWidget> {
         context: context,
         builder: (BuildContext context, Widget child) {
           return Theme(
-            data: ThemeData.dark().copyWith(
+            data: ThemeData.light().copyWith(
               colorScheme: ColorScheme.light(
                 primary: mfPrimaryColor,
                 onPrimary: Colors.white,
@@ -510,6 +510,7 @@ class _FormWidgetState extends State<FormWidget> {
                         image: widget.locationData.image,
                       );
                       newFund.fundLocation = newFundLocal;
+                      FocusScope.of(context).requestFocus(FocusNode());
                       Navigator.pushNamed(context, ImagePickerScreen.routeName,
                           arguments: newFund);
                     }

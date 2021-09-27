@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../bin/colors.dart';
 import '../../bin/functions.dart';
+import '../../providers/user_stats.dart';
 import '../../screens/fundraiser_detail_screen.dart';
 import '../../screens/add_fundraiser/add_fundraiser_screen.dart';
 
 class ProfileYourFundraisers extends StatelessWidget {
-  final data;
+  UserStats data;
 
   ProfileYourFundraisers(this.data);
 
   @override
   Widget build(BuildContext context) {
+    List<UserFundraisers> newData =
+        data.userFundraisers.where((i) => i.closed == true).toList();
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 12),
@@ -87,7 +90,7 @@ class ProfileYourFundraisers extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: List.generate(
-                    data.userFundraisers.length,
+                    newData.length,
                     (index) {
                       return Container(
                         padding: EdgeInsets.only(right: 12),
@@ -98,8 +101,8 @@ class ProfileYourFundraisers extends StatelessWidget {
                                 child: FadeInImage(
                                   placeholder: AssetImage(
                                       'assets/images/MF-App-Loader.gif'),
-                                  image: yourfundImage(data
-                                      .userFundraisers[index].clientAvatarMD),
+                                  image: yourfundImage(
+                                      newData[index].clientAvatarMD),
                                   width: 60,
                                   height: 60,
                                   fit: BoxFit.cover,
@@ -108,19 +111,17 @@ class ProfileYourFundraisers extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                     FundraiserDetailScreen.routeName,
-                                    arguments: data.userFundraisers[index].id);
+                                    arguments: newData[index].id);
                               },
                             ),
                             Container(
                               padding: const EdgeInsets.only(top: 10),
                               child: Column(
                                 children: [
-                                  if (data.userFundraisers[index].firstName !=
-                                          null &&
-                                      data.userFundraisers[index].firstName
-                                          .isNotEmpty)
+                                  if (newData[index].firstName != null &&
+                                      newData[index].firstName.isNotEmpty)
                                     Text(
-                                      data.userFundraisers[index].firstName,
+                                      newData[index].firstName,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Poppins',
@@ -128,12 +129,10 @@ class ProfileYourFundraisers extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                  if (data.userFundraisers[index].middleName !=
-                                          null &&
-                                      data.userFundraisers[index].middleName
-                                          .isNotEmpty)
+                                  if (newData[index].middleName != null &&
+                                      newData[index].middleName.isNotEmpty)
                                     Text(
-                                      data.userFundraisers[index].middleName,
+                                      newData[index].middleName,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Poppins',
@@ -141,12 +140,10 @@ class ProfileYourFundraisers extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                  if (data.userFundraisers[index].lastName !=
-                                          null &&
-                                      data.userFundraisers[index].lastName
-                                          .isNotEmpty)
+                                  if (newData[index].lastName != null &&
+                                      newData[index].lastName.isNotEmpty)
                                     Text(
-                                      data.userFundraisers[index].lastName,
+                                      newData[index].lastName,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Poppins',

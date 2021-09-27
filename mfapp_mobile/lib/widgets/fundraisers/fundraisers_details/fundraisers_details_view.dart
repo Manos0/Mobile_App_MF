@@ -64,7 +64,32 @@ class FundraisersDetailsView extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 25),
+                alignment: Alignment.topRight,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    primary: Colors.white,
+                    side: BorderSide(
+                      color: mfPrimaryColor,
+                      width: 2,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(
+                      color: mfPrimaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                // margin: EdgeInsets.only(top: 25),
                 child: CircularPercentIndicator(
                   radius: 130,
                   lineWidth: 10,

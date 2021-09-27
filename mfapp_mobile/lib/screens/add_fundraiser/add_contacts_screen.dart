@@ -347,7 +347,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
               if (locationData.contacts != null &&
                   locationData.contacts.isNotEmpty)
                 Container(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 40, bottom: 40),
                   child: ElevatedButton(
                     child: Text(
