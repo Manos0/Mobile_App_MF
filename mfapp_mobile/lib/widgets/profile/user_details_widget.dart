@@ -106,6 +106,7 @@ class UserDetailsWidget extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 16),
                     height: 160,
                     child: FutureBuilder<List<Locations>>(
                       future: locations,
@@ -132,6 +133,7 @@ class UserDetailsWidget extends StatelessWidget {
                     height: 15,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: FractionalOffset.topCenter,
@@ -149,6 +151,7 @@ class UserDetailsWidget extends StatelessWidget {
                     height: 15,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: FractionalOffset.bottomCenter,

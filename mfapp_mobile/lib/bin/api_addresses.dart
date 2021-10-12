@@ -1,4 +1,4 @@
-const baseUrl = 'https://mfdev.t-worxsites.com';
+const baseUrl = 'https://mfdev.t-worxsites.com/';
 const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
 const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
 const takeFirst5 = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=';
@@ -14,3 +14,4 @@ const userData = '/DesktopModules/sff/api/Mobile/GetUserStats?fundraiserCount=';
 const locations = '/DesktopModules/sff/API/Locations';
 const getStats = '/DesktopModules/sff/api/Mobile/GetStats';
 const createNewFundraiser = '/DesktopModules/sff/API/Fundraisers';
+const renewTokenUrl = 'DesktopModules/JwtAuth/API/mobile/extendtoken';

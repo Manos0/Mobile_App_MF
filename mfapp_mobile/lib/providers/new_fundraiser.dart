@@ -21,6 +21,7 @@ class NewFundraiser with ChangeNotifier {
   String obituary;
   int textSelection;
   bool author;
+  String authorName;
   String eventTime;
   String eventDate;
   String gender;
@@ -60,6 +61,7 @@ class NewFundraiser with ChangeNotifier {
     this.textSelection,
     this.gender,
     this.author,
+    this.authorName,
     this.eventDate,
     this.eventTime,
   });

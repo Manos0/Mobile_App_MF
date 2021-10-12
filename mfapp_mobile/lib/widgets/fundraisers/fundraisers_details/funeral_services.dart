@@ -23,7 +23,7 @@ class FuneralServicesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 25),
+      margin: EdgeInsets.only(top: 25, bottom: 25),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Color.fromRGBO(0, 0, 0, 0.05),
@@ -49,7 +49,9 @@ class FuneralServicesWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 15),
+                  margin: EdgeInsets.only(
+                    bottom: 15,
+                  ),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Funeral Services',

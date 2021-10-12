@@ -5,20 +5,42 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../../bin/colors.dart';
+import '../../bin/api_addresses.dart';
+import '../../providers/fundraiser_details.dart';
 import '../../providers/new_fundraiser.dart';
 
-class EditContactFormWidget extends StatefulWidget {
-  Contacts contact;
-  EditContactFormWidget({this.contact});
+class EditContactWidget extends StatefulWidget {
+  EditContacts contact;
+  EditContactWidget({this.contact});
   @override
-  _EditContactFormWidgetState createState() => _EditContactFormWidgetState();
+  _EditContactWidgetState createState() => _EditContactWidgetState();
 }
 
-class _EditContactFormWidgetState extends State<EditContactFormWidget> {
+class _EditContactWidgetState extends State<EditContactWidget> {
   final _formKey = GlobalKey<FormState>();
-  File contactImage;
   final picker = ImagePicker();
+  int index;
   List<bool> selectedType = [true, false];
+  var pickedFile = null;
+  File imageFile;
+
+  pickImage(ImageSource source) async {
+    pickedFile = await picker.getImage(source: source);
+    setState(() {
+      imageFile = File(pickedFile.path);
+      widget.contact.contactPhoto = basename(imageFile.path).toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.contact.contactType == 1) {
+      selectedType = [true, false];
+    } else {
+      selectedType = [false, true];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +76,6 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                   child: Form(
                     key: _formKey,
                     child: Column(
-                      // mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -94,7 +115,7 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                             onPressed: (int newIndex) {
                               setState(
                                 () {
-                                  for (int index = 0;
+                                  for (index = 0;
                                       index < selectedType.length;
                                       index++) {
                                     if (newIndex == 0) {
@@ -118,14 +139,15 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                           child: TextFormField(
                             onSaved: (val) {
                               if (val.isEmpty) {
-                                return widget.contact.firstName =
-                                    widget.contact.firstName;
+                                return widget.contact.contactFirstName =
+                                    widget.contact.contactFirstName;
                               }
-                              return widget.contact.firstName = val;
+                              return widget.contact.contactFirstName = val;
                             },
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
-                              labelText: widget.contact.firstName,
+                              labelText: widget.contact.contactFirstName,
+                              helperText: 'First Name',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: mfLightGrey,
@@ -160,14 +182,15 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                           child: TextFormField(
                             onSaved: (val) {
                               if (val.isEmpty) {
-                                return widget.contact.lastName =
-                                    widget.contact.lastName;
+                                return widget.contact.contactLastName =
+                                    widget.contact.contactLastName;
                               }
-                              return widget.contact.lastName = val;
+                              return widget.contact.contactLastName = val;
                             },
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
-                              labelText: widget.contact.lastName,
+                              labelText: widget.contact.contactLastName,
+                              helperText: 'Last Name',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: mfLightGrey,
@@ -202,14 +225,15 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                           child: TextFormField(
                             onSaved: (val) {
                               if (val.isEmpty) {
-                                return widget.contact.relationship =
-                                    widget.contact.relationship;
+                                return widget.contact.contactRelationship =
+                                    widget.contact.contactRelationship;
                               }
-                              return widget.contact.relationship = val;
+                              return widget.contact.contactRelationship = val;
                             },
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
-                              labelText: widget.contact.relationship,
+                              labelText: widget.contact.contactRelationship,
+                              helperText: 'Relationship',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: mfLightGrey,
@@ -246,19 +270,20 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                               if (val == null) {
                                 return null;
                               } else if (val.isEmpty) {
-                                return widget.contact.email =
-                                    widget.contact.email;
+                                return widget.contact.contactEmail =
+                                    widget.contact.contactEmail;
                               } else {
-                                return widget.contact.email = val;
+                                return widget.contact.contactEmail = val;
                               }
                             },
                             textInputAction: TextInputAction.done,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              labelText: widget.contact.email == null ||
-                                      widget.contact.email.isEmpty
+                              labelText: widget.contact.contactEmail == null ||
+                                      widget.contact.contactEmail.isEmpty
                                   ? 'Email'
-                                  : widget.contact.email,
+                                  : widget.contact.contactEmail,
+                              helperText: 'Email',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: mfLightGrey,
@@ -295,19 +320,20 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                               if (val == null) {
                                 return null;
                               } else if (val.isEmpty) {
-                                return widget.contact.phoneNumber =
-                                    widget.contact.phoneNumber;
+                                return widget.contact.contactPhone =
+                                    widget.contact.contactPhone;
                               } else {
-                                return widget.contact.phoneNumber = val;
+                                return widget.contact.contactPhone = val;
                               }
                             },
                             textInputAction: TextInputAction.done,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                              labelText: widget.contact.phoneNumber == null ||
-                                      widget.contact.phoneNumber.isEmpty
+                              labelText: widget.contact.contactPhone == null ||
+                                      widget.contact.contactPhone.isEmpty
                                   ? 'Phone Number'
-                                  : widget.contact.phoneNumber,
+                                  : widget.contact.contactPhone,
+                              helperText: 'Phone Number',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: mfLightGrey,
@@ -342,143 +368,107 @@ class _EditContactFormWidgetState extends State<EditContactFormWidget> {
                             padding: EdgeInsets.all(20),
                             child: Column(
                               children: [
-                                Container(
-                                  width: 200,
-                                  height: 200,
-                                  child: widget.contact.contactImage != null
-                                      ? Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(20),
-                                            ),
-                                            image: DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: FileImage(
-                                                  widget.contact.contactImage),
-                                            ),
-                                          ),
-                                        )
-                                      : Container(
+                                widget.contact.contactFileImage == null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: widget.contact.contactPhoto !=
+                                                null
+                                            ? Image.network(
+                                                baseUrl +
+                                                    widget.contact.contactPhoto,
+                                                width: 200,
+                                                height: 200,
+                                                fit: BoxFit.fill,
+                                              )
+                                            : Image.asset(
+                                                'assets/images/helperImage.png',
+                                                width: 200,
+                                                height: 200,
+                                                fit: BoxFit.fill,
+                                              ),
+                                      )
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.file(
+                                          widget.contact.contactFileImage,
                                           width: 200,
                                           height: 200,
-                                          decoration: BoxDecoration(
-                                            color: mfLightlightGrey,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(20),
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.add_a_photo,
-                                                  size: 100,
-                                                  color: mfLightGrey,
-                                                ),
-                                                Text(
-                                                  'Select an image',
-                                                  style: TextStyle(
-                                                    color: mfLightGrey,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          fit: BoxFit.fill,
                                         ),
-                                ),
+                                      ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
+                                  margin: EdgeInsets.only(top: 15),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            final pickedFile =
-                                                await picker.getImage(
-                                                    source: ImageSource.camera);
-                                            setState(() {
-                                              contactImage =
-                                                  File(pickedFile.path);
-                                              final bytes =
-                                                  File(pickedFile.path)
-                                                      .readAsBytesSync();
-                                              final fileName =
-                                                  basename(contactImage.path);
-                                              widget.contact.contactImage =
-                                                  contactImage;
-                                              widget.contact.image64 =
-                                                  base64Encode(bytes);
-                                              widget.contact.image =
-                                                  fileName.toString();
-                                            });
-                                          },
-                                          child: Text(
-                                            'Camera',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await picker.getImage(
+                                                  source: ImageSource.camera);
+                                          setState(() {
+                                            imageFile = File(pickedFile.path);
+                                            widget.contact.contactFileImage =
+                                                imageFile;
+                                            final fileName =
+                                                basename(imageFile.path);
+                                            widget.contact.contactPhoto =
+                                                fileName.toString();
+                                          });
+                                        },
+                                        child: Text(
+                                          'Camera',
+                                          style: TextStyle(
+                                            color: Colors.black,
                                           ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 25, vertical: 15),
-                                            primary: mfLightlightGrey,
-                                            elevation: 1,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          elevation: 1,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 35, vertical: 15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(40),
+                                              bottomLeft: Radius.circular(40),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            final pickedFile =
-                                                await picker.getImage(
-                                                    source:
-                                                        ImageSource.gallery);
-                                            setState(
-                                              () {
-                                                contactImage =
-                                                    File(pickedFile.path);
-                                                final bytes =
-                                                    File(pickedFile.path)
-                                                        .readAsBytesSync();
-                                                widget.contact.contactImage =
-                                                    contactImage;
-                                                final fileName =
-                                                    basename(contactImage.path);
-                                                widget.contact.image64 =
-                                                    base64Encode(bytes);
-                                                widget.contact.image =
-                                                    fileName.toString();
-                                              },
-                                            );
-                                          },
-                                          child: Text(
-                                            'Gallery',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await picker.getImage(
+                                                  source: ImageSource.gallery);
+                                          setState(
+                                            () {
+                                              imageFile = File(pickedFile.path);
+                                              widget.contact.contactFileImage =
+                                                  imageFile;
+                                              final fileName =
+                                                  basename(imageFile.path);
+                                              widget.contact.contactPhoto =
+                                                  fileName.toString();
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          'Gallery',
+                                          style: TextStyle(
+                                            color: Colors.black,
                                           ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 25, vertical: 12),
-                                            primary: Colors.white,
-                                            elevation: 1,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          elevation: 1,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 35, vertical: 15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(40),
+                                              bottomRight: Radius.circular(40),
                                             ),
                                           ),
                                         ),

@@ -80,6 +80,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
           return SizedBox(
             height: 35,
             child: RadioListTile<String>(
+              activeColor: mfPrimaryColor,
               contentPadding: EdgeInsets.all(0),
               dense: true,
               value: value,
@@ -140,13 +141,6 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16),
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //     begin: Alignment.topLeft,
-          //     end: Alignment.bottomRight,
-          //     colors: [color, color2],
-          //   ),
-          // ),
           child: Column(
             children: [
               ReadMoreText(
@@ -164,14 +158,6 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                 moreStyle: TextStyle(fontSize: 14, color: mfPrimaryColor),
                 lessStyle: TextStyle(fontSize: 14, color: mfPrimaryColor),
               ),
-              // Text(
-              //   'Write an obituary or select one of our templates.\n\n If you select the default template, your business name will be inserted into the obituary text, based on your Location.\n\n If you select Write the Obituary you can enter and format custom text.',
-              // style: TextStyle(
-              //   color: mfLettersColor,
-              //   fontWeight: FontWeight.w200,
-              // ),
-              //   textAlign: TextAlign.center,
-              // ),
               Container(
                 margin: EdgeInsets.only(top: 15),
                 alignment: Alignment.center,
@@ -422,23 +408,44 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                           children: [
                             TextField(
                               controller: _controllerFullName,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
                               textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                 labelText: 'Provide your full name',
-                                hintStyle: TextStyle(
-                                  color: mfThrirdLetterColor,
-                                ),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                  borderSide: BorderSide(color: mfPrimaryColor),
+                                  borderSide: BorderSide(
+                                    color: mfLightGrey,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black26,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: mfPrimaryColor, width: 2.0),
+                                  borderRadius: BorderRadius.circular(7.0),
                                 ),
                               ),
-                              onSubmitted: (value) {
+                              onChanged: (value) {
                                 setState(() {
                                   _controllerFullName.text = value;
                                   fromTheFamily3 = _controllerFullName.text;
+                                  _controllerFullName.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset:
+                                              _controllerFullName.text.length));
                                 });
                               },
                             ),
@@ -448,6 +455,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                 width: MediaQuery.of(context).size.width / 1.5,
                                 child: CheckboxListTile(
                                   contentPadding: EdgeInsets.all(0),
+                                  activeColor: mfPrimaryColor,
                                   title: Text(
                                     'Use \"As a family\"',
                                     style: TextStyle(
@@ -600,18 +608,41 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                               textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                 labelText: 'Provide your full name',
-                                hintStyle: TextStyle(
-                                  color: mfThrirdLetterColor,
-                                ),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                  borderSide: BorderSide(color: mfPrimaryColor),
+                                  borderSide: BorderSide(
+                                    color: mfLightGrey,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black26,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: mfPrimaryColor, width: 2.0),
+                                  borderRadius: BorderRadius.circular(7.0),
                                 ),
                               ),
-                              onSubmitted: (value) {
+                              onChanged: (value) {
                                 setState(() {
                                   _controllerFullName.text = value;
                                   sudden4 = _controllerFullName.text;
+                                  _controllerFullName.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset:
+                                              _controllerFullName.text.length));
                                 });
                               },
                             ),
@@ -620,6 +651,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width / 1.5,
                                 child: CheckboxListTile(
+                                  activeColor: mfPrimaryColor,
                                   contentPadding: EdgeInsets.all(0),
                                   title: Text(
                                     'Use \"As a family / we are\"',
@@ -745,18 +777,41 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                               textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                 labelText: 'Provide your full name',
-                                hintStyle: TextStyle(
-                                  color: mfThrirdLetterColor,
-                                ),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                  borderSide: BorderSide(color: mfPrimaryColor),
+                                  borderSide: BorderSide(
+                                    color: mfLightGrey,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black26,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(7),
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: mfPrimaryColor, width: 2.0),
+                                  borderRadius: BorderRadius.circular(7.0),
                                 ),
                               ),
-                              onSubmitted: (value) {
+                              onChanged: (value) {
                                 setState(() {
                                   _controllerFullName.text = value;
                                   aTE2 = _controllerFullName.text;
+                                  _controllerFullName.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset:
+                                              _controllerFullName.text.length));
                                 });
                               },
                             ),
@@ -769,6 +824,7 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                     width:
                                         MediaQuery.of(context).size.width / 1.5,
                                     child: CheckboxListTile(
+                                      activeColor: mfPrimaryColor,
                                       contentPadding: EdgeInsets.all(0),
                                       title: Text(
                                         'Use \"As a family / we are\"',
@@ -778,7 +834,6 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-                                      //prepei mallon na valw bool times gia kathe template h kapoio tropo gia reset me tin allagh
                                       value: checkedValueATE,
                                       onChanged: (newValue) {
                                         setState(() {
@@ -945,55 +1000,40 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
                       locationData.obituary = _controllerWritenByYou.text;
                       locationData.template = false;
                     } else {
+                      locationData.obituary = null;
+                      locationData.template = true;
+                      locationData.eventTime = null;
+                      locationData.eventDate = null;
+                      locationData.authorName = _controllerFullName.text;
                       if (_chosenValue == 'Default Template') {
-                        // locationData.obituary = _controllerDefaultTemplate.text;
-                        locationData.obituary = null;
-                        locationData.template = true;
                         locationData.textSelection = 1;
-                        locationData.eventTime = null;
-                        locationData.eventDate = null;
                         if (gend == 'him') {
                           locationData.gender = 'male';
                         } else {
                           locationData.gender = 'female';
                         }
                       } else if (_chosenValue == 'From the family') {
-                        // locationData.obituary = _controllerFromTheFamily.text;
-                        locationData.obituary = null;
-                        locationData.template = true;
                         locationData.textSelection = 2;
-                        locationData.eventTime = null;
-                        locationData.eventDate = null;
+                        locationData.author = checkedValueFam;
                         if (gendFamily == 'him') {
                           locationData.gender = 'male';
                         } else {
                           locationData.gender = 'female';
                         }
                       } else if (_chosenValue == 'From the deceased') {
-                        // locationData.obituary = _controllerFromTheDeceased.text;
-                        locationData.obituary = null;
-                        locationData.template = true;
                         locationData.textSelection = 3;
-                        locationData.eventTime = null;
-                        locationData.eventDate = null;
                         locationData.gender = null;
                       } else if (_chosenValue == 'Sudden passing') {
-                        // locationData.obituary = _controllerSuddenPassing.text;
-                        locationData.obituary = null;
-                        locationData.template = true;
                         locationData.textSelection = 4;
-                        locationData.eventTime = null;
-                        locationData.eventDate = null;
+                        locationData.author = checkedValueSud;
                         if (gendSudden == 'him') {
                           locationData.gender = 'male';
                         } else {
                           locationData.gender = 'female';
                         }
                       } else if (_chosenValue == 'Accident / Tragedy / Event') {
-                        // locationData.obituary = _controllerATE.text;
-                        locationData.obituary = null;
-                        locationData.template = true;
                         locationData.textSelection = 5;
+                        locationData.author = checkedValueATE;
                         if (aTegend1 == 'man') {
                           locationData.gender = 'male';
                         } else {

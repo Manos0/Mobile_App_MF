@@ -14,7 +14,7 @@ class ProfileYourFundraisers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<UserFundraisers> newData =
-        data.userFundraisers.where((i) => i.closed == true).toList();
+        data.userFundraisers.where((i) => i.draft == false).toList();
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 12),

@@ -79,8 +79,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'Venue Name',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -102,8 +124,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'Venue Phone Number',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -124,8 +168,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'Address',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -144,8 +210,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'City',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -164,8 +252,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'State',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -185,8 +295,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'Zip Code',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -228,8 +360,30 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   decoration: InputDecoration(
                     labelText: 'Time',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -246,11 +400,33 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
-                    ),
                     labelText: 'Live Webcast',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
                   ),
                 ),
               ),
@@ -268,11 +444,33 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                   textInputAction: TextInputAction.done,
                   maxLines: null,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide(color: mfPrimaryColor),
-                    ),
                     labelText: 'Additional Information',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: mfLightGrey,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(7),
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: mfPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
                   ),
                 ),
               ),

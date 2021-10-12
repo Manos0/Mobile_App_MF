@@ -12,7 +12,7 @@ import '../providers/locations.dart';
 import '../providers/new_fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
-  final String authToken;
+  String authToken;
 
   Fundraisers(this.authToken);
 
@@ -55,23 +55,6 @@ class Fundraisers with ChangeNotifier {
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserStats.fromJson(json.decode(response.body));
-    // try {
-    //   final url = Uri.parse(baseUrl + userData + '30');
-    //   final response = await http
-    //       .get(url, headers: {'Authorization': 'Bearer ' + authToken});
-    //   return UserStats.fromJson(json.decode(response.body));
-    // } catch (e) {
-    //   print('An CRITICAL error has occured:$e');
-    //   final prefs = await SharedPreferences.getInstance();
-
-    //   if (prefs.getBool('rememberMe')) {
-    //     username = prefs.getString('username');
-    //     password = prefs.getString('password');
-    //     await Auth().login(username, password);
-    //   } else {
-    //     Get.off(AuthScreen.routeName);
-    //   }
-    // }
   }
 
   Future<List<Locations>> fetchLocations() async {
@@ -114,6 +97,7 @@ class Fundraisers with ChangeNotifier {
       'PassingDate': data.passingDate,
       'GoalAmount': data.goalAmount,
       'Draft': data.draft,
+      'FundContent': data.obituary,
       'MFVisibility': data.mfvisibility,
       'ExpirationDate': data.expirationDate,
       'LocationId': data.fundLocation.id,
@@ -124,8 +108,9 @@ class Fundraisers with ChangeNotifier {
       'TemplateOptions': json.encode({
         if (data.textSelection != null) 'textSelection': data.textSelection,
         if (data.author != null) 'author': data.author,
+        if (data.authorName != null) 'authorName': data.authorName,
         if (data.eventTime != null) 'eventTime': data.eventTime,
-        if (data.eventDate != null) 'eventDate': data.eventTime,
+        if (data.eventDate != null) 'eventDate': data.eventDate,
         if (data.gender != null) 'gender': data.gender
       }),
       'FuneralService': json.encode({

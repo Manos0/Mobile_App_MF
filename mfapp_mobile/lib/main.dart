@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './bin/colors.dart';
+import './providers/template-choice.dart';
 
 import './screens/tabs_screen.dart';
 import './screens/dashboard_screen.dart';
@@ -20,6 +21,7 @@ import './screens/add_fundraiser/add_contacts_screen.dart';
 import './screens/add_fundraiser/obituary_screen.dart';
 import './screens/add_fundraiser/funeral_service_screen.dart';
 import './screens/add_fundraiser/funeral_service_preview_screen.dart';
+import './widgets/edit_fundraiser/edit_fundraiser_grid.dart';
 
 import './providers/auth.dart';
 import './providers/provider.dart';
@@ -49,6 +51,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => TemplateChoice(),
         ),
         ChangeNotifierProxyProvider<Auth, Fundraisers>(
           create: null,
@@ -101,6 +106,7 @@ class MyApp extends StatelessWidget {
             FuneralServiceScreen.routeName: (ctx) => FuneralServiceScreen(),
             FuneralServicePreviewScreen.routeName: (ctx) =>
                 FuneralServicePreviewScreen(),
+            EditFundraiserGrid.routeName: (ctx) => EditFundraiserGrid(),
           },
           onUnknownRoute: (settings) {
             return MaterialPageRoute(
