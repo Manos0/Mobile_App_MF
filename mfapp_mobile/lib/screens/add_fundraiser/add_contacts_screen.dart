@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../bin/colors.dart';
 import '../../providers/new_fundraiser.dart';
@@ -35,7 +37,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,187 +59,192 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
                       locationData.contacts.length,
                       (index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Dismissible(
-                              key: ValueKey(locationData.contacts[index]),
-                              direction: DismissDirection.endToStart,
-                              onDismissed: (direction) {
-                                locationData.contacts.removeAt(index);
-                                setState(() {});
-                              },
-                              background: Container(
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                  size: 40,
-                                ),
-                                alignment: Alignment.centerRight,
-                                padding: EdgeInsets.only(right: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(13),
+                        return Container(
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          child: Slidable(
+                            actionPane: SlidableDrawerActionPane(),
+                            actionExtentRatio: 1 / 5,
+                            secondaryActions: [
+                              // if (locationData.contacts[index].phoneNumber !=
+                              //     null)
+                              //   Card(
+                              //     margin: EdgeInsets.symmetric(vertical: 4),
+                              //     child: IconSlideAction(
+                              //       caption: 'Call',
+                              //       color: mfPrimaryColor,
+                              //       icon: Icons.call_outlined,
+                              //       onTap: () {
+                              //         launch(
+                              //             'tel://${locationData.contacts[index].phoneNumber}');
+                              //       },
+                              //     ),
+                              //   ),
+                              // if (locationData.contacts[index].email != null)
+                              //   Card(
+                              //     margin: EdgeInsets.symmetric(vertical: 4),
+                              //     child: IconSlideAction(
+                              //       caption: 'Email',
+                              //       color: mfPrimaryColor.withOpacity(0.70),
+                              //       icon: Icons.email_outlined,
+                              //       onTap: () {
+                              //         launch(
+                              //             'mailto:${locationData.contacts[index].email}');
+                              //       },
+                              //     ),
+                              //   ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                child: IconSlideAction(
+                                  caption: 'Edit',
+                                  color: Colors.grey,
+                                  icon: Icons.mode_edit_outlined,
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return EditContactFormWidget(
+                                          contact: locationData.contacts[index],
+                                        );
+                                      },
+                                    ).then((_) => setState(() {}));
+                                  },
                                 ),
                               ),
-                              child: Card(
-                                elevation: 8,
-                                shadowColor: Color.fromRGBO(247, 247, 247, 100),
+                              Card(
+                                color: Colors.transparent,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      if (locationData
-                                              .contacts[index].contactImage ==
-                                          null)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 13),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(60),
-                                            child: Image(
-                                              width: 50,
-                                              height: 50,
-                                              fit: BoxFit.fill,
-                                              image: AssetImage(
-                                                'assets/images/helperImage.png',
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      else
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 13),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(60),
-                                            child: Image(
-                                              width: 55,
-                                              height: 55,
-                                              fit: BoxFit.fill,
-                                              image: FileImage(
-                                                locationData.contacts[index]
-                                                    .contactImage,
-                                                scale: 5,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      Expanded(
-                                        child: Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                locationData.contacts[index]
-                                                        .firstName +
-                                                    ' ' +
-                                                    locationData.contacts[index]
-                                                        .lastName,
-                                                style: TextStyle(
-                                                  color: mfLettersColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 19,
-                                                ),
-                                              ),
-                                              if (locationData
-                                                      .contacts[index].email !=
-                                                  null)
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 5),
-                                                      child: Icon(
-                                                        Icons
-                                                            .alternate_email_rounded,
-                                                        color:
-                                                            mfThrirdLetterColor,
-                                                        size: 20,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      locationData
-                                                          .contacts[index]
-                                                          .email,
-                                                      style: TextStyle(
-                                                        color:
-                                                            mfThrirdLetterColor,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              if (locationData.contacts[index]
-                                                      .phoneNumber !=
-                                                  null)
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 5),
-                                                      child: Icon(
-                                                        Icons.phone,
-                                                        color:
-                                                            mfThrirdLetterColor,
-                                                        size: 20,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      locationData
-                                                          .contacts[index]
-                                                          .phoneNumber,
-                                                      style: TextStyle(
-                                                        color:
-                                                            mfThrirdLetterColor,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        alignment: Alignment.topRight,
-                                        padding: EdgeInsets.all(0),
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: 15,
-                                          color: mfLightGrey,
-                                        ),
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return EditContactFormWidget(
-                                                contact: locationData
-                                                    .contacts[index],
-                                              );
-                                            },
-                                          ).then((_) => setState(() {}));
-                                        },
-                                      )
-                                    ],
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(0),
+                                    topRight: Radius.circular(13),
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(13),
                                   ),
+                                ),
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(0),
+                                    topRight: Radius.circular(13),
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(13),
+                                  ),
+                                  child: IconSlideAction(
+                                    caption: 'Delete',
+                                    color: Colors.red,
+                                    icon: Icons.delete_outline_rounded,
+                                    onTap: () {
+                                      locationData.contacts.removeAt(index);
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                            child: Card(
+                              margin: EdgeInsets.only(bottom: 4, top: 4),
+                              elevation: 4,
+                              shadowColor: Color.fromRGBO(247, 247, 247, 100),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(13),
+                                  topRight: Radius.circular(0),
+                                  bottomLeft: Radius.circular(13),
+                                  bottomRight: Radius.circular(0),
+                                ),
+                              ),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 10,
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_right_rounded,
+                                  size: 35,
+                                ),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      locationData.contacts[index].firstName +
+                                          ' ' +
+                                          locationData.contacts[index].lastName,
+                                      style: TextStyle(
+                                        color: mfLettersColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 19,
+                                      ),
+                                    ),
+                                    if (locationData.contacts[index].email !=
+                                        null)
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Icon(
+                                              Icons.alternate_email_rounded,
+                                              color: mfThrirdLetterColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            locationData.contacts[index].email,
+                                            style: TextStyle(
+                                              color: mfThrirdLetterColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    if (locationData
+                                            .contacts[index].phoneNumber !=
+                                        null)
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Icon(
+                                              Icons.phone,
+                                              color: mfThrirdLetterColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            locationData
+                                                .contacts[index].phoneNumber,
+                                            style: TextStyle(
+                                              color: mfThrirdLetterColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(60),
+                                  child: locationData
+                                              .contacts[index].contactImage !=
+                                          null
+                                      ? Image.file(
+                                          locationData
+                                              .contacts[index].contactImage,
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : Image.asset(
+                                          'assets/images/helperImage.png',
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.fill,
+                                        ),
                                 ),
                               ),
                             ),
@@ -247,6 +254,200 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
                     ),
                   ),
                 ),
+              // if (locationData.contacts != null)
+              //   Container(
+              //     margin: EdgeInsets.only(top: 20),
+              //     child: Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: List.generate(
+              //         locationData.contacts.length,
+              //         (index) {
+              //           return Padding(
+              //             padding: const EdgeInsets.only(top: 5, bottom: 5),
+              //             child: Container(
+              //               width: MediaQuery.of(context).size.width,
+              //               child: Dismissible(
+              //                 key: ValueKey(locationData.contacts[index]),
+              //                 direction: DismissDirection.endToStart,
+              //                 onDismissed: (direction) {
+              //                   locationData.contacts.removeAt(index);
+              //                   setState(() {});
+              //                 },
+              //                 background: Container(
+              //                   child: Icon(
+              //                     Icons.delete,
+              //                     color: Colors.white,
+              //                     size: 40,
+              //                   ),
+              //                   alignment: Alignment.centerRight,
+              //                   padding: EdgeInsets.only(right: 20),
+              //                   decoration: BoxDecoration(
+              //                     color: Colors.red,
+              //                     borderRadius: BorderRadius.circular(13),
+              //                   ),
+              //                 ),
+              //                 child: Card(
+              //                   elevation: 8,
+              //                   shadowColor: Color.fromRGBO(247, 247, 247, 100),
+              //                   shape: RoundedRectangleBorder(
+              //                     borderRadius: BorderRadius.circular(13),
+              //                   ),
+              //                   child: Padding(
+              //                     padding: const EdgeInsets.all(8.0),
+              //                     child: Row(
+              //                       children: [
+              //                         if (locationData
+              //                                 .contacts[index].contactImage ==
+              //                             null)
+              //                           Padding(
+              //                             padding:
+              //                                 const EdgeInsets.only(right: 13),
+              //                             child: ClipRRect(
+              //                               borderRadius:
+              //                                   BorderRadius.circular(60),
+              //                               child: Image(
+              //                                 width: 50,
+              //                                 height: 50,
+              //                                 fit: BoxFit.fill,
+              //                                 image: AssetImage(
+              //                                   'assets/images/helperImage.png',
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                           )
+              //                         else
+              //                           Padding(
+              //                             padding:
+              //                                 const EdgeInsets.only(right: 13),
+              //                             child: ClipRRect(
+              //                               borderRadius:
+              //                                   BorderRadius.circular(60),
+              //                               child: Image(
+              //                                 width: 55,
+              //                                 height: 55,
+              //                                 fit: BoxFit.fill,
+              //                                 image: FileImage(
+              //                                   locationData.contacts[index]
+              //                                       .contactImage,
+              //                                   scale: 5,
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                         Expanded(
+              //                           child: Container(
+              //                             child: Column(
+              //                               crossAxisAlignment:
+              //                                   CrossAxisAlignment.start,
+              //                               children: [
+              //                                 Text(
+              //                                   locationData.contacts[index]
+              //                                           .firstName +
+              //                                       ' ' +
+              //                                       locationData.contacts[index]
+              //                                           .lastName,
+              //                                   style: TextStyle(
+              //                                     color: mfLettersColor,
+              //                                     fontWeight: FontWeight.w500,
+              //                                     fontSize: 19,
+              //                                   ),
+              //                                 ),
+              //                                 if (locationData
+              //                                         .contacts[index].email !=
+              //                                     null)
+              //                                   Row(
+              //                                     children: [
+              //                                       Padding(
+              //                                         padding:
+              //                                             const EdgeInsets.only(
+              //                                                 right: 5),
+              //                                         child: Icon(
+              //                                           Icons
+              //                                               .alternate_email_rounded,
+              //                                           color:
+              //                                               mfThrirdLetterColor,
+              //                                           size: 20,
+              //                                         ),
+              //                                       ),
+              //                                       Text(
+              //                                         locationData
+              //                                             .contacts[index]
+              //                                             .email,
+              //                                         style: TextStyle(
+              //                                           color:
+              //                                               mfThrirdLetterColor,
+              //                                           fontWeight:
+              //                                               FontWeight.w500,
+              //                                           fontSize: 12,
+              //                                         ),
+              //                                       ),
+              //                                     ],
+              //                                   ),
+              //                                 if (locationData.contacts[index]
+              //                                         .phoneNumber !=
+              //                                     null)
+              //                                   Row(
+              //                                     children: [
+              //                                       Padding(
+              //                                         padding:
+              //                                             const EdgeInsets.only(
+              //                                                 right: 5),
+              //                                         child: Icon(
+              //                                           Icons.phone,
+              //                                           color:
+              //                                               mfThrirdLetterColor,
+              //                                           size: 20,
+              //                                         ),
+              //                                       ),
+              //                                       Text(
+              //                                         locationData
+              //                                             .contacts[index]
+              //                                             .phoneNumber,
+              //                                         style: TextStyle(
+              //                                           color:
+              //                                               mfThrirdLetterColor,
+              //                                           fontWeight:
+              //                                               FontWeight.w500,
+              //                                           fontSize: 12,
+              //                                         ),
+              //                                       ),
+              //                                     ],
+              //                                   ),
+              //                               ],
+              //                             ),
+              //                           ),
+              //                         ),
+              //                         IconButton(
+              //                           alignment: Alignment.topRight,
+              //                           padding: EdgeInsets.all(0),
+              //                           icon: Icon(
+              //                             Icons.edit,
+              //                             size: 15,
+              //                             color: mfLightGrey,
+              //                           ),
+              //                           onPressed: () {
+              //                             showDialog(
+              //                               context: context,
+              //                               builder: (BuildContext context) {
+              //                                 return EditContactFormWidget(
+              //                                   contact: locationData
+              //                                       .contacts[index],
+              //                                 );
+              //                               },
+              //                             ).then((_) => setState(() {}));
+              //                           },
+              //                         )
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           );
+              //         },
+              //       ),
+              //     ),
+              //   ),
               if (locationData.contacts == null ||
                   locationData.contacts.isEmpty)
                 Center(

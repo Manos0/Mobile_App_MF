@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'dart:typed_data';
 import 'dart:convert';
 import 'dart:io';
@@ -36,20 +38,20 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
   bool checkedValueFam = false;
   bool checkedValueSud = false;
   bool checkedValueATE = false;
-  String gend = 'him';
-  String gendFamily = 'him';
-  String gendSudden = 'him';
-  String fromTheFamily1 = 'I am';
-  String fromTheFamily2 = 'I';
-  String fromTheFamily3 = '';
-  String sudden1 = 'I am';
-  String sudden2 = 'I have decided to honor my';
-  String sudden3 = 'I';
-  String sudden4 = '';
-  String aTE1 = 'I';
-  String aTE2 = '';
-  String aTegend1 = 'man';
-  String aTegend2 = 'His';
+  String gend;
+  String gendFamily;
+  String gendSudden;
+  String fromTheFamily1;
+  String fromTheFamily2;
+  String fromTheFamily3;
+  String sudden1;
+  String sudden2;
+  String sudden3;
+  String sudden4;
+  String aTE1;
+  String aTE2;
+  String aTegend1;
+  String aTegend2;
   int i = 0;
   List<Color> _colors = [
     mfPrimaryColor,
@@ -72,8 +74,8 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
   final _controllerSuddenPassing = TextEditingController();
   final _controllerATE = TextEditingController();
   TextEditingController _selectedDateController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
-  String occured = 'early morning hours';
+  String occured;
+  String formatted;
   TextEditingController _firstName = TextEditingController();
   TextEditingController _nickName = TextEditingController();
   TextEditingController _middleName = TextEditingController();
@@ -101,6 +103,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
   DateTime pickedPDate;
   DateTime pickedEDate;
   DateTime pickedServiceDate;
+  DateTime pickedATEDate;
 
   Widget buildRadios() => Column(
         mainAxisSize: MainAxisSize.min,
@@ -196,6 +199,36 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
         var date =
             "${pickedPDate.toLocal().day}/${pickedPDate.toLocal().month}/${pickedPDate.toLocal().year}";
         _passingDateController.text = date;
+      });
+  }
+
+  _selectedATEDate(BuildContext context) async {
+    pickedATEDate = await showDatePicker(
+        context: context,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: mfPrimaryColor,
+                onPrimary: Colors.white,
+                surface: mfPrimaryColor,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        },
+        initialDate: widget.fundDetails.expirationDate != null
+            ? DateTime.parse(widget.fundDetails.expirationDate)
+            : DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2150));
+    if (pickedATEDate != null)
+      setState(() {
+        var date =
+            "${pickedATEDate.toLocal().day}/${pickedATEDate.toLocal().month}/${pickedATEDate.toLocal().year}";
+        _selectedDateController.text = date;
       });
   }
 
@@ -309,6 +342,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
       if (widget.fundDetails.gender != null) {
         if (widget.fundDetails.gender == 'male') {
           selectedGender = [true, false];
+          gend = 'him';
         } else {
           selectedGender = [false, true];
           gend = 'her';
@@ -319,6 +353,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
       if (widget.fundDetails.gender != null) {
         if (widget.fundDetails.gender == 'male') {
           selectedGenderFam = [true, false];
+          gendFamily = 'him';
         } else {
           selectedGenderFam = [false, true];
           gendFamily = 'her';
@@ -330,9 +365,12 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
         fromTheFamily2 = 'we';
         fromTheFamily3 =
             'The Family of ${widget.fundDetails.firstName}${widget.fundDetails.nickName == null ? '' : ' ' + widget.fundDetails.nickName}${widget.fundDetails.middleName == null ? '' : ' ' + widget.fundDetails.middleName} ${widget.fundDetails.lastName}';
-      } else
+      } else {
         checkedValueFam = false;
-      fromTheFamily3 = _controllerFullName.text;
+        fromTheFamily1 = 'I am';
+        fromTheFamily2 = 'I';
+        fromTheFamily3 = _controllerFullName.text;
+      }
     } else if (widget.fundDetails.textSelection == 3) {
       _chosenValue = 'From the deceased';
     } else if (widget.fundDetails.textSelection == 4) {
@@ -340,6 +378,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
       if (widget.fundDetails.gender != null) {
         if (widget.fundDetails.gender == 'male') {
           selectedGenderSud = [true, false];
+          gendSudden = 'him';
         } else {
           selectedGenderSud = [false, true];
           gendSudden = 'her';
@@ -352,14 +391,20 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
         sudden3 = 'we';
         sudden4 =
             'The Family of ${widget.fundDetails.firstName}${widget.fundDetails.nickName == null ? '' : ' ' + widget.fundDetails.nickName}${widget.fundDetails.middleName == null ? '' : ' ' + widget.fundDetails.middleName} ${widget.fundDetails.lastName}';
-      } else
+      } else {
         checkedValueSud = false;
-      sudden4 = _controllerFullName.text;
+        sudden1 = 'I am';
+        sudden2 = 'I';
+        sudden3 = 'I';
+        sudden4 = _controllerFullName.text;
+      }
     } else {
       _chosenValue = 'Accident / Tragedy / Event';
       if (widget.fundDetails.gender != null) {
         if (widget.fundDetails.gender == 'male') {
           selectedGenderATE = [true, false];
+          aTegend1 = 'man';
+          aTegend2 = 'His';
         } else {
           selectedGenderATE = [false, true];
           aTegend1 = 'woman';
@@ -371,9 +416,23 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
         aTE1 = 'we';
         aTE2 =
             'The Family of ${widget.fundDetails.firstName}${widget.fundDetails.nickName == null ? '' : ' ' + widget.fundDetails.nickName}${widget.fundDetails.middleName == null ? '' : ' ' + widget.fundDetails.middleName} ${widget.fundDetails.lastName}';
-      } else
+      } else {
         checkedValueATE = false;
-      aTE2 = _controllerFullName.text;
+        aTE1 = 'I';
+        aTE2 = _controllerFullName.text;
+      }
+      if (widget.fundDetails.eventTime == 'morning') {
+        occured = 'early morning hours';
+      } else {
+        occured = 'late evening hours';
+      }
+      if (widget.fundDetails.eventDate != null) {
+        _selectedDateController = TextEditingController(
+            text: formatDate(widget.fundDetails.eventDate));
+        DateFormat formatter = DateFormat('yMMMMEEEEd');
+        formatted =
+            formatter.format(DateTime.parse(widget.fundDetails.eventDate));
+      }
     }
 
     if (widget.fundDetails.venueName != null) {
@@ -411,9 +470,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.fundDetails);
-    DateFormat formatter = DateFormat('yMMMMEEEEd');
-    String formatted = formatter.format(selectedDate);
     _controllerDefaultTemplate.text =
         'The ${widget.fundDetails.lastName} family is deeply saddened to announce the passing of ${widget.fundDetails.firstName} and offers a special way to honor $gend.\n\nIn lieu of flowers, food, sympathy cards or charitable donations the family is requesting donations by clicking on the \'Donate Now\' button in order to allow those who loved and knew $gend the answer to the question...\“Is there anything I can do?\”.\n\nWhile donating you will be able to offer your condolences by writing a message which will appear below as well as choose to remain anonymous.\n\nAll donations are directly deposited to ${widget.fundDetails.location.locationName} for complete transparency & security.\n\n${widget.fundDetails.location.locationName} has been entrusted with funeral arrangements.';
     _controllerFromTheFamily.text =
@@ -844,201 +900,227 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                         widget.fundDetails.contactList.length,
                         (index) {
                           return Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Dismissible(
-                              key: ValueKey(
-                                  widget.fundDetails.contactList[index]),
-                              direction: DismissDirection.endToStart,
-                              onDismissed: (direction) {
-                                widget.fundDetails.contactList.removeAt(index);
-                                setState(() {});
-                              },
-                              background: Container(
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                  size: 40,
+                            width: MediaQuery.of(context).size.width / 1.1,
+                            child: Slidable(
+                              actionPane: SlidableDrawerActionPane(),
+                              actionExtentRatio: 1 / 5,
+                              secondaryActions: [
+                                if (widget.fundDetails.contactList[index]
+                                        .contactPhone !=
+                                    null)
+                                  Card(
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    child: IconSlideAction(
+                                      caption: 'Call',
+                                      color: mfPrimaryColor,
+                                      icon: Icons.call_outlined,
+                                      onTap: () {
+                                        launch(
+                                            'tel://${widget.fundDetails.contactList[index].contactPhone}');
+                                      },
+                                    ),
+                                  ),
+                                if (widget.fundDetails.contactList[index]
+                                        .contactEmail !=
+                                    null)
+                                  Card(
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    child: IconSlideAction(
+                                      caption: 'Email',
+                                      color: mfPrimaryColor.withOpacity(0.70),
+                                      icon: Icons.email_outlined,
+                                      onTap: () {
+                                        launch(
+                                            'mailto:${widget.fundDetails.contactList[index].contactEmail}');
+                                      },
+                                    ),
+                                  ),
+                                Card(
+                                  margin: EdgeInsets.symmetric(vertical: 4),
+                                  child: IconSlideAction(
+                                    caption: 'Edit',
+                                    color: Colors.grey,
+                                    icon: Icons.mode_edit_outlined,
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return EditContactWidget(
+                                            contact: widget
+                                                .fundDetails.contactList[index],
+                                          );
+                                        },
+                                      ).then((_) => setState(() {}));
+                                    },
+                                  ),
                                 ),
-                                alignment: Alignment.centerRight,
-                                padding: EdgeInsets.only(right: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(13),
+                                Card(
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(13),
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(13),
+                                    ),
+                                  ),
+                                  margin: EdgeInsets.symmetric(vertical: 4),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(13),
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(13),
+                                    ),
+                                    child: IconSlideAction(
+                                      caption: 'Delete',
+                                      color: Colors.red,
+                                      icon: Icons.delete_outline_rounded,
+                                      onTap: () {
+                                        widget.fundDetails.contactList
+                                            .removeAt(index);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                               child: Card(
+                                margin: EdgeInsets.only(bottom: 4, top: 4),
                                 elevation: 4,
                                 shadowColor: Color.fromRGBO(247, 247, 247, 100),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(13),
+                                    topRight: Radius.circular(0),
+                                    bottomLeft: Radius.circular(13),
+                                    bottomRight: Radius.circular(0),
+                                  ),
                                 ),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 13),
-                                        child: widget
-                                                    .fundDetails
-                                                    .contactList[index]
-                                                    .contactFileImage ==
-                                                null
-                                            ? ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(60),
-                                                child: widget
-                                                            .fundDetails
-                                                            .contactList[index]
-                                                            .contactPhoto !=
-                                                        null
-                                                    ? Image.network(
-                                                        baseUrl +
-                                                            widget
-                                                                .fundDetails
-                                                                .contactList[
-                                                                    index]
-                                                                .contactPhoto,
-                                                        width: 50,
-                                                        height: 50,
-                                                        fit: BoxFit.fill,
-                                                      )
-                                                    : Image.asset(
-                                                        'assets/images/helperImage.png',
-                                                        width: 50,
-                                                        height: 50,
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                              )
-                                            : ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(60),
-                                                child: Image.file(
-                                                  widget
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 10,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_right_rounded,
+                                    size: 35,
+                                  ),
+                                  title: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.fundDetails.contactList[index]
+                                                .contactFirstName +
+                                            ' ' +
+                                            widget
+                                                .fundDetails
+                                                .contactList[index]
+                                                .contactLastName,
+                                        style: TextStyle(
+                                          color: mfLettersColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 19,
+                                        ),
+                                      ),
+                                      if (widget.fundDetails.contactList[index]
+                                              .contactEmail !=
+                                          null)
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5),
+                                              child: Icon(
+                                                Icons.alternate_email_rounded,
+                                                color: mfThrirdLetterColor,
+                                                size: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              widget
+                                                  .fundDetails
+                                                  .contactList[index]
+                                                  .contactEmail,
+                                              style: TextStyle(
+                                                color: mfThrirdLetterColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      if (widget.fundDetails.contactList[index]
+                                              .contactPhone !=
+                                          null)
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5),
+                                              child: Icon(
+                                                Icons.phone,
+                                                color: mfThrirdLetterColor,
+                                                size: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              widget
+                                                  .fundDetails
+                                                  .contactList[index]
+                                                  .contactPhone,
+                                              style: TextStyle(
+                                                color: mfThrirdLetterColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                    ],
+                                  ),
+                                  leading: widget.fundDetails.contactList[index]
+                                              .contactFileImage ==
+                                          null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(60),
+                                          child: widget
                                                       .fundDetails
                                                       .contactList[index]
-                                                      .contactFileImage,
+                                                      .contactPhoto !=
+                                                  null
+                                              ? Image.network(
+                                                  baseUrl +
+                                                      widget
+                                                          .fundDetails
+                                                          .contactList[index]
+                                                          .contactPhoto,
+                                                  width: 50,
+                                                  height: 50,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : Image.asset(
+                                                  'assets/images/helperImage.png',
                                                   width: 50,
                                                   height: 50,
                                                   fit: BoxFit.fill,
                                                 ),
-                                              ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              widget
-                                                      .fundDetails
-                                                      .contactList[index]
-                                                      .contactFirstName +
-                                                  ' ' +
-                                                  widget
-                                                      .fundDetails
-                                                      .contactList[index]
-                                                      .contactLastName,
-                                              style: TextStyle(
-                                                color: mfLettersColor,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 19,
-                                              ),
-                                            ),
-                                            if (widget
-                                                    .fundDetails
-                                                    .contactList[index]
-                                                    .contactEmail !=
-                                                null)
-                                              Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 5),
-                                                    child: Icon(
-                                                      Icons
-                                                          .alternate_email_rounded,
-                                                      color:
-                                                          mfThrirdLetterColor,
-                                                      size: 20,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    widget
-                                                        .fundDetails
-                                                        .contactList[index]
-                                                        .contactEmail,
-                                                    style: TextStyle(
-                                                      color:
-                                                          mfThrirdLetterColor,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            if (widget
-                                                    .fundDetails
-                                                    .contactList[index]
-                                                    .contactPhone !=
-                                                null)
-                                              Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 5),
-                                                    child: Icon(
-                                                      Icons.phone,
-                                                      color:
-                                                          mfThrirdLetterColor,
-                                                      size: 20,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    widget
-                                                        .fundDetails
-                                                        .contactList[index]
-                                                        .contactPhone,
-                                                    style: TextStyle(
-                                                      color:
-                                                          mfThrirdLetterColor,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                          ],
+                                        )
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(60),
+                                          child: Image.file(
+                                            widget
+                                                .fundDetails
+                                                .contactList[index]
+                                                .contactFileImage,
+                                            width: 50,
+                                            height: 50,
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      alignment: Alignment.topRight,
-                                      padding: EdgeInsets.only(right: 5),
-                                      icon: Icon(
-                                        Icons.edit,
-                                        size: 15,
-                                        color: mfLightGrey,
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return EditContactWidget(
-                                              contact: widget.fundDetails
-                                                  .contactList[index],
-                                            );
-                                          },
-                                        ).then((_) => setState(() {}));
-                                      },
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),
@@ -1931,7 +2013,8 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                                         padding: const EdgeInsets.only(
                                             top: 20, bottom: 8),
                                         child: GestureDetector(
-                                          onTap: () => _selectBDate(context),
+                                          onTap: () =>
+                                              _selectedATEDate(context),
                                           child: AbsorbPointer(
                                             child: TextFormField(
                                               style: TextStyle(
@@ -2335,7 +2418,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                 padding: const EdgeInsets.only(top: 15, bottom: 5),
                 child: ElevatedButton(
                   child: Text(
-                    'Done Editing',
+                    'Publish Changes',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -2465,7 +2548,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                         } else if (occured == 'late evening hours') {
                           widget.fundDetails.eventTime = 'evening';
                         }
-                        widget.fundDetails.eventDate = selectedDate.toString();
+                        widget.fundDetails.eventDate = pickedATEDate.toString();
                       }
                     }
                     print(widget.fundDetails);

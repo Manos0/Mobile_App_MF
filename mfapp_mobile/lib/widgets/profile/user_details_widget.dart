@@ -107,7 +107,7 @@ class UserDetailsWidget extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.symmetric(horizontal: 16),
-                    height: 160,
+                    height: 145,
                     child: FutureBuilder<List<Locations>>(
                       future: locations,
                       builder: (context, snapshot) {

@@ -22,9 +22,9 @@ class FundraiserDetails with ChangeNotifier {
   String liveWebcast;
   String templateOptions;
   String funeralService;
-  final double fundRaised;
-  final Location location;
-  final List<Payment> payment;
+  double fundRaised;
+  Location location;
+  List<Payment> payment;
   int textSelection;
   bool author;
   String authorname;
@@ -84,13 +84,27 @@ class FundraiserDetails with ChangeNotifier {
   });
 
   factory FundraiserDetails.fromJson(Map<String, dynamic> json) {
-    var listOfContacts = json['Contacts'] as List;
-    List<EditContacts> userContacts =
-        listOfContacts.map((i) => EditContacts.fromJson(i)).toList();
-    var list = json['Payments'] as List;
-    List<Payment> paymentList = list.map((i) => Payment.fromJson(i)).toList();
-    var options = jsonDecode(json['TemplateOptions']);
-    var service = jsonDecode(json['FuneralService']);
+    List listOfContacts = json['Contacts'];
+    List<EditContacts> userContacts;
+    List<Payment> paymentList;
+    if (listOfContacts != null) {
+      userContacts =
+          listOfContacts.map((i) => EditContacts.fromJson(i)).toList();
+    }
+    List list = json['Payments'];
+    if (list != null) {
+      paymentList = list.map((i) => Payment.fromJson(i)).toList();
+    }
+    var userOptions = json['TemplateOptions'];
+    var options;
+    if (userOptions != null) {
+      options = jsonDecode(json['TemplateOptions']);
+    }
+    var userService = json['FuneralService'];
+    var service = {};
+    if (userService != null) {
+      service = jsonDecode(json['FuneralService']);
+    }
     return new FundraiserDetails(
       id: json['FundraiserId'],
       firstName: json['ClientFirstName'],

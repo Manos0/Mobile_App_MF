@@ -16,28 +16,31 @@ class FundraisersDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     String _template;
     DateTime birthDate = new DateFormat('yyyy-MM-dd').parse(data.birthDate);
     var birth = DateFormat.yMMMMd().format(birthDate);
     DateTime passingDate = new DateFormat('yyyy-MM-dd').parse(data.passingDate);
     var passing = DateFormat.yMMMMd().format(passingDate);
-    if (data.textSelection == 1) {
-      _template =
-          'The ${data.lastName} family is deeply saddened to announce the passing of ${data.firstName} and offers a special way to honor ${data.gender == 'male' ? 'him' : 'her'}.\n\nIn lieu of flowers, food, sympathy cards or charitable donations the family is requesting donations by clicking on the \'Donate Now\' button in order to allow those who loved and knew ${data.gender == 'male' ? 'him' : 'her'} the answer to the question...\“Is there anything I can do?\”.\n\nWhile donating you will be able to offer your condolences by writing a message which will appear below as well as choose to remain anonymous.\n\nAll donations are directly deposited to ${data.location.locationName} for complete transparency & security.\n\n${data.location.locationName} has been entrusted with funeral arrangements.';
-    } else if (data.textSelection == 2) {
-      _template =
-          '${data.author == true ? 'As a family we are' : 'I am'} deeply saddened to announce the passing of my beloved ${data.firstName} ${data.lastName} and have decided to honor ${data.gender == 'male' ? 'him' : 'her'} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and \"Share this Fundraiser\" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
-    } else if (data.textSelection == 3) {
-      _template =
-          '"Hello Family and Friends. I want to thank everyone for their thoughts and prayers. I know my family and friends will miss me dearly, but this is not goodbye, this is... ‘we will meet again’. Until then, I would truly appreciate, and ask in lieu of flowers, food or charitable donations, that a contribution be made to my fundraiser and... I thank you in advance. In order to donate, please click on the \'Donate\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences as well as choose to have your name or contribution amount remain anonymous.\n\nIf you are unable to donate then I ask that you please click on the ‘Share This Fundraiser’ button located under the ‘Donate Now’ button. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nMay my smile forever stay within your heart.\n\n${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}';
-    } else if (data.textSelection == 4) {
-      _template =
-          '${data.author == true ? 'We are' : 'I am'} deeply saddened to announce the sudden passing of our beloved ${data.firstName} ${data.lastName}. With this passing being so sudden, ${data.author == true ? 'as a family have decided to honor our' : 'I'} ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
-    } else {
-      DateFormat formatter = DateFormat('yMMMMEEEEd');
-      String formatted = formatter.format(DateTime.parse(data.eventDate));
-      _template =
-          'In the ${data.eventTime == 'morning' ? 'early morning hours' : 'late evening hours'} of $formatted my family and I suffered a major loss. ${data.firstName} was an amazing ${data.gender == 'male' ? 'man' : 'woman'} loved by many and will be missed by all. ${data.gender == 'male' ? 'His' : 'Her'} untimely passing has left us with many unexpected financial burdens. ${data.author == true ? 'we' : 'I'} have decided to honor my ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
+    if (data.templateOptions != null) {
+      if (data.textSelection == 1) {
+        _template =
+            'The ${data.lastName} family is deeply saddened to announce the passing of ${data.firstName} and offers a special way to honor ${data.gender == 'male' ? 'him' : 'her'}.\n\nIn lieu of flowers, food, sympathy cards or charitable donations the family is requesting donations by clicking on the \'Donate Now\' button in order to allow those who loved and knew ${data.gender == 'male' ? 'him' : 'her'} the answer to the question...\“Is there anything I can do?\”.\n\nWhile donating you will be able to offer your condolences by writing a message which will appear below as well as choose to remain anonymous.\n\nAll donations are directly deposited to ${data.location.locationName} for complete transparency & security.\n\n${data.location.locationName} has been entrusted with funeral arrangements.';
+      } else if (data.textSelection == 2) {
+        _template =
+            '${data.author == true ? 'As a family we are' : 'I am'} deeply saddened to announce the passing of my beloved ${data.firstName} ${data.lastName} and have decided to honor ${data.gender == 'male' ? 'him' : 'her'} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and \"Share this Fundraiser\" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
+      } else if (data.textSelection == 3) {
+        _template =
+            '"Hello Family and Friends. I want to thank everyone for their thoughts and prayers. I know my family and friends will miss me dearly, but this is not goodbye, this is... ‘we will meet again’. Until then, I would truly appreciate, and ask in lieu of flowers, food or charitable donations, that a contribution be made to my fundraiser and... I thank you in advance. In order to donate, please click on the \'Donate\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences as well as choose to have your name or contribution amount remain anonymous.\n\nIf you are unable to donate then I ask that you please click on the ‘Share This Fundraiser’ button located under the ‘Donate Now’ button. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nMay my smile forever stay within your heart.\n\n${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}';
+      } else if (data.textSelection == 4) {
+        _template =
+            '${data.author == true ? 'We are' : 'I am'} deeply saddened to announce the sudden passing of our beloved ${data.firstName} ${data.lastName}. With this passing being so sudden, ${data.author == true ? 'as a family have decided to honor our' : 'I'} ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
+      } else {
+        DateFormat formatter = DateFormat('yMMMMEEEEd');
+        String formatted = formatter.format(DateTime.parse(data.eventDate));
+        _template =
+            'In the ${data.eventTime == 'morning' ? 'early morning hours' : 'late evening hours'} of $formatted my family and I suffered a major loss. ${data.firstName} was an amazing ${data.gender == 'male' ? 'man' : 'woman'} loved by many and will be missed by all. ${data.gender == 'male' ? 'His' : 'Her'} untimely passing has left us with many unexpected financial burdens. ${data.author == true ? 'we' : 'I'} have decided to honor my ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
+      }
     }
     return Scaffold(
       backgroundColor: mfLightlightGrey,
@@ -55,6 +58,24 @@ class FundraisersDetailsView extends StatelessWidget {
           alignment: Alignment.centerLeft,
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditFundraiserGrid(
+                    fundDetails: data,
+                  ),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.edit,
+              color: mfPrimaryColor,
+            ),
+          )
+        ],
         title: Text(
           (data.firstName != null && data.firstName.length > 0
                   ? data.firstName
@@ -84,41 +105,7 @@ class FundraisersDetailsView extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                alignment: Alignment.topRight,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditFundraiserGrid(
-                          fundDetails: data,
-                        ),
-                      ),
-                    );
-                  },
-                  style: OutlinedButton.styleFrom(
-                    primary: Colors.white,
-                    side: BorderSide(
-                      color: mfPrimaryColor,
-                      width: 2,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    'Edit',
-                    style: TextStyle(
-                      color: mfPrimaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                // margin: EdgeInsets.only(top: 25),
+                margin: EdgeInsets.only(top: 25),
                 child: CircularPercentIndicator(
                   radius: 130,
                   lineWidth: 10,

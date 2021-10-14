@@ -30,28 +30,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     if (_isInit) {
-      userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
-      lineChartData =
-          Provider.of<Fundraisers>(context, listen: false).fetchLineChartData();
-      barChartData =
-          Provider.of<Fundraisers>(context, listen: false).fetchBarChartData();
+      userData = Provider.of<Fundraisers>(context, listen: false)
+          .getUserData()
+          .whenComplete(() => lineChartData =
+              Provider.of<Fundraisers>(context, listen: false)
+                  .fetchLineChartData()
+                  .whenComplete(() => barChartData =
+                      Provider.of<Fundraisers>(context, listen: false)
+                          .fetchBarChartData()));
     }
     _isInit = false;
     super.initState();
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   if (_isInit) {
-  //     userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
-  //     lineChartData =
-  //         Provider.of<Fundraisers>(context, listen: false).fetchLineChartData();
-  //     barChartData =
-  //         Provider.of<Fundraisers>(context, listen: false).fetchBarChartData();
-  //   }
-  //   _isInit = false;
-  //   super.didChangeDependencies();
-  // }
 
   refreshLogin() async {
     final prefs = await SharedPreferences.getInstance();

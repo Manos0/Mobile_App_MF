@@ -23,7 +23,7 @@ class _ProfileLocationsWidgetState extends State<ProfileLocationsWidget> {
           widget.locations.length,
           (index) {
             return Card(
-              margin: EdgeInsets.only(bottom: 8),
+              margin: EdgeInsets.only(bottom: 8, top: 5),
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(11),

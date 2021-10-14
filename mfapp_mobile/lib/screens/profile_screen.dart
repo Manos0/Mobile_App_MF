@@ -29,9 +29,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
-      locations =
-          Provider.of<Fundraisers>(context, listen: false).fetchLocations();
+      userData = Provider.of<Fundraisers>(context, listen: false)
+          .getUserData()
+          .whenComplete(() => locations =
+              Provider.of<Fundraisers>(context, listen: false)
+                  .fetchLocations());
     }
     _isInit = false;
     super.didChangeDependencies();
