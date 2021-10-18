@@ -14,4 +14,7 @@ const userData = '/DesktopModules/sff/api/Mobile/GetUserStats?fundraiserCount=';
 const locations = '/DesktopModules/sff/API/Locations';
 const getStats = '/DesktopModules/sff/api/Mobile/GetStats';
 const createNewFundraiser = '/DesktopModules/sff/API/Fundraisers';
+const editExistingFundraiser =
+    '/DesktopModules/sff/api/Mobile/UpdateFundraiser';
+const createPayout = '/DesktopModules/sff/api/Mobile/CreatePayout';
 const renewTokenUrl = 'DesktopModules/JwtAuth/API/mobile/extendtoken';

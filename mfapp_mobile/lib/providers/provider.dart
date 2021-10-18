@@ -85,6 +85,111 @@ class Fundraisers with ChangeNotifier {
     return dailyDonations;
   }
 
+  void editFundraiser(FundraiserDetails data) {
+    var contacts = List<Map<String, dynamic>>.from(
+        data.contactList.map((e) => EditContacts().toJson(e)));
+    var request = {
+      'FundraiserId': data.id,
+      'ClientFirstName': data.firstName,
+      'ClientMiddleName': data.middleName,
+      'ClientLastName': data.lastName,
+      'ClientNickName': data.nickName,
+      'BirthDate': data.birthDate,
+      'PassingDate': data.passingDate,
+      'ClientAvatar':
+          data.image != null && data.image64 != null ? null : data.clientAvatar,
+      'ClientAvatarMD': data.image != null && data.image64 != null
+          ? null
+          : data.clientAvatarMD,
+      'ClientAvatarSM': data.image != null && data.image64 != null
+          ? null
+          : data.clientAvatarSM,
+      'FundContent': data.fundContent,
+      'Website': data.website,
+      'GoalAmount': data.goalAmount,
+      'Closed': data.closed,
+      'Draft': data.draft,
+      'Featured': data.featured,
+      'MFVisibility': data.featured,
+      'AuthorizeContactFamily': data.authorizeContactFamily,
+      'Template': data.template,
+      'TemplateOptions': json.encode({
+        if (data.textSelection != null) 'textSelection': data.textSelection,
+        if (data.author != null) 'author': data.author,
+        if (data.authorname != null) 'authorName': data.authorname,
+        if (data.eventTime != null) 'eventTime': data.eventTime,
+        if (data.eventDate != null) 'eventDate': data.eventDate,
+        if (data.gender != null) 'gender': data.gender
+      }),
+      'DateCreated': data.dateCreated,
+      'ExpirationDate': data.expirationDate,
+      'UserId': data.userId,
+      'LocationId': data.locationId,
+      'CreationUserId': data.creationUserId,
+      'LiveWebcast': data.liveWebcast,
+      'FuneralService': json.encode({
+        if (data.venueName != null) 'Venue': data.venueName,
+        if (data.venuePhoneNumber != null)
+          'VenuePhoneNumber': data.venuePhoneNumber,
+        if (data.venueAddress != null) 'Address': data.venueAddress,
+        if (data.venueCity != null) 'City': data.venueCity,
+        if (data.venueState != null) 'State': data.venueState,
+        if (data.venueZipCode != null) 'ZipCode': data.venueZipCode,
+        if (data.venueDate != null) 'Date': data.venueDate,
+        if (data.venueTime != null) 'Time': data.venueTime,
+        if (data.venueAdditionalInfo != null)
+          'AdditionalInfo': data.venueAdditionalInfo,
+      }),
+      'ShowFuneralHomeDetails': data.showFuneralHomeDetails,
+      'GalleryImages': data.galleryImages,
+      'Location': {
+        'LocationId': data.location.locationId,
+        'StripeAccountId': data.location.stripeAccountId,
+        'UserId': data.location.userId,
+        'Name': data.location.locationName,
+        'Email': data.location.locationEmail,
+        'PhoneNumber': data.location.locationPhone,
+        'Address1': data.location.locationAddress1,
+        'Address2': data.location.locationAddress2,
+        'City': data.location.locationCity,
+        'State': data.location.locationState,
+        'PostalCode': data.location.locationPostalCode,
+        'Country': data.location.country,
+        'TaxId': data.location.taxId,
+        'Website': data.location.website,
+        'Logo': data.location.locationLogo,
+        'StripeRequirements': data.location.stripeRequirements,
+        'ChargesEnabled': data.location.chargesEnabled,
+        'PayoutsEnabled': data.location.payoutsEnabled,
+        'DateCreated': data.location.dateCreated,
+        'HLAccountId': data.location.hLAccountId,
+        'HLAccountApi': data.location.hLAccountApi,
+        'HLSuccessCampaignId': data.location.hLSuccessCampaignId,
+        'HLFailedCampaignId': data.location.hLFailedCampaignId,
+        'HLFailedReminderCampaignId': data.location.hLFailedReminderCampaignId,
+        'HLFundFormComplCampaignId': data.location.hLFundFormComplCampaignId,
+        'Image': data.location.image,
+        'Representatives': data.location.representatives,
+        'BankAccounts': data.location.bankAccounts,
+      },
+      'Contacts': contacts,
+      'Image': data.image != null && data.image64 != null
+          ? {'Name': data.image, 'ImageData': data.image64}
+          : null,
+      'FundRaised': data.fundRaised,
+      'GratuityFees': data.gratuityFees,
+      'Payments': data.payment,
+    };
+    var requestD = json.encode(request);
+    final url = Uri.parse(baseUrl + editExistingFundraiser);
+    http.put(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: requestD);
+  }
+
   void addNewFundraiser(NewFundraiser data) {
     var request = {
       'Contacts': data.contacts,

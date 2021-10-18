@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,11 +11,13 @@ import 'dart:io';
 
 import './add_contact_widget.dart';
 import './edit_contact_widget.dart';
+import '../../screens/tabs_screen.dart';
 import '../../bin/api_addresses.dart';
 import '../../bin/my_flutter_app_icons.dart';
 import '../../bin/colors.dart';
 import '../../bin/functions.dart';
 import '../../providers/fundraiser_details.dart';
+import '../../providers/provider.dart';
 
 class EditFundraiserGrid extends StatefulWidget {
   FundraiserDetails fundDetails;
@@ -38,20 +41,20 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
   bool checkedValueFam = false;
   bool checkedValueSud = false;
   bool checkedValueATE = false;
-  String gend;
-  String gendFamily;
-  String gendSudden;
-  String fromTheFamily1;
-  String fromTheFamily2;
-  String fromTheFamily3;
-  String sudden1;
-  String sudden2;
-  String sudden3;
-  String sudden4;
-  String aTE1;
-  String aTE2;
-  String aTegend1;
-  String aTegend2;
+  String gend = 'him';
+  String gendFamily = 'him';
+  String gendSudden = 'him';
+  String fromTheFamily1 = 'I am';
+  String fromTheFamily2 = 'I';
+  String fromTheFamily3 = '';
+  String sudden1 = 'I am';
+  String sudden2 = 'I have decided to honor my';
+  String sudden3 = 'I';
+  String sudden4 = '';
+  String aTE1 = 'I';
+  String aTE2 = '';
+  String aTegend1 = 'man';
+  String aTegend2 = 'His';
   int i = 0;
   List<Color> _colors = [
     mfPrimaryColor,
@@ -74,7 +77,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
   final _controllerSuddenPassing = TextEditingController();
   final _controllerATE = TextEditingController();
   TextEditingController _selectedDateController = TextEditingController();
-  String occured;
+  String occured = 'early morning hours';
   String formatted;
   TextEditingController _firstName = TextEditingController();
   TextEditingController _nickName = TextEditingController();
@@ -422,8 +425,10 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
         aTE2 = _controllerFullName.text;
       }
       if (widget.fundDetails.eventTime == 'morning') {
+        selectedValue = 'morning';
         occured = 'early morning hours';
       } else {
+        selectedValue = 'evening';
         occured = 'late evening hours';
       }
       if (widget.fundDetails.eventDate != null) {
@@ -470,6 +475,12 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
 
   @override
   Widget build(BuildContext context) {
+    DateFormat formatter = DateFormat('yMMMMEEEEd');
+    if (pickedATEDate != null) {
+      formatted = formatter.format(pickedATEDate);
+    } else {
+      formatted = formatter.format(DateTime.now());
+    }
     _controllerDefaultTemplate.text =
         'The ${widget.fundDetails.lastName} family is deeply saddened to announce the passing of ${widget.fundDetails.firstName} and offers a special way to honor $gend.\n\nIn lieu of flowers, food, sympathy cards or charitable donations the family is requesting donations by clicking on the \'Donate Now\' button in order to allow those who loved and knew $gend the answer to the question...\“Is there anything I can do?\”.\n\nWhile donating you will be able to offer your condolences by writing a message which will appear below as well as choose to remain anonymous.\n\nAll donations are directly deposited to ${widget.fundDetails.location.locationName} for complete transparency & security.\n\n${widget.fundDetails.location.locationName} has been entrusted with funeral arrangements.';
     _controllerFromTheFamily.text =
@@ -563,7 +574,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                       controller: _firstName,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        hintText: _firstName.text,
                         labelText: 'First Name',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -599,7 +609,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                         controller: _nickName,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintText: _nickName.text,
                           labelText: 'Nickname',
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -636,7 +645,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                         controller: _middleName,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintText: _middleName.text,
                           labelText: 'Middle Name',
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -671,7 +679,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                       controller: _lastName,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        hintText: _lastName.text,
                         labelText: 'Last Name',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -738,7 +745,6 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: _goalAmount.text,
                         labelText: 'Fundraiser Goal Amount',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -2469,9 +2475,9 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                           pickedEDate.toString();
                     }
                     if (imageFile != null) {
-                      widget.fundDetails.clientAvatar =
+                      widget.fundDetails.image =
                           basename(imageFile.path).toString();
-                      widget.fundDetails.clientAvatar64 = base64Encode(bytes);
+                      widget.fundDetails.image64 = base64Encode(bytes);
                     }
                     // if (widget.fundDetails.venueName !=
                     //     _venueNameController.text) {
@@ -2500,16 +2506,16 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                       widget.fundDetails.template = false;
                       widget.fundDetails.templateOptions = null;
                     } else {
-                      widget.fundDetails.fundContent = null;
-                      widget.fundDetails.template = true;
-                      widget.fundDetails.eventTime = null;
-                      widget.fundDetails.eventDate = null;
                       if (_controllerFullName.text.isNotEmpty &&
                           _controllerFullName.text != null) {
                         widget.fundDetails.authorname =
                             _controllerFullName.text;
                       }
                       if (_chosenValue == 'Default Template') {
+                        widget.fundDetails.fundContent = null;
+                        widget.fundDetails.template = true;
+                        widget.fundDetails.eventTime = null;
+                        widget.fundDetails.eventDate = null;
                         widget.fundDetails.textSelection = 1;
                         if (gend == 'him') {
                           widget.fundDetails.gender = 'male';
@@ -2517,6 +2523,10 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                           widget.fundDetails.gender = 'female';
                         }
                       } else if (_chosenValue == 'From the family') {
+                        widget.fundDetails.fundContent = null;
+                        widget.fundDetails.template = true;
+                        widget.fundDetails.eventTime = null;
+                        widget.fundDetails.eventDate = null;
                         widget.fundDetails.author = checkedValueFam;
                         widget.fundDetails.textSelection = 2;
                         if (gendFamily == 'him') {
@@ -2525,6 +2535,10 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                           widget.fundDetails.gender = 'female';
                         }
                       } else if (_chosenValue == 'From the deceased') {
+                        widget.fundDetails.fundContent = null;
+                        widget.fundDetails.template = true;
+                        widget.fundDetails.eventTime = null;
+                        widget.fundDetails.eventDate = null;
                         widget.fundDetails.textSelection = 3;
                         widget.fundDetails.gender = null;
                       } else if (_chosenValue == 'Sudden passing') {
@@ -2536,6 +2550,10 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                           widget.fundDetails.gender = 'female';
                         }
                       } else if (_chosenValue == 'Accident / Tragedy / Event') {
+                        widget.fundDetails.fundContent = null;
+                        widget.fundDetails.template = true;
+                        widget.fundDetails.eventTime = null;
+                        widget.fundDetails.eventDate = null;
                         widget.fundDetails.textSelection = 5;
                         widget.fundDetails.author = checkedValueATE;
                         if (aTegend1 == 'man') {
@@ -2551,7 +2569,10 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                         widget.fundDetails.eventDate = pickedATEDate.toString();
                       }
                     }
-                    print(widget.fundDetails);
+                    Provider.of<Fundraisers>(context, listen: false)
+                        .editFundraiser(widget.fundDetails);
+                    Navigator.of(context)
+                        .pushReplacementNamed(TabsScreen.routeName);
                   },
                 ),
               ),

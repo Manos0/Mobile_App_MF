@@ -16,7 +16,6 @@ class FundraisersDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
     String _template;
     DateTime birthDate = new DateFormat('yyyy-MM-dd').parse(data.birthDate);
     var birth = DateFormat.yMMMMd().format(birthDate);
@@ -36,8 +35,11 @@ class FundraisersDetailsView extends StatelessWidget {
         _template =
             '${data.author == true ? 'We are' : 'I am'} deeply saddened to announce the sudden passing of our beloved ${data.firstName} ${data.lastName}. With this passing being so sudden, ${data.author == true ? 'as a family have decided to honor our' : 'I'} ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\nIf you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
       } else {
-        DateFormat formatter = DateFormat('yMMMMEEEEd');
-        String formatted = formatter.format(DateTime.parse(data.eventDate));
+        String formatted;
+        if (data.eventDate != null) {
+          DateFormat formatter = DateFormat('yMMMMEEEEd');
+          formatted = formatter.format(DateTime.parse(data.eventDate));
+        }
         _template =
             'In the ${data.eventTime == 'morning' ? 'early morning hours' : 'late evening hours'} of $formatted my family and I suffered a major loss. ${data.firstName} was an amazing ${data.gender == 'male' ? 'man' : 'woman'} loved by many and will be missed by all. ${data.gender == 'male' ? 'His' : 'Her'} untimely passing has left us with many unexpected financial burdens. ${data.author == true ? 'we' : 'I'} have decided to honor my ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
       }

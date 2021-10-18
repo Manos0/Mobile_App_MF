@@ -394,12 +394,15 @@ class _AddContactWidgetState extends State<AddContactWidget> {
                                           setState(() {
                                             contactImage =
                                                 File(pickedFile.path);
+                                            final bytes = File(pickedFile.path)
+                                                .readAsBytesSync();
                                             final fileName =
                                                 basename(contactImage.path);
                                             contact.contactFileImage =
                                                 contactImage;
-
-                                            contact.contactPhoto =
+                                            contact.contactImage64 =
+                                                base64Encode(bytes);
+                                            contact.contactImage =
                                                 fileName.toString();
                                           });
                                         },
@@ -432,13 +435,16 @@ class _AddContactWidgetState extends State<AddContactWidget> {
                                             () {
                                               contactImage =
                                                   File(pickedFile.path);
-
+                                              final bytes =
+                                                  File(pickedFile.path)
+                                                      .readAsBytesSync();
                                               contact.contactFileImage =
                                                   contactImage;
                                               final fileName =
                                                   basename(contactImage.path);
-
-                                              contact.contactPhoto =
+                                              contact.contactImage64 =
+                                                  base64Encode(bytes);
+                                              contact.contactImage =
                                                   fileName.toString();
                                             },
                                           );

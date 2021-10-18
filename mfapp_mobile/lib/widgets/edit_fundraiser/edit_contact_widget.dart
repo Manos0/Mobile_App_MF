@@ -26,9 +26,11 @@ class _EditContactWidgetState extends State<EditContactWidget> {
 
   pickImage(ImageSource source) async {
     pickedFile = await picker.getImage(source: source);
+    final bytes = File(pickedFile.path).readAsBytesSync();
     setState(() {
       imageFile = File(pickedFile.path);
-      widget.contact.contactPhoto = basename(imageFile.path).toString();
+      widget.contact.contactImage = basename(imageFile.path).toString();
+      widget.contact.contactImage64 = base64Encode(bytes);
     });
   }
 
@@ -409,13 +411,17 @@ class _EditContactWidgetState extends State<EditContactWidget> {
                                               await picker.getImage(
                                                   source: ImageSource.camera);
                                           setState(() {
+                                            final bytes = File(pickedFile.path)
+                                                .readAsBytesSync();
                                             imageFile = File(pickedFile.path);
                                             widget.contact.contactFileImage =
                                                 imageFile;
                                             final fileName =
                                                 basename(imageFile.path);
-                                            widget.contact.contactPhoto =
+                                            widget.contact.contactImage =
                                                 fileName.toString();
+                                            widget.contact.contactImage64 =
+                                                base64Encode(bytes);
                                           });
                                         },
                                         child: Text(
@@ -444,13 +450,18 @@ class _EditContactWidgetState extends State<EditContactWidget> {
                                                   source: ImageSource.gallery);
                                           setState(
                                             () {
+                                              final bytes =
+                                                  File(pickedFile.path)
+                                                      .readAsBytesSync();
                                               imageFile = File(pickedFile.path);
                                               widget.contact.contactFileImage =
                                                   imageFile;
                                               final fileName =
                                                   basename(imageFile.path);
-                                              widget.contact.contactPhoto =
+                                              widget.contact.contactImage =
                                                   fileName.toString();
+                                              widget.contact.contactImage64 =
+                                                  base64Encode(bytes);
                                             },
                                           );
                                         },

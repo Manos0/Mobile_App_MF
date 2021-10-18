@@ -12,16 +12,29 @@ class FundraiserDetails with ChangeNotifier {
   String passingDate;
   String expirationDate;
   String clientAvatar;
-  String clientAvatar64;
   String clientAvatarMD;
   String clientAvatarSM;
   String fundContent;
+  String website;
   double goalAmount;
+  bool closed;
   bool draft;
+  bool featured;
+  bool mfVisibility;
+  bool authorizeContactFamily;
   bool template;
+  String dateCreated;
+  int userId;
+  int locationId;
+  int creationUserId;
   String liveWebcast;
   String templateOptions;
   String funeralService;
+  bool showFuneralHomeDetails;
+  List galleryImages;
+  String image;
+  String image64;
+  double gratuityFees;
   double fundRaised;
   Location location;
   List<Payment> payment;
@@ -52,7 +65,7 @@ class FundraiserDetails with ChangeNotifier {
     this.passingDate,
     this.expirationDate,
     this.clientAvatar,
-    this.clientAvatar64,
+    this.image64,
     this.clientAvatarMD,
     this.clientAvatarSM,
     this.fundContent,
@@ -81,6 +94,19 @@ class FundraiserDetails with ChangeNotifier {
     this.venueDate,
     this.venueAdditionalInfo,
     this.contactList,
+    this.website,
+    this.closed,
+    this.featured,
+    this.mfVisibility,
+    this.authorizeContactFamily,
+    this.dateCreated,
+    this.userId,
+    this.locationId,
+    this.creationUserId,
+    this.showFuneralHomeDetails,
+    this.galleryImages,
+    this.image,
+    this.gratuityFees,
   });
 
   factory FundraiserDetails.fromJson(Map<String, dynamic> json) {
@@ -141,6 +167,18 @@ class FundraiserDetails with ChangeNotifier {
       venueTime: service['Time'],
       venueDate: service['Date'],
       venueAdditionalInfo: service['AdditionalInfo'],
+      website: json['Website'],
+      closed: json['Closed'],
+      featured: json['Featured'],
+      mfVisibility: json['MFVisibility'],
+      authorizeContactFamily: json['AuthorizeContactFamily'],
+      dateCreated: json['DateCreated'],
+      userId: json['UserId'],
+      locationId: json['LocationId'],
+      creationUserId: json['CreationUserId'],
+      showFuneralHomeDetails: json['ShowFuneralHomeDetails'],
+      galleryImages: json['GalleryImages'],
+      gratuityFees: json['GratuityFees'],
       contactList: userContacts,
     );
   }
@@ -148,6 +186,8 @@ class FundraiserDetails with ChangeNotifier {
 
 class Location {
   final int locationId;
+  String stripeAccountId;
+  int userId;
   final String locationName;
   final String locationEmail;
   final String locationPhone;
@@ -155,11 +195,29 @@ class Location {
   final String locationAddress2;
   final String locationCity;
   final String locationPostalCode;
+  int country;
+  String taxId;
+  String website;
   final int locationState;
   final String locationLogo;
+  String stripeRequirements;
+  bool chargesEnabled;
+  bool payoutsEnabled;
+  String dateCreated;
+  int hLAccountId;
+  String hLAccountApi;
+  int hLSuccessCampaignId;
+  int hLFailedCampaignId;
+  int hLFailedReminderCampaignId;
+  int hLFundFormComplCampaignId;
+  String image;
+  List representatives;
+  List bankAccounts;
 
   Location({
     this.locationId,
+    this.stripeAccountId,
+    this.userId,
     this.locationName,
     this.locationEmail,
     this.locationPhone,
@@ -167,13 +225,31 @@ class Location {
     this.locationAddress2,
     this.locationCity,
     this.locationPostalCode,
+    this.country,
+    this.taxId,
+    this.website,
     this.locationState,
     this.locationLogo,
+    this.stripeRequirements,
+    this.chargesEnabled,
+    this.payoutsEnabled,
+    this.dateCreated,
+    this.hLAccountId,
+    this.hLAccountApi,
+    this.hLSuccessCampaignId,
+    this.hLFailedCampaignId,
+    this.hLFailedReminderCampaignId,
+    this.hLFundFormComplCampaignId,
+    this.image,
+    this.representatives,
+    this.bankAccounts,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return new Location(
       locationId: json['LocationId'],
+      stripeAccountId: json['StripeAccountId'],
+      userId: json['UserId'],
       locationName: json['Name'],
       locationEmail: json['Email'],
       locationPhone: json['PhoneNumber'],
@@ -181,8 +257,24 @@ class Location {
       locationAddress2: json['Address2'],
       locationCity: json['City'],
       locationPostalCode: json['PostalCode'],
+      country: json['Country'],
+      taxId: json['TaxId'],
+      website: json['Website'],
       locationState: json['State'],
       locationLogo: json['Logo'],
+      stripeRequirements: json['StripeRequirements'],
+      chargesEnabled: json['ChargesEnabled'],
+      payoutsEnabled: json['PayoutsEnabled'],
+      dateCreated: json['DateCreated'],
+      hLAccountId: json['HLAccountId'],
+      hLAccountApi: json['HLAccountApi'],
+      hLSuccessCampaignId: json['HLSuccessCampaignId'],
+      hLFailedCampaignId: json['HLFailedCampaignId'],
+      hLFailedReminderCampaignId: json['HLFailedReminderCampaignId'],
+      hLFundFormComplCampaignId: json['HLFundFormComplCampaignId'],
+      image: json['Image'],
+      representatives: json['Representatives'],
+      bankAccounts: json['BankAccounts'],
     );
   }
 }
@@ -264,6 +356,7 @@ class EditContacts {
   String contactPhoto;
   File contactFileImage;
   String contactImage;
+  String contactImage64;
 
   EditContacts({
     this.contactId,
@@ -291,5 +384,24 @@ class EditContacts {
       contactPhoto: json['Photo'],
       contactImage: json['Image'],
     );
+  }
+
+  Map<String, dynamic> toJson(EditContacts data) {
+    return {
+      'ContactId': data.contactId,
+      'FundraiserId': data.fundraiserId,
+      'Image': data.contactImage != null && data.contactImage64 != null
+          ? {'Name': data.contactImage, 'ImageData': data.contactImage64}
+          : null,
+      'FirstName': data.contactFirstName,
+      'LastName': data.contactLastName,
+      'Relationship': data.contactRelationship,
+      'PrimaryPhone': data.contactPhone,
+      'Email': data.contactEmail,
+      'Type': data.contactType,
+      'Photo': data.contactImage != null && data.contactImage64 != null
+          ? null
+          : data.contactPhoto
+    };
   }
 }
