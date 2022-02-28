@@ -24,16 +24,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var _isInit = true;
   Future<UserStats> userData;
-  Future<List<Locations>> locations;
+  // Future<List<Locations>> locations;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
       userData = Provider.of<Fundraisers>(context, listen: false)
           .getUserData()
-          .whenComplete(() => locations =
-              Provider.of<Fundraisers>(context, listen: false)
-                  .fetchLocations());
+          .whenComplete(() =>
+              Provider.of<Fundraisers>(context, listen: false).getLocations());
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -64,7 +63,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       future: userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return UserDetailsWidget(snapshot.data, locations);
+          return UserDetailsWidget(snapshot.data);
+          // return UserDetailsWidget(snapshot.data, locations);
         } else if (snapshot.hasError) {
           return Center(
             child: Column(

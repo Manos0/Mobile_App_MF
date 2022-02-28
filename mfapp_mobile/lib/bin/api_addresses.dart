@@ -18,3 +18,5 @@ const editExistingFundraiser =
     '/DesktopModules/sff/api/Mobile/UpdateFundraiser';
 const createPayout = '/DesktopModules/sff/api/Mobile/CreatePayout';
 const renewTokenUrl = 'DesktopModules/JwtAuth/API/mobile/extendtoken';
+const payoutAndCloseFund =
+    '/DesktopModules/sff/API/Admin/CloseFundraiser?fundraiserId=';

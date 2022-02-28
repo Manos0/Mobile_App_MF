@@ -212,7 +212,7 @@ class Location {
   int hLFundFormComplCampaignId;
   String image;
   List representatives;
-  List bankAccounts;
+  List<BankAccounts> bankAccounts;
 
   Location({
     this.locationId,
@@ -246,6 +246,11 @@ class Location {
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
+    List listOfAccounts = json['BankAccounts'];
+    List<BankAccounts> accounts;
+    if (listOfAccounts != null) {
+      accounts = listOfAccounts.map((i) => BankAccounts.fromJson(i)).toList();
+    }
     return new Location(
       locationId: json['LocationId'],
       stripeAccountId: json['StripeAccountId'],
@@ -274,7 +279,7 @@ class Location {
       hLFundFormComplCampaignId: json['HLFundFormComplCampaignId'],
       image: json['Image'],
       representatives: json['Representatives'],
-      bankAccounts: json['BankAccounts'],
+      bankAccounts: accounts,
     );
   }
 }
@@ -403,5 +408,46 @@ class EditContacts {
           ? null
           : data.contactPhoto
     };
+  }
+}
+
+class BankAccounts {
+  int bankAccountId;
+  String stripeExtAccountId;
+  int locationId;
+  String holderName;
+  String bankName;
+  int country;
+  String accountNumber;
+  String routingNumber;
+  String currency;
+  bool isDefault;
+
+  BankAccounts({
+    this.bankAccountId,
+    this.stripeExtAccountId,
+    this.locationId,
+    this.holderName,
+    this.bankName,
+    this.country,
+    this.accountNumber,
+    this.routingNumber,
+    this.currency,
+    this.isDefault,
+  });
+
+  factory BankAccounts.fromJson(Map<String, dynamic> json) {
+    return new BankAccounts(
+      bankAccountId: json['BankAccountId'],
+      stripeExtAccountId: json['StripeExtAccountId'],
+      locationId: json['LocationId'],
+      holderName: json['HolderName'],
+      bankName: json['BankName'],
+      country: json['Country'],
+      accountNumber: json['AccountNumber'],
+      routingNumber: json['RoutingNumber'],
+      currency: json['Currency'],
+      isDefault: json['IsDefault'],
+    );
   }
 }

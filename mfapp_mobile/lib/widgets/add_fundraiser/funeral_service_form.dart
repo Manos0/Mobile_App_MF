@@ -538,7 +538,7 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         _formKey.currentState.save();
                         var newService = FuneralService(
                           venueName: funeral.venueName,
@@ -554,9 +554,9 @@ class _FuneralServiceFormState extends State<FuneralServiceForm> {
                           service: '{$name$number$address}',
                         );
                         widget.data.funeralService = newService;
-                        Provider.of<Fundraisers>(context, listen: false)
+                        await Provider.of<Fundraisers>(context, listen: false)
                             .addNewFundraiser(widget.data);
-                        Navigator.pushNamedAndRemoveUntil(
+                        await Navigator.pushNamedAndRemoveUntil(
                             context, TabsScreen.routeName, (r) => false);
                       },
                     ),

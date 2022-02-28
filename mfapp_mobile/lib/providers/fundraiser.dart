@@ -11,6 +11,7 @@ class Fundraiser with ChangeNotifier {
   final double goalAmount;
   final String dateCreated;
   final double fundRaised;
+  final int userId;
   final List<Payment> payment;
 
   Fundraiser({
@@ -24,6 +25,7 @@ class Fundraiser with ChangeNotifier {
     this.goalAmount,
     this.dateCreated,
     this.fundRaised,
+    this.userId,
     this.payment,
   });
 
@@ -41,6 +43,7 @@ class Fundraiser with ChangeNotifier {
       fundRaised: json['FundRaised'],
       clientAvatarMD: json['ClientAvatarMD'],
       clientAvatarSM: json['ClientAvatarSM'],
+      userId: json['UserId'],
       payment: paymentList,
     );
   }

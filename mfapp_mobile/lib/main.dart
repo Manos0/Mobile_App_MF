@@ -57,9 +57,8 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Fundraisers>(
           create: null,
-          update: (ctx, auth, previousFundraisers) => Fundraisers(
-            auth.token,
-          ),
+          update: (ctx, auth, previousFundraisers) =>
+              Fundraisers(auth.token, List.empty(), null),
         ),
       ],
       child: Consumer<Auth>(

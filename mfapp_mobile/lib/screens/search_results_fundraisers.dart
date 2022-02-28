@@ -19,7 +19,10 @@ class _SearchResultsFundraisersState extends State<SearchResultsFundraisers> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final searchTerm = ModalRoute.of(context).settings.arguments as String;
-    searchresults = Provider.of<Fundraisers>(context).searchUsers(searchTerm);
+    searchresults = Provider.of<Fundraisers>(context, listen: false)
+        .searchUsers(searchTerm)
+        .whenComplete(
+            () => Provider.of<Fundraisers>(context, listen: false).getUserId());
   }
 
   @override

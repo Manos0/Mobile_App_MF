@@ -30,12 +30,7 @@ class _FundraisersScreenState extends State<FundraisersScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      // setState(() {
-      //   _isLoading = true;
-      // });
       userData = Provider.of<Fundraisers>(context, listen: false).getUserData();
-      // fundraisers = Provider.of<Fundraisers>(context, listen: false)
-      //     .fetchAndSetFundraisers();
     }
     _isInit = false;
     super.didChangeDependencies();

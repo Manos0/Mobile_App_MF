@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 
 import './story_widget.dart';
 import './donations.dart';
 import './funeral_services.dart';
+import '../../../providers/provider.dart';
 import '../../../bin/functions.dart';
 import '../../../bin/colors.dart';
 import '../../edit_fundraiser/edit_fundraiser_grid.dart';
@@ -16,6 +18,8 @@ class FundraisersDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(data);
+    int dateDifference;
     String _template;
     DateTime birthDate = new DateFormat('yyyy-MM-dd').parse(data.birthDate);
     var birth = DateFormat.yMMMMd().format(birthDate);
@@ -43,6 +47,12 @@ class FundraisersDetailsView extends StatelessWidget {
         _template =
             'In the ${data.eventTime == 'morning' ? 'early morning hours' : 'late evening hours'} of $formatted my family and I suffered a major loss. ${data.firstName} was an amazing ${data.gender == 'male' ? 'man' : 'woman'} loved by many and will be missed by all. ${data.gender == 'male' ? 'His' : 'Her'} untimely passing has left us with many unexpected financial burdens. ${data.author == true ? 'we' : 'I'} have decided to honor my ${data.firstName} by having a memorial fundraiser. In lieu of flowers, food or charitable donations, your contribution will be greatly appreciated and ${data.author == true ? 'we' : 'I'} thank you in advance. In order to donate, please click on the \'Donate Now\' button. All donations are directly deposited to the funeral home for complete transparency & security. While donating you will be able to write a message, offer your condolences, as well as choose to have your name or contribution anonymous.\n\n If you are unable to donate then ${data.author == true ? 'we' : 'I'} ask that you please click and "Share this Fundraiser" located under the Donate section. The success of the fundraiser depends on how well it is shared to all social media platforms, email and text.\n\nWarmest Regards and Greatly Appreciated,\n\n${data.author == true ? 'The Family of ${data.firstName} ${data.nickName == null ? '' : data.nickName} ${data.middleName == null ? '' : data.middleName} ${data.lastName}' : data.authorname}';
       }
+    }
+    if (data.payment.length > 0) {
+      DateTime dateToday = DateTime.now();
+      DateTime latestDonation =
+          DateTime.parse(data.payment[0].paymentPaymentDate);
+      dateDifference = dateToday.difference(latestDonation).inDays;
     }
     return Scaffold(
       backgroundColor: mfLightlightGrey,
@@ -127,7 +137,7 @@ class FundraisersDetailsView extends StatelessWidget {
                 child: Text('$birth - $passing'),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 0),
+                margin: EdgeInsets.only(bottom: 10),
                 padding: EdgeInsets.all(12),
                 width: MediaQuery.of(context).size.width,
                 decoration: new BoxDecoration(
@@ -182,6 +192,29 @@ class FundraisersDetailsView extends StatelessWidget {
                   ],
                 ),
               ),
+              if (data.location.chargesEnabled == true &&
+                  data.location.payoutsEnabled == true &&
+                  dateDifference != null &&
+                  dateDifference > 8)
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showCustomDialog(context, data);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: mfPrimaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                      'Payout',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               if (data.template == false && data.fundContent != null)
                 StoryWidget(content: data.fundContent)
               else if (data.template == true && data.templateOptions != null)
@@ -197,6 +230,166 @@ class FundraisersDetailsView extends StatelessWidget {
               if (data.payment.length > 0) Donations(data),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void showCustomDialog(BuildContext context, FundraiserDetails fundData) =>
+      showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.red[400],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      topRight: Radius.circular(6),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.warning_amber,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  'Attention',
+                  style: TextStyle(
+                    color: mfLettersColor,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 15),
+                  child: Text(
+                    'This action is irreversible\nand will close the fundraiser!',
+                    style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          bool response = await Provider.of<Fundraisers>(
+                                  context,
+                                  listen: false)
+                              .payoutAndCloseFundraiser(fundData.id);
+                          if (response) {
+                            Navigator.pop(context);
+                          } else {
+                            showCustomDialog2(context, fundData);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: mfPrimaryColor.withOpacity(0.5),
+                          fixedSize: Size(90, 35),
+                          primary: mfPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                        ),
+                        child: Text(
+                          'Proceed',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: Colors.redAccent.withOpacity(0.5),
+                          fixedSize: Size(90, 35),
+                          primary: Colors.redAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                        ),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+
+  void showCustomDialog2(BuildContext context, FundraiserDetails fundData) {
+    String selectedAccount;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  value: selectedAccount,
+                  icon: const Icon(Icons.arrow_circle_down),
+                  iconSize: 20,
+                  elevation: 16,
+                  underline: Container(),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      selectedAccount = newValue;
+                      print(selectedAccount);
+                    });
+                  },
+                  items: List.generate(fundData.location.bankAccounts.length,
+                      (index) {
+                    return DropdownMenuItem(
+                      value: fundData.location.bankAccounts[index].bankName,
+                      child: Text(
+                        fundData.location.bankAccounts[index].bankName,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

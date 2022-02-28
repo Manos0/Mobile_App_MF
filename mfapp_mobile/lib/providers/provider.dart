@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../bin/api_addresses.dart';
 import '../providers/fundraiser.dart';
@@ -13,8 +14,18 @@ import '../providers/new_fundraiser.dart';
 
 class Fundraisers with ChangeNotifier {
   String authToken;
+  UserDetails _userD;
+  List<Locations> _locationList = [];
 
-  Fundraisers(this.authToken);
+  Fundraisers(this.authToken, this._locationList, this._userD);
+
+  List<Locations> get locationList {
+    return [..._locationList];
+  }
+
+  UserDetails get userD {
+    return _userD;
+  }
 
   Future<FundraiserDetails> findById(int id) async {
     final url = Uri.parse(baseUrl + fundDetails + id.toString());
@@ -65,6 +76,38 @@ class Fundraisers with ChangeNotifier {
     return extractedLocations.map((item) => Locations.fromJson(item)).toList();
   }
 
+  Future<void> getUserId() async {
+    final url = Uri.parse(baseUrl + userDetails);
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    final extractedData = json.decode(response.body);
+    UserDetails userInfo = UserDetails.fromJson(extractedData);
+    _userD = userInfo;
+    notifyListeners();
+  }
+
+  Future<void> getLocations() async {
+    _locationList = [];
+    final url = Uri.parse(baseUrl + locations);
+    try {
+      var response = await http
+          .get(url, headers: {'Authorization': 'Bearer ' + authToken});
+      if (response.statusCode != 200) {
+        _locationList = [];
+      } else {
+        Iterable l = json.decode(response.body);
+        if (l.length > 0) {
+          List<Locations> extractedGalleries =
+              List<Locations>.from(l.map((model) => Locations.fromJson(model)));
+          _locationList = extractedGalleries;
+        }
+        notifyListeners();
+      }
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   Future<List<dynamic>> fetchLineChartData() async {
     final url = Uri.parse(baseUrl + getStats);
     final response =
@@ -83,6 +126,17 @@ class Fundraisers with ChangeNotifier {
     List<dynamic> dailyDonations =
         extractedData != null ? List.from(extractedData) : null;
     return dailyDonations;
+  }
+
+  Future<bool> payoutAndCloseFundraiser(int id) async {
+    final url = Uri.parse(baseUrl + payoutAndCloseFund + id.toString());
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void editFundraiser(FundraiserDetails data) {
@@ -140,7 +194,7 @@ class Fundraisers with ChangeNotifier {
         if (data.venueAdditionalInfo != null)
           'AdditionalInfo': data.venueAdditionalInfo,
       }),
-      'ShowFuneralHomeDetails': data.showFuneralHomeDetails,
+      'ShowFuneralHomeDetails': true,
       'GalleryImages': data.galleryImages,
       'Location': {
         'LocationId': data.location.locationId,
@@ -190,7 +244,7 @@ class Fundraisers with ChangeNotifier {
         body: requestD);
   }
 
-  void addNewFundraiser(NewFundraiser data) {
+  Future<void> addNewFundraiser(NewFundraiser data) async {
     var request = {
       'Contacts': data.contacts,
       'ClientFirstName': data.firstName,
@@ -205,7 +259,8 @@ class Fundraisers with ChangeNotifier {
       'FundContent': data.obituary,
       'MFVisibility': data.mfvisibility,
       'ExpirationDate': data.expirationDate,
-      'LocationId': data.fundLocation.id,
+      'LocationId': 69,
+      'ShowFuneralHomeDetails': true,
       'LiveWebcast': data.funeralService.venueWebCast != null
           ? data.funeralService.venueWebCast
           : null,
@@ -241,11 +296,16 @@ class Fundraisers with ChangeNotifier {
     };
     var requestD = json.encode(request);
     final url = Uri.parse(baseUrl + createNewFundraiser);
-    http.post(url,
+    final response = await http.post(url,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + authToken
         },
         body: requestD);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

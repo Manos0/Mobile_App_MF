@@ -477,6 +477,7 @@ class _FormWidgetState extends State<FormWidget> {
                     ),
                   ),
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
                       newFund.locationId = widget.locationData.id;

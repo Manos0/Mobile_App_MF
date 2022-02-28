@@ -11,7 +11,6 @@ class FundraisersSearchResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fundraiser = Provider.of<Fundraiser>(context, listen: false);
-
     return Material(
       elevation: 1,
       shadowColor: Color.fromRGBO(0, 0, 0, 0.375),

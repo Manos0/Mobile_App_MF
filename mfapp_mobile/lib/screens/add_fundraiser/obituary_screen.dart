@@ -62,6 +62,20 @@ class _ObituaryScreenState extends State<ObituaryScreen> {
   _selectBDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: mfPrimaryColor,
+                onPrimary: Colors.white,
+                surface: mfPrimaryColor,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        },
         initialDate: selectedDate,
         firstDate: DateTime(1900),
         lastDate: DateTime(2150));

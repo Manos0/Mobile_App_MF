@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../bin/colors.dart';
 import '../../bin/api_addresses.dart';
 import '../../widgets/profile/profile_yourfundraisers.dart';
 import '../../providers/locations.dart';
+import '../../providers/provider.dart';
 import '../../providers/user_stats.dart';
 import './bars_widget.dart';
 import './profile_locations_widget.dart';
+import './funds_total_and_raised.dart';
 
 class UserDetailsWidget extends StatelessWidget {
   UserStats userData;
-  Future<List<Locations>> locations;
+  // Future<List<Locations>> locations;
 
-  UserDetailsWidget(this.userData, this.locations);
+  UserDetailsWidget(this.userData);
+  //  UserDetailsWidget(this.userData, this.locations);
 
   @override
   Widget build(BuildContext context) {
+    final locationData = Provider.of<Fundraisers>(context);
+    final locations = locationData.locationList;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -102,76 +108,25 @@ class UserDetailsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 16),
-                    height: 145,
-                    child: FutureBuilder<List<Locations>>(
-                      future: locations,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return ProfileLocationsWidget(snapshot.data);
-                        } else if (snapshot.hasError) {
-                          return Scaffold(
-                            body: Center(
-                              child: Text('Something went wrong!!!'),
-                            ),
-                          );
-                        }
-                        return Scaffold(
-                          body: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    height: 15,
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: FractionalOffset.topCenter,
-                          end: FractionalOffset.bottomCenter,
-                          colors: [
-                            Colors.white,
-                            Colors.white.withOpacity(0.0),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    height: 15,
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: FractionalOffset.bottomCenter,
-                          end: FractionalOffset.topCenter,
-                          colors: [
-                            Colors.white,
-                            Colors.white.withOpacity(0.0),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ProfileLocationsWidget(locations),
               // FundsTotalAndRaised(userData),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(left: 16, right: 16, top: 25),
                 child: Column(
                   children: [
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'At a glance',
+                        style: TextStyle(
+                          color: mfLettersColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                     BarsWidget(
                       color: mfPrimaryColor,
                       icon: Icons.person,

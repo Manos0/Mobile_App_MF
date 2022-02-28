@@ -155,22 +155,6 @@ class _TabScreenState extends State<TabsScreen> {
                 ),
               ),
             ),
-            // BottomNavigationBarItem(
-            //   activeIcon: Image.asset(
-            //     'assets/icons/Setting-active.png',
-            //     scale: 2,
-            //   ),
-            //   icon: Image.asset(
-            //     'assets/icons/Setting.png',
-            //     scale: 2,
-            //   ),
-            //   title: Text(
-            //     'About',
-            //     style: TextStyle(
-            //       color: Color.fromRGBO(32, 14, 50, 1),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
