@@ -18,7 +18,6 @@ class FundraisersDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
     int dateDifference;
     String _template;
     DateTime birthDate = new DateFormat('yyyy-MM-dd').parse(data.birthDate);
@@ -195,7 +194,8 @@ class FundraisersDetailsView extends StatelessWidget {
               if (data.location.chargesEnabled == true &&
                   data.location.payoutsEnabled == true &&
                   dateDifference != null &&
-                  dateDifference > 8)
+                  dateDifference > 8 &&
+                  data.closed == false)
                 Container(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
@@ -235,124 +235,129 @@ class FundraisersDetailsView extends StatelessWidget {
     );
   }
 
-  void showCustomDialog(BuildContext context, FundraiserDetails fundData) =>
-      showDialog(
-        context: context,
-        builder: (_) => Dialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.red[400],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(6),
-                      topRight: Radius.circular(6),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.warning_amber,
-                        size: 35,
-                        color: Colors.white,
-                      ),
-                    ],
+  void showCustomDialog(BuildContext context, FundraiserDetails fundData) {
+    bool _isLoading = false;
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 15),
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.red[400],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(6),
+                    topRight: Radius.circular(6),
                   ),
                 ),
-                Text(
-                  'Attention',
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.warning_amber,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                'Attention',
+                style: TextStyle(
+                  color: mfLettersColor,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 15),
+                child: Text(
+                  'This action is irreversible\nand will close the fundraiser!',
                   style: TextStyle(
                     color: mfLettersColor,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 15),
-                  child: Text(
-                    'This action is irreversible\nand will close the fundraiser!',
-                    style: TextStyle(
-                      color: mfLettersColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          bool response = await Provider.of<Fundraisers>(
-                                  context,
-                                  listen: false)
-                              .payoutAndCloseFundraiser(fundData.id);
-                          if (response) {
-                            Navigator.pop(context);
-                          } else {
-                            showCustomDialog2(context, fundData);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shadowColor: mfPrimaryColor.withOpacity(0.5),
-                          fixedSize: Size(90, 35),
-                          primary: mfPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                        ),
-                        child: Text(
-                          'Proceed',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        _isLoading = true;
+                        _isLoading = await Provider.of<Fundraisers>(context,
+                                listen: false)
+                            .payoutAndCloseFundraiser(fundData.id);
+                        if (_isLoading) {
                           Navigator.pop(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shadowColor: Colors.redAccent.withOpacity(0.5),
-                          fixedSize: Size(90, 35),
-                          primary: Colors.redAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                        ),
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
+                        }
+                        // } else {
+                        //   showCustomDialog2(context, fundData);
+                        // }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: mfPrimaryColor.withOpacity(0.5),
+                        fixedSize: Size(90, 35),
+                        primary: mfPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(9),
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                      child: !_isLoading
+                          ? Text(
+                              'Proceed',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            )
+                          : CircularProgressIndicator(),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.redAccent.withOpacity(0.5),
+                        fixedSize: Size(90, 35),
+                        primary: Colors.redAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                      ),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 
   void showCustomDialog2(BuildContext context, FundraiserDetails fundData) {
     String selectedAccount;

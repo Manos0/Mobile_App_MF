@@ -7,7 +7,6 @@ import 'dart:io';
 import '../../bin/colors.dart';
 import '../../bin/api_addresses.dart';
 import '../../providers/fundraiser_details.dart';
-import '../../providers/new_fundraiser.dart';
 
 class EditContactWidget extends StatefulWidget {
   EditContacts contact;

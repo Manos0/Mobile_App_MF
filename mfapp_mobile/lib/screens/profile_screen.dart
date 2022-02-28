@@ -6,7 +6,6 @@ import '../bin/colors.dart';
 import '../providers/provider.dart';
 import '../providers/auth.dart';
 import '../providers/user_stats.dart';
-import '../providers/locations.dart';
 import '../widgets/profile/user_details_widget.dart';
 import '../screens/tabs_screen.dart';
 import '../screens/auth_screen.dart';

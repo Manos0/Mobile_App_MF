@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mfapp_mobile/bin/my_flutter_app_icons.dart';
-import 'package:readmore/readmore.dart';
 
 import '../../bin/colors.dart';
-import '../../screens/add_fundraiser/funeral_service_screen.dart';
-import '../../providers/new_fundraiser.dart';
 import '../../providers/fundraiser_details.dart';
 
 class EditObituary extends StatefulWidget {

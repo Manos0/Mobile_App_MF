@@ -15,13 +15,9 @@ class MyFundraisers extends StatelessWidget {
   Widget build(BuildContext context) {
     double fundPercentage() {
       double percentage = 0;
-      if (data.userFundraisers[0].fundRaised > 0 &&
-          data.userFundraisers[0].goalAmount > 0) {
-        if (data.userFundraisers[0].fundRaised <=
-            data.userFundraisers[0].goalAmount) {
-          percentage = ((data.userFundraisers[0].fundRaised * 100) /
-                  data.userFundraisers[0].goalAmount) /
-              100;
+      if (data.fundRaised > 0 && data.goalAmount > 0) {
+        if (data.fundRaised <= data.goalAmount) {
+          percentage = ((data.fundRaised * 100) / data.goalAmount) / 100;
         } else {
           percentage = 1;
         }
@@ -31,8 +27,7 @@ class MyFundraisers extends StatelessWidget {
       return percentage = num.parse(percentage.toStringAsFixed(4));
     }
 
-    DateTime dateCreated =
-        new DateFormat('yyyy-MM-dd').parse(data.userFundraisers[0].dateCreated);
+    DateTime dateCreated = new DateFormat('yyyy-MM-dd').parse(data.dateCreated);
     var creationDate = DateFormat.yMd().format(dateCreated);
 
     return Container(
@@ -50,26 +45,16 @@ class MyFundraisers extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          (data.userFundraisers[0].firstName.isNotEmpty
-                                  ? data.userFundraisers[0].firstName
+                          (data.firstName.isNotEmpty ? data.firstName : '') +
+                              (data.nickName != null && data.nickName.length > 0
+                                  ? ' "' + data.nickName + '"'
                                   : '') +
-                              (data.userFundraisers[0].nickName != null &&
-                                      data.userFundraisers[0].nickName.length >
-                                          0
-                                  ? ' "' +
-                                      data.userFundraisers[0].nickName +
-                                      '"'
+                              (data.middleName != null &&
+                                      data.middleName.length > 0
+                                  ? ' ' + data.middleName
                                   : '') +
-                              (data.userFundraisers[0].middleName != null &&
-                                      data.userFundraisers[0].middleName
-                                              .length >
-                                          0
-                                  ? ' ' + data.userFundraisers[0].middleName
-                                  : '') +
-                              (data.userFundraisers[0].lastName != null &&
-                                      data.userFundraisers[0].lastName.length >
-                                          0
-                                  ? ' ' + data.userFundraisers[0].lastName
+                              (data.lastName != null && data.lastName.length > 0
+                                  ? ' ' + data.lastName
                                   : ''),
                           style: TextStyle(
                               color: Colors.white,
@@ -100,8 +85,7 @@ class MyFundraisers extends StatelessWidget {
                     ),
                     child: FadeInImage(
                       placeholder: AssetImage('assets/images/helperImage.png'),
-                      image:
-                          myFundImage(data.userFundraisers[0].clientAvatarMD),
+                      image: myFundImage(data.clientAvatarMD),
                       width: 60,
                       height: 60,
                       fit: BoxFit.cover,
@@ -110,7 +94,7 @@ class MyFundraisers extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pushNamed(
                         FundraiserDetailScreen.routeName,
-                        arguments: data.userFundraisers[0].id);
+                        arguments: data.id);
                   },
                 ),
               ],
@@ -120,7 +104,7 @@ class MyFundraisers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                ' \$${data.userFundraisers[0].fundRaised.toStringAsFixed(0)} ',
+                ' \$${data.fundRaised.toStringAsFixed(0)} ',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',
@@ -129,7 +113,7 @@ class MyFundraisers extends StatelessWidget {
                 ),
               ),
               Text(
-                'of \$${data.userFundraisers[0].goalAmount.toStringAsFixed(0)}',
+                'of \$${data.goalAmount.toStringAsFixed(0)}',
                 style: TextStyle(
                   color: mfLightlightGrey,
                   fontFamily: 'Poppins',
@@ -146,7 +130,7 @@ class MyFundraisers extends StatelessWidget {
               percent: fundPercentage(),
               animation: true,
               animationDuration: 600,
-              backgroundColor: Colors.grey[300],
+              backgroundColor: Colors.white12,
               progressColor: Colors.white,
             ),
           )

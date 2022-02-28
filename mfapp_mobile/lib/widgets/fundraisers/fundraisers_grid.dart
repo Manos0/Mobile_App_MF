@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mfapp_mobile/bin/colors.dart';
 import 'package:mfapp_mobile/providers/user_stats.dart';
-import 'package:provider/provider.dart';
 
 import './fundraiser_fund.dart';
 import '../../providers/user_stats.dart';
-import '../../providers/fundraiser.dart';
 import '../../widgets/fundraisers/fundraisers_my_fundraisers.dart';
 
-class FundraisersGrid extends StatelessWidget {
+class FundraisersGrid extends StatefulWidget {
   final UserStats data;
   // final List<Fundraiser> data;
   // final userData;
@@ -17,10 +15,35 @@ class FundraisersGrid extends StatelessWidget {
   FundraisersGrid(this.data);
 
   @override
+  _FundraisersGridState createState() => _FundraisersGridState();
+}
+
+class _FundraisersGridState extends State<FundraisersGrid> {
+  final items = ['Active', 'Draft', 'Closed'];
+  String value = 'Active';
+
+  @override
   Widget build(BuildContext context) {
     List<UserFundraisers> newData;
-    if (data.userFundraisers.length > 0) {
-      newData = data.userFundraisers.sublist(1);
+    UserFundraisers latestFund;
+    // List<UserFundraisers> newData;
+    if (widget.data.userFundraisers.length > 0) {
+      if (value == 'Active') {
+        newData = widget.data.userFundraisers
+            .where((i) => i.closed == false && i.draft == false)
+            .toList();
+      } else if (value == 'Draft') {
+        newData = widget.data.userFundraisers
+            .where((i) => i.closed == false && i.draft == true)
+            .toList();
+      } else if (value == 'Closed') {
+        newData =
+            widget.data.userFundraisers.where((i) => i.closed == true).toList();
+      }
+      // if (newData.length > 0) {
+      //   newData = newData.sublist(1);
+      // }
+      latestFund = widget.data.userFundraisers[0];
     }
     return Scaffold(
       body: Container(
@@ -39,7 +62,7 @@ class FundraisersGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 15, 16, 0),
               child: Text(
-                'Latest Fundraiser',
+                'Latest Active Fundraiser',
                 style: TextStyle(
                   color: mfLettersColor,
                   fontSize: 16,
@@ -47,7 +70,7 @@ class FundraisersGrid extends StatelessWidget {
                 ),
               ),
             ),
-            if (data.userFundraisers.length > 0)
+            if (latestFund != null)
               Container(
                 height: (MediaQuery.of(context).size.height < 684
                     ? MediaQuery.of(context).size.height / 5.5
@@ -72,7 +95,7 @@ class FundraisersGrid extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: MyFundraisers(data),
+                child: MyFundraisers(latestFund),
               )
             else
               Container(
@@ -100,21 +123,35 @@ class FundraisersGrid extends StatelessWidget {
                   ],
                 ),
                 child: Center(
-                  child: Text('No Fundraisers, create your first Fundraiser!'),
+                  child:
+                      Text('There are no active Fundraisers in your account!'),
                 ),
               ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
-              child: Text(
-                'My Fundraisers',
-                style: TextStyle(
-                  color: mfLettersColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'My Fundraisers',
+                    style: TextStyle(
+                      color: mfLettersColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: value ?? items.first,
+                      focusColor: mfPrimaryColor,
+                      items: items.map(buildMenuItem).toList(),
+                      onChanged: (value) => setState(() => this.value = value),
+                    ),
+                  ),
+                ],
               ),
             ),
-            newData != null
+            newData != null && newData.length > 0
                 ? Expanded(
                     child: GridView.builder(
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
@@ -150,4 +187,15 @@ class FundraisersGrid extends StatelessWidget {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+      );
 }

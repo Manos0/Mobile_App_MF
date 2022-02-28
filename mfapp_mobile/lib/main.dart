@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Memorial Fundraising',
+          title: 'Give A Memorial Gift',
           theme: ThemeData(
             fontFamily: 'Poppins',
             primaryColor: mfPrimaryColor,

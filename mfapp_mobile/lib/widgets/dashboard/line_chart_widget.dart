@@ -19,7 +19,6 @@ class LineChartWidget extends StatelessWidget {
     List<FlSpot> spots = data.reversed.toList().asMap().entries.map((e) {
       return FlSpot(e.key.toDouble(), e.value);
     }).toList();
-
     return LineChart(
       LineChartData(
         minX: 0,

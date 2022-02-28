@@ -1,4 +1,4 @@
-const baseUrl = 'https://mfdev.t-worxsites.com/';
+const baseUrl = 'https://giveamemorialgift.com';
 const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
 const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
 const takeFirst5 = '/DesktopModules/sff/api/Mobile/UserPagedOrdered?take=';

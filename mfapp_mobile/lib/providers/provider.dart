@@ -259,7 +259,7 @@ class Fundraisers with ChangeNotifier {
       'FundContent': data.obituary,
       'MFVisibility': data.mfvisibility,
       'ExpirationDate': data.expirationDate,
-      'LocationId': 69,
+      'LocationId': data.fundLocation.id,
       'ShowFuneralHomeDetails': true,
       'LiveWebcast': data.funeralService.venueWebCast != null
           ? data.funeralService.venueWebCast

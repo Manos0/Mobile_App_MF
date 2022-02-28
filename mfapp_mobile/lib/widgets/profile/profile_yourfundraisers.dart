@@ -13,8 +13,9 @@ class ProfileYourFundraisers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<UserFundraisers> newData =
-        data.userFundraisers.where((i) => i.draft == false).toList();
+    List<UserFundraisers> newData = data.userFundraisers
+        .where((i) => i.draft == false && i.closed == false)
+        .toList();
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 12),
@@ -34,6 +35,7 @@ class ProfileYourFundraisers extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 height: 125,
@@ -84,80 +86,81 @@ class ProfileYourFundraisers extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: 130,
-                width: MediaQuery.of(context).size.width / 1.42,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    newData.length,
-                    (index) {
-                      return Container(
-                        padding: EdgeInsets.only(right: 12),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              child: ClipOval(
-                                child: FadeInImage(
-                                  placeholder: AssetImage(
-                                      'assets/images/MF-App-Loader.gif'),
-                                  image: yourfundImage(
-                                      newData[index].clientAvatarMD),
-                                  width: 60,
-                                  height: 60,
-                                  fit: BoxFit.cover,
+              Flexible(
+                child: Container(
+                  height: 130,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: List.generate(
+                      newData.length,
+                      (index) {
+                        return Container(
+                          padding: EdgeInsets.only(right: 12),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                child: ClipOval(
+                                  child: FadeInImage(
+                                    placeholder: AssetImage(
+                                        'assets/images/MF-App-Loader.gif'),
+                                    image: yourfundImage(
+                                        newData[index].clientAvatarMD),
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      FundraiserDetailScreen.routeName,
+                                      arguments: newData[index].id);
+                                },
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: [
+                                    if (newData[index].firstName != null &&
+                                        newData[index].firstName.isNotEmpty)
+                                      Text(
+                                        newData[index].firstName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    if (newData[index].middleName != null &&
+                                        newData[index].middleName.isNotEmpty)
+                                      Text(
+                                        newData[index].middleName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    if (newData[index].lastName != null &&
+                                        newData[index].lastName.isNotEmpty)
+                                      Text(
+                                        newData[index].lastName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    FundraiserDetailScreen.routeName,
-                                    arguments: newData[index].id);
-                              },
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                children: [
-                                  if (newData[index].firstName != null &&
-                                      newData[index].firstName.isNotEmpty)
-                                    Text(
-                                      newData[index].firstName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Poppins',
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  if (newData[index].middleName != null &&
-                                      newData[index].middleName.isNotEmpty)
-                                    Text(
-                                      newData[index].middleName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Poppins',
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  if (newData[index].lastName != null &&
-                                      newData[index].lastName.isNotEmpty)
-                                    Text(
-                                      newData[index].lastName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Poppins',
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

@@ -1,4 +1,4 @@
-package com.example.mfapp_mobile
+package com.tworx.mfapp_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

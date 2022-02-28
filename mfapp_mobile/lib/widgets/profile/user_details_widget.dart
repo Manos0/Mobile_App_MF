@@ -4,12 +4,10 @@ import 'package:provider/provider.dart';
 import '../../bin/colors.dart';
 import '../../bin/api_addresses.dart';
 import '../../widgets/profile/profile_yourfundraisers.dart';
-import '../../providers/locations.dart';
 import '../../providers/provider.dart';
 import '../../providers/user_stats.dart';
 import './bars_widget.dart';
 import './profile_locations_widget.dart';
-import './funds_total_and_raised.dart';
 
 class UserDetailsWidget extends StatelessWidget {
   UserStats userData;
@@ -33,7 +31,7 @@ class UserDetailsWidget extends StatelessWidget {
             ),
           ),
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(top: 70),
+          padding: EdgeInsets.only(top: 90),
           child: Column(
             children: [
               Container(

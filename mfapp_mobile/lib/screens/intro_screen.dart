@@ -13,9 +13,9 @@ class IntroScreen extends StatelessWidget {
         child: IntroductionScreen(
           pages: [
             PageViewModel(
-              title: 'Welcome to Memorial Fundraising',
+              title: 'Welcome to Give A Memorial Gift',
               body:
-                  'Here you can write the description of the page Here you can write the description of the page.',
+                  'Created exclusively for the funeral home industry. Funds are deposited directly to your bank account.',
               image: buildImage('assets/images/Welcome @2x.png'),
               decoration: getPageDecoration(),
               footer: SizedBox(
@@ -26,7 +26,7 @@ class IntroScreen extends StatelessWidget {
             PageViewModel(
               title: 'Create a Fundraiser',
               body:
-                  'Here you can write the description of the page Here you can write the description of the page.',
+                  'Create a Memorial Gift fundraiser and start getting donations for your families you serve in less than 5 minutes.',
               image: buildImage('assets/images/Create a Fundraiser@2x.png'),
               decoration: getPageDecoration(),
               footer: SizedBox(
@@ -37,7 +37,7 @@ class IntroScreen extends StatelessWidget {
             PageViewModel(
               title: 'Stay up to date',
               body:
-                  'Here you can write the description of the page Here you can write the description of the page.',
+                  'The modern way for Funeral Homes to help family & friends honor loved ones that have passed.',
               useScrollView: false,
               image: buildImage('assets/images/Stay up to date@2x.png'),
               decoration: getPageDecoration(),
@@ -83,15 +83,16 @@ class IntroScreen extends StatelessWidget {
         ),
         bodyTextStyle: TextStyle(
           fontFamily: 'Poppins',
-          fontSize: 18,
+          fontSize: 17,
           fontWeight: FontWeight.w500,
           color: mfThrirdLetterColor,
         ),
+        footerPadding: EdgeInsets.only(top: 35),
         descriptionPadding:
             EdgeInsets.fromLTRB(30, 8, 30, 8).copyWith(bottom: 0),
         imagePadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         pageColor: Colors.white,
-        bodyAlignment: Alignment.center,
+        bodyAlignment: Alignment.topCenter,
         titlePadding: EdgeInsets.only(top: 0, bottom: 8.7),
       );
 }
