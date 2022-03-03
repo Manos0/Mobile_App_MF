@@ -1098,7 +1098,7 @@ class _EditFundraiserGridState extends State<EditFundraiserGrid> {
                                                       .contactPhoto !=
                                                   null
                                               ? Image.network(
-                                                  baseUrl +
+                                                  ApiProvider.baseUrl +
                                                       widget
                                                           .fundDetails
                                                           .contactList[index]

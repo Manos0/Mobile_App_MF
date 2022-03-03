@@ -107,6 +107,8 @@ class FuneralServicesWidget extends StatelessWidget {
                           color: mfPrimaryColor,
                         ),
                         child: IconButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           icon: Icon(
                             Icons.location_on_outlined,
                             color: Colors.white,
@@ -169,6 +171,8 @@ class FuneralServicesWidget extends StatelessWidget {
                           color: mfPrimaryColor,
                         ),
                         child: IconButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           icon: Icon(
                             Icons.message_outlined,
                             color: Colors.white,
@@ -205,6 +209,8 @@ class FuneralServicesWidget extends StatelessWidget {
                         color: mfPrimaryColor,
                       ),
                       child: IconButton(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.call_outlined,
                           color: Colors.white,

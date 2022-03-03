@@ -375,7 +375,7 @@ class _EditContactWidgetState extends State<EditContactWidget> {
                                         child: widget.contact.contactPhoto !=
                                                 null
                                             ? Image.network(
-                                                baseUrl +
+                                                ApiProvider.baseUrl +
                                                     widget.contact.contactPhoto,
                                                 width: 200,
                                                 height: 200,

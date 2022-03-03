@@ -28,7 +28,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String username, String password) async {
-    final url = Uri.parse(baseUrl + loginCall);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.loginCall);
     final response = await http.post(
       url,
       headers: {

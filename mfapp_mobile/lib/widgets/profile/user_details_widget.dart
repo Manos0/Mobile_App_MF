@@ -45,8 +45,8 @@ class UserDetailsWidget extends StatelessWidget {
                       child: FadeInImage(
                         placeholder:
                             AssetImage('assets/images/helperImage.png'),
-                        image: NetworkImage(
-                            baseUrl + userData.userDetails.photoUrl),
+                        image: NetworkImage(ApiProvider.baseUrl +
+                            userData.userDetails.photoUrl),
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,

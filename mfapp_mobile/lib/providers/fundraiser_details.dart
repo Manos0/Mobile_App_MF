@@ -204,12 +204,12 @@ class Location {
   bool chargesEnabled;
   bool payoutsEnabled;
   String dateCreated;
-  int hLAccountId;
+  String hLAccountId;
   String hLAccountApi;
-  int hLSuccessCampaignId;
-  int hLFailedCampaignId;
-  int hLFailedReminderCampaignId;
-  int hLFundFormComplCampaignId;
+  String hLSuccessCampaignId;
+  String hLFailedCampaignId;
+  String hLFailedReminderCampaignId;
+  String hLFundFormComplCampaignId;
   String image;
   List representatives;
   List<BankAccounts> bankAccounts;

@@ -28,14 +28,15 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<FundraiserDetails> findById(int id) async {
-    final url = Uri.parse(baseUrl + fundDetails + id.toString());
+    final url = Uri.parse(
+        ApiProvider.baseUrl + ApiProvider.fundDetails + id.toString());
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return FundraiserDetails.fromJson(json.decode(response.body));
   }
 
   Future<List<Fundraiser>> fetchAndSetFundraisers() async {
-    final url = Uri.parse(baseUrl + getFeatured);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.getFeatured);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);
@@ -45,7 +46,8 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<List<Fundraiser>> searchUsers(String searchTerm) async {
-    final url = Uri.parse(baseUrl + searchFund + searchTerm);
+    final url =
+        Uri.parse(ApiProvider.baseUrl + ApiProvider.searchFund + searchTerm);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedFundraisers = json.decode(response.body);
@@ -55,21 +57,21 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<UserDetails> getUserDetails() async {
-    final url = Uri.parse(baseUrl + userDetails);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.userDetails);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserDetails.fromJson(json.decode(response.body));
   }
 
   Future<UserStats> getUserData() async {
-    final url = Uri.parse(baseUrl + userData + '30');
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.userData + '30');
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     return UserStats.fromJson(json.decode(response.body));
   }
 
   Future<List<Locations>> fetchLocations() async {
-    final url = Uri.parse(baseUrl + locations);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.locations);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final List extractedLocations = json.decode(response.body);
@@ -77,7 +79,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<void> getUserId() async {
-    final url = Uri.parse(baseUrl + userDetails);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.userDetails);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     final extractedData = json.decode(response.body);
@@ -88,7 +90,7 @@ class Fundraisers with ChangeNotifier {
 
   Future<void> getLocations() async {
     _locationList = [];
-    final url = Uri.parse(baseUrl + locations);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.locations);
     try {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ' + authToken});
@@ -109,7 +111,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<List<dynamic>> fetchLineChartData() async {
-    final url = Uri.parse(baseUrl + getStats);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.getStats);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     var extractedData = json.decode(response.body)['MonthlyDonationsAmount'];
@@ -119,7 +121,7 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<List<dynamic>> fetchBarChartData() async {
-    final url = Uri.parse(baseUrl + getStats);
+    final url = Uri.parse(ApiProvider.baseUrl + ApiProvider.getStats);
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     var extractedData = json.decode(response.body)['DailyDonationsCount'];
@@ -129,7 +131,8 @@ class Fundraisers with ChangeNotifier {
   }
 
   Future<bool> payoutAndCloseFundraiser(int id) async {
-    final url = Uri.parse(baseUrl + payoutAndCloseFund + id.toString());
+    final url = Uri.parse(
+        ApiProvider.baseUrl + ApiProvider.payoutAndCloseFund + id.toString());
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + authToken});
     if (response.statusCode == 200) {
@@ -223,8 +226,9 @@ class Fundraisers with ChangeNotifier {
         'HLFailedReminderCampaignId': data.location.hLFailedReminderCampaignId,
         'HLFundFormComplCampaignId': data.location.hLFundFormComplCampaignId,
         'Image': data.location.image,
-        'Representatives': data.location.representatives,
-        'BankAccounts': data.location.bankAccounts,
+        'Representatives': data.location.representatives
+        //rixnei error
+        // 'BankAccounts': data.location.bankAccounts,
       },
       'Contacts': contacts,
       'Image': data.image != null && data.image64 != null
@@ -235,7 +239,8 @@ class Fundraisers with ChangeNotifier {
       'Payments': data.payment,
     };
     var requestD = json.encode(request);
-    final url = Uri.parse(baseUrl + editExistingFundraiser);
+    final url =
+        Uri.parse(ApiProvider.baseUrl + ApiProvider.editExistingFundraiser);
     http.put(url,
         headers: {
           'Content-Type': 'application/json',
@@ -295,7 +300,8 @@ class Fundraisers with ChangeNotifier {
       }),
     };
     var requestD = json.encode(request);
-    final url = Uri.parse(baseUrl + createNewFundraiser);
+    final url =
+        Uri.parse(ApiProvider.baseUrl + ApiProvider.createNewFundraiser);
     final response = await http.post(url,
         headers: {
           'Content-Type': 'application/json',

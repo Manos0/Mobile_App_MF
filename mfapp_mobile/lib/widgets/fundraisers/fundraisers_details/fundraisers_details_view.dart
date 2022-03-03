@@ -62,6 +62,8 @@ class FundraisersDetailsView extends StatelessWidget {
         leadingWidth: 35,
         backgroundColor: Colors.white,
         leading: IconButton(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           icon: Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
@@ -71,6 +73,8 @@ class FundraisersDetailsView extends StatelessWidget {
         ),
         actions: [
           IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onPressed: () {
               Navigator.push(
                 context,

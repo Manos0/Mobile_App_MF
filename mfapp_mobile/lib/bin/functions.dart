@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './api_addresses.dart';
 
 import '../bin/api_addresses.dart';
 
@@ -7,7 +8,7 @@ fundDetailImage(image) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: Image.network(
-        baseUrl + image,
+        ApiProvider.baseUrl + image,
         height: 100,
         width: 100,
         fit: BoxFit.fill,
@@ -41,7 +42,7 @@ double fundPercentage(fundRaised, goalAmount) {
 
 fundImage(image) {
   if (image != null && image.length > 0) {
-    return NetworkImage(baseUrl + image);
+    return NetworkImage(ApiProvider.baseUrl + image);
   } else {
     return AssetImage('assets/images/helperImage.png');
   }
@@ -49,7 +50,7 @@ fundImage(image) {
 
 yourfundImage(image) {
   if (image != null && image.length > 0) {
-    return NetworkImage(baseUrl + image);
+    return NetworkImage(ApiProvider.baseUrl + image);
   } else {
     return AssetImage('assets/images/helperImage.png');
   }
@@ -57,7 +58,7 @@ yourfundImage(image) {
 
 myFundImage(image) {
   if (image != null && image.length > 0) {
-    return NetworkImage(baseUrl + image);
+    return NetworkImage(ApiProvider.baseUrl + image);
   } else {
     return AssetImage('assets/images/helperImage.png');
   }
