@@ -450,4 +450,19 @@ class BankAccounts {
       isDefault: json['IsDefault'],
     );
   }
+
+  Map<String, dynamic> toJson(BankAccounts data) {
+    return {
+      'BankAccountId': data.bankAccountId,
+      'StripeExtAccountId': data.stripeExtAccountId,
+      'LocationId': data.locationId,
+      'HolderName': data.holderName,
+      'BankName': data.bankName,
+      'Country': data.country,
+      'AccountNumber': data.accountNumber,
+      'RoutingNumber': data.routingNumber,
+      'Currency': data.currency,
+      'IsDefault': data.isDefault,
+    };
+  }
 }

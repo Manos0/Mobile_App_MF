@@ -42,6 +42,8 @@ class FundraiserSearchbar extends StatelessWidget {
               ],
             ),
             IconButton(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               icon: Icon(
                 Icons.search_rounded,
                 color: mfLettersColor,

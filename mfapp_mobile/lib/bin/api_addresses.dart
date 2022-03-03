@@ -1,6 +1,5 @@
 class ApiProvider {
-  static const baseUrl = 'https://mfdev.t-worxsites.com';
-  // static const baseUrl = 'https://giveamemorialgift.com';
+  static const baseUrl = 'https://giveamemorialgift.com';
   static const loginCall = '/DesktopModules/JwtAuth/API/mobile/login';
   static const getFeatured = '/DesktopModules/sff/api/Mobile/GetFeatured';
   static const takeFirst5 =

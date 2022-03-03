@@ -62,6 +62,8 @@ class _TabScreenState extends State<TabsScreen> {
         ),
         elevation: 0,
         leading: IconButton(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           icon: Icon(
             Icons.logout,
             color: mfLightGrey,
@@ -82,6 +84,8 @@ class _TabScreenState extends State<TabsScreen> {
             : null,
         actions: [
           IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             icon: cusIcon,
             color: searchBar ? mfLettersColor : mfLightGrey,
             onPressed: () {
@@ -101,61 +105,68 @@ class _TabScreenState extends State<TabsScreen> {
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(top: 4),
-        child: BottomNavigationBar(
-          elevation: 0,
-          onTap: _selectPage,
-          currentIndex: _selectedPageIndex,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                'assets/icons/Dashboard-active.png',
-                scale: 2,
-              ),
-              icon: Image.asset(
-                'assets/icons/Dashboard.png',
-                scale: 2,
-              ),
-              title: Text(
-                'Dashboard',
-                style: TextStyle(
-                  color: Color.fromRGBO(32, 14, 50, 1),
+        child: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            onTap: _selectPage,
+            currentIndex: _selectedPageIndex,
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                activeIcon: Image.asset(
+                  'assets/icons/Dashboard-active.png',
+                  scale: 2,
+                ),
+                icon: Image.asset(
+                  'assets/icons/Dashboard.png',
+                  scale: 2,
+                ),
+                title: Text(
+                  'Dashboard',
+                  style: TextStyle(
+                    color: Color.fromRGBO(32, 14, 50, 1),
+                  ),
                 ),
               ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                'assets/icons/Fundraisers-active.png',
-                scale: 2,
-              ),
-              icon: Image.asset(
-                'assets/icons/Fundraisers.png',
-                scale: 2,
-              ),
-              title: Text(
-                'Fundraisers',
-                style: TextStyle(
-                  color: Color.fromRGBO(32, 14, 50, 1),
+              BottomNavigationBarItem(
+                activeIcon: Image.asset(
+                  'assets/icons/Fundraisers-active.png',
+                  scale: 2,
+                ),
+                icon: Image.asset(
+                  'assets/icons/Fundraisers.png',
+                  scale: 2,
+                ),
+                title: Text(
+                  'Fundraisers',
+                  style: TextStyle(
+                    color: Color.fromRGBO(32, 14, 50, 1),
+                  ),
                 ),
               ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                'assets/icons/Profile-active.png',
-                scale: 2,
-              ),
-              icon: Image.asset(
-                'assets/icons/Profile.png',
-                scale: 2,
-              ),
-              title: Text(
-                'Profile',
-                style: TextStyle(
-                  color: Color.fromRGBO(32, 14, 50, 1),
+              BottomNavigationBarItem(
+                activeIcon: Image.asset(
+                  'assets/icons/Profile-active.png',
+                  scale: 2,
+                ),
+                icon: Image.asset(
+                  'assets/icons/Profile.png',
+                  scale: 2,
+                ),
+                title: Text(
+                  'Profile',
+                  style: TextStyle(
+                    color: Color.fromRGBO(32, 14, 50, 1),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -33,7 +33,7 @@ class Auth with ChangeNotifier {
       url,
       headers: {
         'Content-Type': 'application/json',
-        'Host': 'mfdev.t-worxsites.com',
+        'Host': 'giveamemorialgift.com',
       },
       body: json.encode(
         {

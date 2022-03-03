@@ -144,7 +144,15 @@ class Fundraisers with ChangeNotifier {
 
   void editFundraiser(FundraiserDetails data) {
     var contacts = List<Map<String, dynamic>>.from(
-        data.contactList.map((e) => EditContacts().toJson(e)));
+      data.contactList.map(
+        (e) => EditContacts().toJson(e),
+      ),
+    );
+    var bankAccounts = List<Map<String, dynamic>>.from(
+      data.location.bankAccounts.map(
+        (e) => BankAccounts().toJson(e),
+      ),
+    );
     var request = {
       'FundraiserId': data.id,
       'ClientFirstName': data.firstName,
@@ -226,9 +234,8 @@ class Fundraisers with ChangeNotifier {
         'HLFailedReminderCampaignId': data.location.hLFailedReminderCampaignId,
         'HLFundFormComplCampaignId': data.location.hLFundFormComplCampaignId,
         'Image': data.location.image,
-        'Representatives': data.location.representatives
-        //rixnei error
-        // 'BankAccounts': data.location.bankAccounts,
+        'Representatives': data.location.representatives,
+        'BankAccounts': bankAccounts,
       },
       'Contacts': contacts,
       'Image': data.image != null && data.image64 != null

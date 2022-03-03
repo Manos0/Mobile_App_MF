@@ -250,17 +250,23 @@ class _AuthCardState extends State<AuthCard> {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 80, left: 40),
-                child: CheckboxListTile(
-                  activeColor: Theme.of(context).primaryColor,
-                  contentPadding: EdgeInsets.all(0),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  title: Text('Show password'),
-                  value: _showPassword,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _showPassword = value;
-                    });
-                  },
+                child: Theme(
+                  data: ThemeData(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                  ),
+                  child: CheckboxListTile(
+                    activeColor: Theme.of(context).primaryColor,
+                    contentPadding: EdgeInsets.all(0),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text('Show password'),
+                    value: _showPassword,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _showPassword = value;
+                      });
+                    },
+                  ),
                 ),
               ),
               if (_isLoading)
@@ -297,17 +303,23 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                       onPressed: _submit,
                     ),
-                    CheckboxListTile(
-                      activeColor: Theme.of(context).primaryColor,
-                      contentPadding: EdgeInsets.only(left: 40, top: 8),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      title: Text('Keep me signed in'),
-                      value: _rememberMe,
-                      onChanged: (bool value) async {
-                        setState(() {
-                          _rememberMe = value;
-                        });
-                      },
+                    Theme(
+                      data: ThemeData(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                      ),
+                      child: CheckboxListTile(
+                        activeColor: Theme.of(context).primaryColor,
+                        contentPadding: EdgeInsets.only(left: 40, top: 8),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Text('Keep me signed in'),
+                        value: _rememberMe,
+                        onChanged: (bool value) async {
+                          setState(() {
+                            _rememberMe = value;
+                          });
+                        },
+                      ),
                     ),
                   ],
                 )
